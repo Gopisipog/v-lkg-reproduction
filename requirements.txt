@@ -6,9 +6,8 @@ openai>=1.0.0
 # Database
 neo4j>=5.0.0
 
-# Audio/Video Transcription
+# Audio/Video Transcription (ffmpeg provided via system packages.txt)
 openai-whisper>=20231117
-static-ffmpeg>=3.0.0
 
 # Text embeddings & ML
 sentence-transformers>=2.2.0

@@ -3,7 +3,6 @@ import sys
 import json
 import argparse
 import datetime
-import static_ffmpeg
 
 # Ensure stdout/stderr use UTF-8 on Windows
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
@@ -11,9 +10,6 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 if sys.stderr.encoding and sys.stderr.encoding.lower() != 'utf-8':
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from dotenv import load_dotenv
-
-# Ensure ffmpeg is available in PATH
-static_ffmpeg.add_paths()
 
 from src.ingestion.downloader import YouTubeDownloader
 from src.ingestion.processor import MultimodalProcessor

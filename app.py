@@ -2,18 +2,18 @@ import json
 import os
 import traceback
 import streamlit as st
-import static_ffmpeg
 from main import run_pipeline
 from src.database.neo4j_client import Neo4jClient
 from src.core.proactive import ProactiveLearningEngine
 from src.core.perspectives import YouTubePerspectivesEngine
 from dotenv import load_dotenv
 
-# Ensure ffmpeg is available in PATH
-static_ffmpeg.add_paths()
+# Ensure ffmpeg is available in PATH (system-installed via apt packages.txt)
+import shutil
+if not shutil.which("ffmpeg"):
+    st.warning("ffmpeg not found in PATH. Install it via packages.txt.")
 
 # Load environment variables (local .env file OR Streamlit Cloud secrets)
-load_dotenv()
 
 # In Streamlit Cloud, secrets are injected as env vars
 # Also manually set them from st.secrets if running in cloud
