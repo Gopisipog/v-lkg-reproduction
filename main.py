@@ -119,12 +119,26 @@ def run_pipeline(url, progress_cb=None):
             video_path, audio_path, CORPUS_PATH, video_id=video_id
         )
     else:
-        _progress(0.30, "Fetching YouTube captions (transcript API)...")
+        _progress(0.30, "Fetching YouTube captions...")
+        text_segments = None
+
+        # Try youtube-transcript-api first (works great when captions exist)
+        _progress(0.30, "  Trying youtube-transcript-api...")
         text_segments = downloader.fetch_transcript_only(video_id)
+
+        # Try yt-dlp subtitles extraction as second fallback
+        if not text_segments:
+            _progress(0.35, "  Trying yt-dlp auto-subtitles...")
+            text_segments = downloader.fetch_subtitles_via_ytdlp(video_id)
+
+        # Try yt-dlp info extractor for captions as third fallback
+        if not text_segments:
+            _progress(0.40, "  Trying yt-dlp info extract captions...")
+            text_segments = downloader.fetch_captions_from_info(video_id)
+
         if text_segments:
             import json
             os.makedirs(os.path.dirname(CORPUS_PATH), exist_ok=True)
-            # Save to corpus like the processor would
             existing = []
             if os.path.exists(CORPUS_PATH):
                 try:
