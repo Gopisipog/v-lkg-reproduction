@@ -973,22 +973,28 @@ if _IS_CLOUD:
         "or upload a transcript file below."
     )
 
-    # Instructions to run locally
-    with st.sidebar.expander("📋 How to run locally"):
-        st.markdown("""
-        1. Open **PowerShell** on your Windows PC
-        2. Navigate to the project folder:
-           ```powershell
-           cd d:\\v_lkg_reproduction
-           ```
-        3. Activate your venv and run:
-           ```powershell
-           python -m streamlit run app.py
-           ```
-        4. Use the sidebar there to enter a YouTube URL
-        5. The data will sync to Neo4j AuraDB automatically
-        6. **Refresh this page** to see the new data
-        """)
+    # Download launcher
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### ⬇️ Download Local Launcher")
+
+    with open("setup_and_run.bat", "r", encoding="utf-8") as f:
+        batch_content = f.read()
+    st.sidebar.download_button(
+        label="📥 Download setup_and_run.bat",
+        data=batch_content,
+        file_name="setup_and_run.bat",
+        mime="text/bat",
+        help="Download this batch file, run it on your Windows PC to set up and launch V-LKG locally"
+    )
+
+    st.sidebar.markdown(
+        "<small>Run the downloaded file on Windows. It will:<br>"
+        "1. Install Python if missing<br>"
+        "2. Download latest code from GitHub<br>"
+        "3. Install dependencies (pip)<br>"
+        "4. Launch the app at localhost:8501</small>",
+        unsafe_allow_html=True,
+    )
 
     # Upload processed data files
     uploaded_transcript = st.sidebar.file_uploader(
