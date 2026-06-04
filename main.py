@@ -95,25 +95,64 @@ def run_pipeline(url, progress_cb=None):
     video_id = meta["video_id"]
     print(f"  -> {meta['title']}  [{video_id}]")
 
-    # ── Phase 1a: Download video ─────────────────────────────────────────────
-    _progress(0.10, f"Downloading video: {meta['title'][:50]}...")
-    video_path = downloader.download_video(url, video_id=video_id)
+    # ── Phase 1a: Download video & audio (with fallback) ──────────────────
+    video_path = None
+    audio_path = None
+    text_segments = None
 
-    # ── Phase 1b: Download audio ─────────────────────────────────────────────
-    _progress(0.20, "Downloading audio...")
-    audio_path = downloader.download_audio(url, video_id=video_id)
+    try:
+        _progress(0.10, f"Downloading video: {meta['title'][:50]}...")
+        video_path = downloader.download_video(url, video_id=video_id)
+        _progress(0.20, "Downloading audio...")
+        audio_path = downloader.download_audio(url, video_id=video_id)
+    except Exception as e:
+        print(f"Download failed (common on cloud servers): {e}")
+        print("Falling back to transcript-only mode (youtube-transcript-api)...")
+        video_path = None
+        audio_path = None
 
-    # ── Phase 1c: Transcribe & extract visual text ───────────────────────────
-    _progress(0.30, "Transcribing audio (Whisper)...")
-    processor = MultimodalProcessor()
-    text_segments = processor.process(
-        video_path, audio_path, CORPUS_PATH, video_id=video_id
-    )
+    # ── Phase 1b: Transcribe ───────────────────────────────────────────────
+    if audio_path and video_path:
+        _progress(0.30, "Transcribing audio (Whisper)...")
+        processor = MultimodalProcessor()
+        text_segments = processor.process(
+            video_path, audio_path, CORPUS_PATH, video_id=video_id
+        )
+    else:
+        _progress(0.30, "Fetching YouTube captions (transcript API)...")
+        text_segments = downloader.fetch_transcript_only(video_id)
+        if text_segments:
+            import json
+            os.makedirs(os.path.dirname(CORPUS_PATH), exist_ok=True)
+            # Save to corpus like the processor would
+            existing = []
+            if os.path.exists(CORPUS_PATH):
+                try:
+                    with open(CORPUS_PATH, "r", encoding="utf-8") as f:
+                        existing = json.load(f)
+                    existing = [s for s in existing if s.get("video_id") != video_id]
+                except (json.JSONDecodeError, IOError):
+                    existing = []
+            new_segments = [
+                {
+                    "video_id":    video_id,
+                    "start_time":  seg["start"],
+                    "end_time":    seg["end"],
+                    "transcript":  seg["text"],
+                    "visual_text": "",
+                }
+                for seg in text_segments
+            ]
+            output_corpus = existing + new_segments
+            with open(CORPUS_PATH, "w", encoding="utf-8") as f:
+                json.dump(output_corpus, f, indent=4)
+            text_segments = new_segments
+            print(f"Corpus saved to {CORPUS_PATH} ({len(new_segments)} transcript segments)")
 
     if not text_segments:
         raise RuntimeError(
             "Transcription produced 0 segments — video not ingested. "
-            "Check your OpenAI API quota and audio file."
+            "The video may not have captions available."
         )
 
     # ── Generate & store summary ─────────────────────────────────────────────
