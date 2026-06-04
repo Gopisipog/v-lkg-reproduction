@@ -1,22 +1,20 @@
 import json
 import os
 import traceback
+import datetime
 import streamlit as st
-from main import run_pipeline
 from src.database.neo4j_client import Neo4jClient
-from src.core.proactive import ProactiveLearningEngine
-from src.core.perspectives import YouTubePerspectivesEngine
 from dotenv import load_dotenv
+import shutil
 
 # Ensure ffmpeg is available in PATH (system-installed via apt packages.txt)
-import shutil
 if not shutil.which("ffmpeg"):
     st.warning("ffmpeg not found in PATH. Install it via packages.txt.")
 
 # Load environment variables (local .env file OR Streamlit Cloud secrets)
+load_dotenv()
 
 # In Streamlit Cloud, secrets are injected as env vars
-# Also manually set them from st.secrets if running in cloud
 if hasattr(st, 'secrets') and st.secrets:
     for key in st.secrets:
         if key not in os.environ:
@@ -574,7 +572,8 @@ with tab_proactive:
                 with open("data/processed/corpus.json", "r") as f:
                     corpus_segments = json.load(f)
 
-            # Initialize proactive engine
+            # Lazy import for Proactive Learning Engine (avoids heavy deps at startup)
+            from src.core.proactive import ProactiveLearningEngine
             engine = ProactiveLearningEngine()
 
             # Video cross-reference stats
@@ -786,7 +785,8 @@ with tab_perspectives:
         st.session_state.question_results = []
         st.session_state.current_question = ""
 
-    # YouTuber info
+    # Lazy import for YouTube Perspectives Engine (avoids heavy deps at startup)
+    from src.core.perspectives import YouTubePerspectivesEngine
     engine = YouTubePerspectivesEngine(db)
 
     # Show video knowledge stats
@@ -958,39 +958,196 @@ with tab_perspectives:
             st.session_state.current_question = ""
             st.rerun()
 
+# ── Detect running environment ──────────────────────────────────────────────
+_IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
+
 # ── Sidebar: Ingest ──────────────────────────────────────────────────────────
 st.sidebar.divider()
 st.sidebar.header("Ingest New Leadership Content")
-video_url = st.sidebar.text_input("YouTube Video URL")
-if st.sidebar.button("Run V-LKG Pipeline"):
-    if video_url:
-        # Progress bar lives in the sidebar so updates are always visible
-        sb_progress = st.sidebar.progress(0.0)
-        sb_label = st.sidebar.empty()
-        sb_label.caption("0%")
 
-        with st.status("Executing Multimodal Pipeline...", expanded=True) as status:
+if _IS_CLOUD:
+    # ── Cloud mode — YouTube downloads blocked, use uploads ───────────────
+    st.sidebar.info(
+        "🧠 **YouTube block detected.** Cloud servers can't download YouTube videos. "
+        "Please run the pipeline on your **local computer** and upload the results here, "
+        "or upload a transcript file below."
+    )
 
-            def _on_progress(frac, label):
-                sb_progress.progress(min(frac, 1.0))
-                sb_label.caption(f"{int(frac * 100)}%")
-                status.update(label=label)
-                st.write(f"`{int(frac * 100):3d}%` {label}")
+    # Instructions to run locally
+    with st.sidebar.expander("📋 How to run locally"):
+        st.markdown("""
+        1. Open **PowerShell** on your Windows PC
+        2. Navigate to the project folder:
+           ```powershell
+           cd d:\\v_lkg_reproduction
+           ```
+        3. Activate your venv and run:
+           ```powershell
+           python -m streamlit run app.py
+           ```
+        4. Use the sidebar there to enter a YouTube URL
+        5. The data will sync to Neo4j AuraDB automatically
+        6. **Refresh this page** to see the new data
+        """)
+
+    # Upload processed data files
+    uploaded_transcript = st.sidebar.file_uploader(
+        "Upload transcript (JSON, VTT, or SRT):",
+        type=["json", "vtt", "srt", "txt"],
+        key="transcript_upload"
+    )
+    uploaded_video_url = st.sidebar.text_input(
+        "YouTube Video URL (required for upload):",
+        key="cloud_video_url"
+    )
+
+    if uploaded_transcript and uploaded_video_url and st.sidebar.button("Process Uploaded Transcript"):
+        import re
+        import json as json_mod
+
+        # Extract video ID
+        vid_id = None
+        for pattern in [r"(?:v=|/v/|youtu\.be/)([a-zA-Z0-9_-]{11})",
+                        r"(?:embed/)([a-zA-Z0-9_-]{11})",
+                        r"(?:shorts/)([a-zA-Z0-9_-]{11})"]:
+            match = re.search(pattern, uploaded_video_url)
+            if match:
+                vid_id = match.group(1)
+                break
+
+        if not vid_id:
+            st.sidebar.error("Could not extract video ID from URL")
+        else:
+            # Parse transcript
+            content = uploaded_transcript.read().decode("utf-8")
+            segments = []
+            fname = uploaded_transcript.name.lower()
 
             try:
-                run_pipeline(video_url, progress_cb=_on_progress)
-                sb_progress.progress(1.0)
-                sb_label.caption("100%")
-                status.update(
-                    label="Pipeline Complete!", state="complete", expanded=False
-                )
-                st.sidebar.success("Knowledge Graph extracted successfully!")
-                st.rerun()
+                if fname.endswith(".json"):
+                    data = json_mod.loads(content)
+                    # Handle various JSON formats
+                    if isinstance(data, list):
+                        segments = data
+                    elif isinstance(data, dict):
+                        segments = data.get("segments", data.get("events", [data]))
+                elif fname.endswith(".vtt"):
+                    import re as re_mod
+                    lines = content.split("\n")
+                    i = 0
+                    while i < len(lines):
+                        line = lines[i].strip()
+                        if "-->" in line:
+                            parts = line.split("-->")
+                            start_str = parts[0].strip().replace(",", ".")
+                            end_str = parts[1].strip().replace(",", ".")
+                            start = sum(float(x) * 60 ** (2 - j) for j, x in enumerate(start_str.split(":")))
+                            end = sum(float(x) * 60 ** (2 - j) for j, x in enumerate(end_str.split(":")))
+                            text_parts = []
+                            i += 1
+                            while i < len(lines) and lines[i].strip():
+                                text_parts.append(lines[i].strip())
+                                i += 1
+                            text = " ".join(text_parts)
+                            if text.strip():
+                                segments.append({"start": start, "end": end, "text": text.strip()})
+                        i += 1
+                elif fname.endswith(".srt"):
+                    blocks = content.strip().split("\n\n")
+                    for block in blocks:
+                        blines = block.strip().split("\n")
+                        if len(blines) >= 3 and "-->" in blines[1]:
+                            parts = blines[1].split("-->")
+                            start_str = parts[0].strip().replace(",", ".")
+                            end_str = parts[1].strip().replace(",", ".")
+                            start = sum(float(x) * 60 ** (2 - j) for j, x in enumerate(start_str.split(":")))
+                            end = sum(float(x) * 60 ** (2 - j) for j, x in enumerate(end_str.split(":")))
+                            text = " ".join(blines[2:]).strip()
+                            if text:
+                                segments.append({"start": start, "end": end, "text": text})
+                else:
+                    # Treat as plain text - one big segment
+                    segments.append({"start": 0, "end": 60, "text": content.strip()[:5000]})
+
+                if segments:
+                    # Save to corpus
+                    os.makedirs("data/processed", exist_ok=True)
+                    corpus = []
+                    if os.path.exists("data/processed/corpus.json"):
+                        with open("data/processed/corpus.json", "r") as f:
+                            corpus = json_mod.load(f)
+                    corpus = [s for s in corpus if s.get("video_id") != vid_id]
+                    new_segs = [{
+                        "video_id": vid_id,
+                        "start_time": s.get("start", s.get("start_time", 0)),
+                        "end_time": s.get("end", s.get("end_time", 0)),
+                        "transcript": s.get("text", s.get("transcript", "")),
+                        "visual_text": ""
+                    } for s in segments]
+                    corpus.extend(new_segs)
+                    with open("data/processed/corpus.json", "w") as f:
+                        json_mod.dump(corpus, f, indent=4)
+
+                    # Save to registry
+                    registry = []
+                    if os.path.exists("data/processed/videos_registry.json"):
+                        with open("data/processed/videos_registry.json", "r") as f:
+                            registry = json_mod.load(f)
+                    registry = [v for v in registry if v.get("video_id") != vid_id]
+                    registry.append({
+                        "video_id": vid_id,
+                        "title": f"Uploaded: {uploaded_transcript.name}",
+                        "url": uploaded_video_url,
+                        "channel": "Manual Upload",
+                        "duration_sec": 0,
+                        "thumbnail_url": "",
+                        "summary": "",
+                        "ingested_at": str(datetime.datetime.now())
+                    })
+                    with open("data/processed/videos_registry.json", "w") as f:
+                        json_mod.dump(registry, f, indent=4)
+
+                    st.sidebar.success(f"✅ Uploaded {len(new_segs)} transcript segments!")
+                    st.rerun()
+                else:
+                    st.sidebar.error("Could not parse any segments from the uploaded file")
             except Exception as e:
-                status.update(label="Pipeline Failed", state="error")
-                sb_label.caption("Failed")
-                st.sidebar.error(f"Error: {e}")
-                st.error(f"**{type(e).__name__}:** {e}")
-                st.code(traceback.format_exc(), language="text")
-    else:
-        st.sidebar.warning("Please enter a valid URL.")
+                st.sidebar.error(f"Error processing upload: {e}")
+else:
+    # ── Local mode — YouTube downloads work ────────────────────────────────
+    video_url = st.sidebar.text_input("YouTube Video URL")
+    if st.sidebar.button("Run V-LKG Pipeline"):
+        if video_url:
+            # Lazy import for pipeline (heavy deps only needed on local machine)
+            from main import run_pipeline
+
+            sb_progress = st.sidebar.progress(0.0)
+            sb_label = st.sidebar.empty()
+            sb_label.caption("0%")
+
+            with st.status("Executing Multimodal Pipeline...", expanded=True) as status:
+
+                def _on_progress(frac, label):
+                    sb_progress.progress(min(frac, 1.0))
+                    sb_label.caption(f"{int(frac * 100)}%")
+                    status.update(label=label)
+                    st.write(f"`{int(frac * 100):3d}%` {label}")
+
+                try:
+                    run_pipeline(video_url, progress_cb=_on_progress)
+                    sb_progress.progress(1.0)
+                    sb_label.caption("100%")
+                    status.update(
+                        label="Pipeline Complete!", state="complete", expanded=False
+                    )
+                    st.sidebar.success("Knowledge Graph extracted successfully!")
+                    st.rerun()
+                except Exception as e:
+                    status.update(label="Pipeline Failed", state="error")
+                    sb_label.caption("Failed")
+                    st.sidebar.error(f"Error: {e}")
+                    st.error(f"**{type(e).__name__}:** {e}")
+                    st.code(traceback.format_exc(), language="text")
+        else:
+            st.sidebar.warning("Please enter a valid URL.")
+

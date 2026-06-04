@@ -3,6 +3,7 @@ import sys
 import json
 import argparse
 import datetime
+import shutil
 
 # Ensure stdout/stderr use UTF-8 on Windows
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
@@ -10,6 +11,9 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 if sys.stderr.encoding and sys.stderr.encoding.lower() != 'utf-8':
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from dotenv import load_dotenv
+
+# Check if running in cloud (Streamlit Cloud) or locally
+_IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
 
 from src.ingestion.downloader import YouTubeDownloader
 from src.ingestion.processor import MultimodalProcessor
