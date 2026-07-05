@@ -12,6 +12,13 @@ if sys.stderr.encoding and sys.stderr.encoding.lower() != 'utf-8':
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from dotenv import load_dotenv
 
+# Ensure ffmpeg is available for yt-dlp and Whisper
+try:
+    import static_ffmpeg
+    static_ffmpeg.add_paths()
+except ImportError:
+    pass
+
 # Check if running in cloud (Streamlit Cloud) or locally
 _IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
 

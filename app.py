@@ -7,7 +7,13 @@ from src.database.neo4j_client import Neo4jClient
 from dotenv import load_dotenv
 import shutil
 
-# Ensure ffmpeg is available in PATH (system-installed via apt packages.txt)
+# Ensure ffmpeg is available for yt-dlp and Whisper
+try:
+    import static_ffmpeg
+    static_ffmpeg.add_paths()
+except ImportError:
+    pass
+
 if not shutil.which("ffmpeg"):
     st.warning("ffmpeg not found in PATH. Install it via packages.txt.")
 

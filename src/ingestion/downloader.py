@@ -119,15 +119,19 @@ class YouTubeDownloader:
             return None
 
         try:
-            transcript = YouTubeTranscriptApi.get_transcript(video_id)
-            return [
-                {
-                    "start": seg["start"],
-                    "end":   seg["start"] + seg["duration"],
-                    "text":  seg["text"].strip(),
-                }
-                for seg in transcript
-            ]
+            api = YouTubeTranscriptApi()
+            transcript = api.fetch(video_id)
+            raw = transcript.to_raw_data()
+            if raw and isinstance(raw, list):
+                return [
+                    {
+                        "start": seg.get("start", 0),
+                        "end":   seg.get("start", 0) + seg.get("duration", 0),
+                        "text":  seg.get("text", "").strip(),
+                    }
+                    for seg in raw if seg.get("text", "").strip()
+                ]
+            return None
         except Exception as e:
             print(f"Failed to fetch transcript via youtube-transcript-api for {video_id}: {e}")
             return None
