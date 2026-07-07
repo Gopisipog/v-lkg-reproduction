@@ -2,7 +2,9 @@ import json
 import os
 import traceback
 import datetime
+import tempfile
 import streamlit as st
+import streamlit.components.v1 as components
 from src.database.neo4j_client import Neo4jClient
 from dotenv import load_dotenv
 import shutil
@@ -73,7 +75,7 @@ st.sidebar.metric("Relationships", f"{rel_count}")
 st.sidebar.metric("Avg Degree Centrality", f"{avg_degree:.2f}")
 
 # ── Tabs ────────────────────────────────────────────────────────────────────
-tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives, tab_interview = st.tabs(
+tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives, tab_interview, tab_recording = st.tabs(
     [
         "Search",
         "Ingested Knowledge",
@@ -81,6 +83,7 @@ tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives, tab_in
         "Proactive Learning",
         "YouTube Perspectives",
         "Interview Intelligence",
+        "🎙️ Record",
     ]
 )
 
@@ -1233,6 +1236,204 @@ with tab_interview:
                         f"— sim: {int(r['similarity']*100)}%",
                         unsafe_allow_html=True,
                     )
+
+# ── Tab 7: Recording ────────────────────────────────────────────────────────
+with tab_recording:
+    st.markdown("### Record & Transcribe")
+    st.caption(
+        "Record audio, video, or your screen directly in the browser. "
+        "Transcribe recordings and add them to the knowledge graph."
+    )
+
+    # Initialize recording session state
+    if "rec_segments" not in st.session_state:
+        st.session_state.rec_segments = []
+        st.session_state.rec_id = None
+        st.session_state.rec_processing = False
+        st.session_state.rec_saved = False
+
+    rec_col1, rec_col2 = st.columns([3, 2])
+
+    with rec_col1:
+        st.markdown("#### 🎬 Recorder")
+
+        # Embed the browser-based recorder
+        from src.recording.recorder_component import RECORDER_HTML
+        components.html(RECORDER_HTML, height=520, scrolling=False)
+
+        st.markdown(
+            "<small style='color:#888;'>After recording, click <b>Download</b> "
+            "in the recorder above, then upload the file below to transcribe.</small>",
+            unsafe_allow_html=True,
+        )
+
+    with rec_col2:
+        st.markdown("#### 📤 Upload & Process")
+
+        uploaded_rec = st.file_uploader(
+            "Upload a recording to transcribe:",
+            type=["webm", "mp4", "wav", "mp3", "ogg", "m4a", "flac"],
+            key="rec_file_upload",
+            help="Supported formats: WebM, MP4, WAV, MP3, OGG, M4A, FLAC",
+        )
+
+        rec_title = st.text_input(
+            "Recording title (optional):",
+            placeholder="e.g., Team meeting, Leadership lecture",
+            key="rec_title",
+        )
+
+        rec_source = st.selectbox(
+            "Source type:",
+            ["Recording", "Meeting", "Lecture", "Interview", "Presentation", "Other"],
+            key="rec_source",
+        )
+
+        # Transcription method
+        has_openai_key = bool(os.environ.get("OPENAI_API_KEY"))
+        transcription_options = []
+        if has_openai_key:
+            transcription_options.append("OpenAI Whisper API (cloud, fast)")
+        transcription_options.append("Local Whisper (on-device)")
+
+        if len(transcription_options) > 1:
+            transcription_method = st.radio(
+                "Transcription method:",
+                transcription_options,
+                horizontal=True,
+                key="rec_method",
+            )
+        elif transcription_options:
+            transcription_method = transcription_options[0]
+        else:
+            transcription_method = "Local Whisper (on-device)"
+
+        if "Local" in transcription_method:
+            whisper_model = st.selectbox(
+                "Whisper model size:",
+                ["tiny", "base", "small", "medium"],
+                index=1,
+                key="rec_whisper_model",
+                help="Larger models are more accurate but slower",
+            )
+        else:
+            whisper_model = "base"
+
+        # Process button
+        if uploaded_rec and st.button("🎯 Transcribe & Add to Knowledge Graph", type="primary", key="rec_process"):
+            from src.recording.processor import (
+                generate_recording_id,
+                transcribe_recording,
+                transcribe_recording_openai,
+                save_to_corpus,
+            )
+
+            with st.spinner("Processing recording..."):
+                try:
+                    # Save uploaded file to temp
+                    file_bytes = uploaded_rec.read()
+                    rec_id = generate_recording_id(file_bytes)
+
+                    suffix = os.path.splitext(uploaded_rec.name)[1] or ".webm"
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+                        tmp.write(file_bytes)
+                        tmp_path = tmp.name
+
+                    # Transcribe
+                    st.info("🔊 Transcribing audio...")
+                    if "OpenAI" in transcription_method:
+                        segments = transcribe_recording_openai(tmp_path)
+                    else:
+                        segments = transcribe_recording(tmp_path, model_size=whisper_model)
+
+                    # Clean up temp file
+                    os.unlink(tmp_path)
+
+                    if not segments:
+                        st.warning("No speech detected in the recording.")
+                    else:
+                        # Calculate duration
+                        duration = max(s["end"] for s in segments) if segments else 0
+
+                        # Save to corpus
+                        title = rec_title or uploaded_rec.name
+                        count = save_to_corpus(
+                            recording_id=rec_id,
+                            segments=segments,
+                            title=title,
+                            duration_sec=duration,
+                            source=rec_source,
+                        )
+
+                        st.session_state.rec_segments = segments
+                        st.session_state.rec_id = rec_id
+                        st.session_state.rec_saved = True
+
+                        st.success(
+                            f"✅ Transcribed **{count} segments** "
+                            f"({duration:.0f}s) and added to the knowledge graph!"
+                        )
+                        st.balloons()
+
+                except Exception as e:
+                    st.error(f"Error processing recording: {e}")
+                    st.code(traceback.format_exc(), language="text")
+
+    # Show transcription results
+    if st.session_state.rec_segments:
+        st.markdown("---")
+        st.markdown("#### 📝 Transcription Results")
+
+        segments = st.session_state.rec_segments
+
+        # Stats
+        mc1, mc2, mc3 = st.columns(3)
+        total_duration = max(s["end"] for s in segments) if segments else 0
+        total_words = sum(len(s["text"].split()) for s in segments)
+        mc1.metric("Segments", len(segments))
+        mc2.metric("Duration", f"{int(total_duration // 60)}m {int(total_duration % 60)}s")
+        mc3.metric("Words", total_words)
+
+        # Full transcript
+        with st.expander("View Full Transcript", expanded=True):
+            for seg in segments:
+                ts = int(seg["start"])
+                m, s = divmod(ts, 60)
+                st.markdown(f"`{m}:{s:02d}` {seg['text']}")
+
+        # Download transcript
+        transcript_text = "\n".join(
+            f"[{int(s['start'] // 60)}:{int(s['start'] % 60):02d}] {s['text']}"
+            for s in segments
+        )
+        st.download_button(
+            "📥 Download Transcript (.txt)",
+            data=transcript_text,
+            file_name=f"transcript-{st.session_state.rec_id or 'recording'}.txt",
+            mime="text/plain",
+        )
+
+        # Download as JSON
+        transcript_json = json.dumps(segments, indent=2, ensure_ascii=False)
+        st.download_button(
+            "📥 Download Transcript (.json)",
+            data=transcript_json,
+            file_name=f"transcript-{st.session_state.rec_id or 'recording'}.json",
+            mime="application/json",
+        )
+
+        if st.session_state.rec_saved:
+            st.info(
+                "💡 **Next steps:** Go to the **Ingested Knowledge** tab to see your recording, "
+                "or use the sidebar pipeline to extract entities into the knowledge graph."
+            )
+
+        # Clear button
+        if st.button("🗑️ Clear Transcription", key="rec_clear"):
+            st.session_state.rec_segments = []
+            st.session_state.rec_id = None
+            st.session_state.rec_saved = False
+            st.rerun()
 
 # ── Detect running environment ──────────────────────────────────────────────
 _IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
