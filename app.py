@@ -73,13 +73,14 @@ st.sidebar.metric("Relationships", f"{rel_count}")
 st.sidebar.metric("Avg Degree Centrality", f"{avg_degree:.2f}")
 
 # ── Tabs ────────────────────────────────────────────────────────────────────
-tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives = st.tabs(
+tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives, tab_interview = st.tabs(
     [
         "Search",
         "Ingested Knowledge",
         "Strategy Map",
         "Proactive Learning",
         "YouTube Perspectives",
+        "Interview Intelligence",
     ]
 )
 
@@ -963,6 +964,275 @@ with tab_perspectives:
             st.session_state.question_results = []
             st.session_state.current_question = ""
             st.rerun()
+
+# ── Tab 6: Interview Intelligence ──────────────────────────────────────────
+with tab_interview:
+    st.markdown("### Interview Intelligence")
+    st.caption(
+        "Analyze interview-style content: find similar terms across the knowledge graph, "
+        "detect Q&A patterns, and extract key concepts from transcripts."
+    )
+
+    if "interview_initialized" not in st.session_state:
+        st.session_state.interview_initialized = False
+        st.session_state.similar_terms_results = None
+        st.session_state.qa_results = []
+        st.session_state.insights_results = None
+        st.session_state.expanded_terms = []
+        st.session_state.extracted_terms = []
+        st.session_state.xref_results = []
+
+    from src.core.interview_intelligence import InterviewIntelligenceEngine
+    iie = InterviewIntelligenceEngine(db_client=db)
+
+    sim_tab, qa_tab, extract_tab = st.tabs(
+        ["🔍 On Similar Terms", "🎙 Q&A Detection", "📋 Term Extraction"]
+    )
+
+    # ── Similar Terms Tab ────────────────────────────────────────────────
+    with sim_tab:
+        st.markdown("#### On Similar Terms")
+        st.caption(
+            "Enter a concept or term to find semantically similar terms "
+            "across your ingested video knowledge graph."
+        )
+
+        sim_query = st.text_input(
+            "Search for similar terms:",
+            placeholder="e.g., 'Conflict Resolution', 'Trust', 'Innovation'",
+            key="sim_terms_query",
+        )
+
+        col_sim1, col_sim2 = st.columns([1, 1])
+        with col_sim1:
+            sim_top_k = st.slider("Max results", 5, 25, 10, key="sim_top_k")
+        with col_sim2:
+            sim_min_sim = st.slider("Min similarity", 0.1, 0.9, 0.3, 0.05, key="sim_min_sim")
+
+        if st.button("Find Similar Terms", type="primary", key="find_sim_terms"):
+            if sim_query:
+                with st.spinner("Computing semantic similarity across knowledge graph..."):
+                    result = iie.find_similar_terms(
+                        sim_query, top_k=sim_top_k, min_similarity=sim_min_sim
+                    )
+                    st.session_state.similar_terms_results = result
+                    st.session_state.interview_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter a term to search for.")
+
+        if st.session_state.similar_terms_results:
+            result = st.session_state.similar_terms_results
+
+            if "error" in result:
+                st.info(result["error"])
+            else:
+                st.success(
+                    f"Found **{result['matches']}** similar terms for "
+                    f"*\"{result['query']}\"* across {result['total_nodes']} graph nodes"
+                )
+
+                if result["results"]:
+                    st.markdown("#### Ranked Similar Terms")
+                    for i, r in enumerate(result["results"]):
+                        sim_pct = int(r["similarity"] * 100)
+                        color = "#4CAF50" if sim_pct >= 70 else "#FF9800" if sim_pct >= 50 else "#2196F3"
+                        with st.container(border=True):
+                            cols = st.columns([3, 1, 1])
+                            with cols[0]:
+                                st.markdown(f"**{r['term']}**")
+                                st.caption(f"Type: {r['type']}")
+                            with cols[1]:
+                                st.markdown(
+                                    f"<span style='color:{color};font-size:1.2em;font-weight:bold;'>"
+                                    f"{sim_pct}%</span>",
+                                    unsafe_allow_html=True,
+                                )
+                            with cols[2]:
+                                st.markdown(f"<small>rank #{i+1}</small>", unsafe_allow_html=True)
+
+                            if r.get("relationships"):
+                                with st.expander(f"Relationships ({len(r['relationships'])})"):
+                                    for rel in r["relationships"]:
+                                        st.markdown(
+                                            f"- **{rel['relation']}** → {rel['target']} "
+                                            f"<small>({rel['target_type']})</small>",
+                                            unsafe_allow_html=True,
+                                        )
+
+                    # Expand button
+                    seed = [r["term"] for r in result["results"][:3]]
+                    if st.button("Expand Related Terms", key="expand_terms_btn"):
+                        with st.spinner("Expanding with second-degree similarity..."):
+                            expanded = iie.expand_terms(seed, max_terms=15)
+                            st.session_state.expanded_terms = expanded
+                            st.rerun()
+
+                    if st.session_state.expanded_terms:
+                        st.markdown("#### Expanded Related Terms")
+                        st.caption("Second-degree similarity expansion from top results")
+                        for et in st.session_state.expanded_terms:
+                            sim_pct = int(et["similarity"] * 100)
+                            st.markdown(
+                                f"- **{et['term']}** ({et.get('type', '?')}) — "
+                                f"<span style='color:{color};'>{sim_pct}% similar</span>",
+                                unsafe_allow_html=True,
+                            )
+                else:
+                    st.warning("No terms met the minimum similarity threshold.")
+
+    # ── Q&A Detection Tab ────────────────────────────────────────────────
+    with qa_tab:
+        st.markdown("#### Interview Q&A Detection")
+        st.caption(
+            "Detect question-answer patterns in ingested video transcripts "
+            "and analyze interview styles."
+        )
+
+        if st.button("Analyze Transcripts for Q&A", type="primary", key="detect_qa"):
+            with st.spinner("Scanning transcripts for Q&A patterns..."):
+                corpus = iie.get_video_corpus()
+                if not corpus:
+                    st.warning("No transcript data found. Ingest videos first.")
+                else:
+                    qa_pairs = iie.detect_qa_pairs(corpus)
+                    st.session_state.qa_results = qa_pairs
+                    st.session_state.interview_initialized = True
+                    st.rerun()
+
+        if st.session_state.qa_results:
+            qa_pairs = st.session_state.qa_results
+            st.success(f"Detected **{len(qa_pairs)}** Q&A pairs across transcripts")
+
+            # Stats
+            analysis = iie.analyze_interview_style(qa_pairs)
+            if analysis:
+                st.markdown("#### Interview Style Analysis")
+                mqa1, mqa2, mqa3 = st.columns(3)
+                mqa1.metric("Total Q&A Pairs", analysis.get("total_qa_pairs", 0))
+                mqa2.metric("Avg Q Length", f"{analysis.get('avg_question_length_words', 0)} words")
+                mqa3.metric("Avg A Length", f"{analysis.get('avg_answer_length_words', 0)} words")
+
+                q_types = analysis.get("question_types", {})
+                st.markdown("**Question Type Breakdown:**")
+                qtype_cols = st.columns(4)
+                qtype_labels = [("Open", "open", "#4CAF50"), ("Closed", "closed", "#2196F3"),
+                                ("Hypothetical", "hypothetical", "#FF9800"), ("Leading", "leading", "#9C27B0")]
+                for col, (label, key, clr) in zip(qtype_cols, qtype_labels):
+                    with col:
+                        st.markdown(
+                            f"<span style='background:{clr};color:white;padding:4px 12px;"
+                            f"border-radius:8px;font-size:0.85em;display:block;text-align:center'>"
+                            f"{label}: {q_types.get(key, 0)}</span>",
+                            unsafe_allow_html=True,
+                        )
+
+            # Q&A pairs list
+            st.markdown("#### Detected Q&A Pairs")
+            for i, qa in enumerate(qa_pairs[:10]):
+                with st.container(border=True):
+                    st.markdown(f"**Q{i+1}:** {qa['question'][:200]}")
+                    st.markdown(f"*A:* {qa['answer'][:300]}")
+                    if qa.get("timestamp"):
+                        st.caption(f"⏱ {qa['timestamp']:.1f}s — Video: `{qa.get('video_id', '?')}`")
+
+            if len(qa_pairs) > 10:
+                st.caption(f"... and {len(qa_pairs) - 10} more Q&A pairs")
+
+            # Generate insights
+            if st.button("Generate Interview Insights", key="gen_insights"):
+                with st.spinner("Generating intelligence from Q&A patterns..."):
+                    similar = None
+                    if st.session_state.similar_terms_results:
+                        similar = st.session_state.similar_terms_results.get("results", [])
+                    insights = iie.generate_interview_insights(qa_pairs, similar)
+                    st.session_state.insights_results = insights
+                    st.rerun()
+
+            if st.session_state.insights_results:
+                ins = st.session_state.insights_results
+                st.markdown("#### Interview Intelligence Insights")
+                with st.container(border=True):
+                    st.markdown(f"**Topic:** {ins.get('interview_topic', 'N/A')}")
+                    st.markdown("**Key Insights:**")
+                    for ki in ins.get("key_insights", []):
+                        st.markdown(f"- {ki}")
+                    st.markdown(f"**Interviewer Approach:** {ins.get('interviewer_approach', 'N/A')}")
+                    if ins.get("notable_quotes"):
+                        st.markdown("**Notable Quotes:**")
+                        for nq in ins["notable_quotes"]:
+                            st.markdown(f"> *\"{nq}\"*")
+                    if ins.get("related_concepts"):
+                        st.markdown("**Related Concepts:**")
+                        st.markdown(", ".join(f"`{c}`" for c in ins["related_concepts"]))
+
+    # ── Term Extraction Tab ──────────────────────────────────────────────
+    with extract_tab:
+        st.markdown("#### Key Term Extraction")
+        st.caption(
+            "Extract leadership terms from interview transcripts "
+            "and cross-reference them against the knowledge graph."
+        )
+
+        extract_method = st.radio("Extraction method:", ["Heuristic", "LLM (Deep)"], horizontal=True, key="extract_method")
+
+        if st.button("Extract Terms from Transcripts", type="primary", key="extract_terms"):
+            with st.spinner("Extracting key terms..."):
+                corpus = iie.get_video_corpus()
+                if not corpus:
+                    st.warning("No transcript data found.")
+                else:
+                    all_text = " ".join(s.get("transcript", "") for s in corpus)
+                    use_llm = extract_method == "LLM (Deep)"
+                    terms = iie.extract_key_terms(all_text, use_llm=use_llm)
+
+                    if terms:
+                        st.success(f"Extracted **{len(terms)}** key terms")
+                        st.session_state.extracted_terms = terms
+                        st.rerun()
+                    else:
+                        st.info("No leadership terms found in transcripts.")
+
+        if st.session_state.get("extracted_terms"):
+            terms = st.session_state.extracted_terms
+            st.markdown("#### Extracted Leadership Terms")
+
+            if isinstance(terms, list) and isinstance(terms[0], dict) and "term" in terms[0]:
+                for t in terms:
+                    cat = t.get("category", "")
+                    st.markdown(f"- **{t['term']}**  <small>{cat}</small>", unsafe_allow_html=True)
+            elif isinstance(terms, list) and isinstance(terms[0], dict) and "count" in terms[0]:
+                total = sum(t["count"] for t in terms)
+                for t in terms[:20]:
+                    pct = int(t["count"] / total * 100) if total else 0
+                    st.markdown(
+                        f"- **{t['term']}** — {t['count']} mentions "
+                        f"<span style='color:#888;'>({pct}%)</span>",
+                        unsafe_allow_html=True,
+                    )
+                if len(terms) > 20:
+                    st.caption(f"... and {len(terms) - 20} more terms")
+
+            # Cross-reference with knowledge graph
+            if st.button("Cross-Reference with Knowledge Graph", key="xref_terms"):
+                with st.spinner("Cross-referencing terms with knowledge graph..."):
+                    term_names = [t["term"] if isinstance(t, dict) and "term" in t else t for t in terms[:10]]
+                    similar_all = iie.expand_terms(term_names, max_terms=20)
+                    st.session_state.xref_results = similar_all
+                    st.rerun()
+
+            if st.session_state.get("xref_results"):
+                st.markdown("#### Knowledge Graph Cross-References")
+                st.caption("Terms that exist in your knowledge graph:")
+                xref = st.session_state.xref_results
+                found_count = sum(1 for r in xref if r.get("similarity", 0) > 0.5)
+                st.info(f"{found_count} of {len(xref)} related terms found in the knowledge graph")
+                for r in xref[:15]:
+                    st.markdown(
+                        f"- **{r['term']}** ({r.get('type', '?')}) "
+                        f"— sim: {int(r['similarity']*100)}%",
+                        unsafe_allow_html=True,
+                    )
 
 # ── Detect running environment ──────────────────────────────────────────────
 _IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
