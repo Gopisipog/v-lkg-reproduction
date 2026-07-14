@@ -2,7 +2,6 @@ import os
 import json
 import re
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from openai import OpenAI
 
 
@@ -14,39 +13,94 @@ class InterviewIntelligenceEngine:
         self.db = db_client
         self.api_key = os.environ.get("OPENAI_API_KEY")
         self.llm_client = OpenAI(api_key=self.api_key) if self.api_key else None
-        print(f"Loading Sentence Transformer model: {model_name}...")
-        self.embedder = SentenceTransformer(model_name)
+        self._model_name = model_name
+        self._embedder = None
+        print(f"InterviewIntelligenceEngine initialized (model will load on first use)")
+
+    @property
+    def embedder(self):
+        """Lazy-load SentenceTransformer on first use."""
+        if self._embedder is None:
+            try:
+                from sentence_transformers import SentenceTransformer
+                print(f"Loading Sentence Transformer model: {self._model_name}...")
+                self._embedder = SentenceTransformer(self._model_name, trust_remote_code=True)
+                print("Sentence Transformer loaded successfully.")
+            except Exception as e:
+                print(f"SentenceTransformer unavailable: {e}")
+                print("Falling back to basic string-matching similarity.")
+                self._embedder = None
+        return self._embedder
 
     # ── On Similar Terms ────────────────────────────────────────────────────
 
     def find_similar_terms(self, query_term, top_k=10, min_similarity=0.3):
         """Find semantically similar terms in the knowledge graph to the query term.
         Uses sentence embeddings + cosine similarity against all graph nodes.
+        Falls back to basic string matching if embeddings unavailable.
         """
-        if not self.db or not self.db.driver:
-            return {"error": "Neo4j not connected", "results": []}
-
-        all_nodes = self.db.execute_read(
-            "MATCH (n) WHERE n.name IS NOT NULL RETURN n.name AS name, labels(n)[0] AS type"
-        ) or []
+        # Gather nodes from whichever store is available
+        all_nodes = []
+        if self.db and self.db.driver:
+            all_nodes = self.db.execute_read(
+                "MATCH (n) WHERE n.name IS NOT NULL RETURN n.name AS name, labels(n)[0] AS type"
+            ) or []
+        elif hasattr(self.db, '_local_fallback') and self.db._local_fallback:
+            local = self.db._local_fallback
+            for e in local.get_entities():
+                all_nodes.append({"name": e.get("name", ""), "type": e.get("type", "Entity")})
+            # Also add intelligence-derived nodes from the cache
+            if hasattr(local, 'get_triplets'):
+                for t in local.get_triplets():
+                    for name in (t.get("subject", ""), t.get("object", "")):
+                        if name and not any(n["name"] == name for n in all_nodes):
+                            all_nodes.append({"name": name, "type": "Extracted"})
 
         if not all_nodes:
             return {"error": "No nodes in knowledge graph", "results": []}
 
-        query_embedding = self.embedder.encode([query_term])[0]
-        node_names = [n["name"] for n in all_nodes]
-        node_embeddings = self.embedder.encode(node_names)
-
+        query_lower = query_term.lower()
         similarities = []
-        for i, node_emb in enumerate(node_embeddings):
-            sim = self._cosine_similarity(query_embedding, node_emb)
-            if sim >= min_similarity:
-                relationships = self._get_node_relationships(all_nodes[i]["name"])
+
+        if self.embedder is not None:
+            # Use semantic embeddings
+            query_embedding = self.embedder.encode([query_term])[0]
+            node_names = [n["name"] for n in all_nodes]
+            node_embeddings = self.embedder.encode(node_names)
+
+            for i, node_emb in enumerate(node_embeddings):
+                sim = self._cosine_similarity(query_embedding, node_emb)
+                if sim >= min_similarity:
+                    rels = self._get_node_relationships(all_nodes[i]["name"])
+                    similarities.append({
+                        "term": all_nodes[i]["name"],
+                        "type": all_nodes[i]["type"],
+                        "similarity": round(float(sim), 4),
+                        "relationships": rels,
+                    })
+        else:
+            # Fallback: basic string matching (substring + word overlap)
+            query_words = set(query_lower.split())
+            for node in all_nodes:
+                name_lower = node["name"].lower()
+                # Check substring match
+                if query_lower in name_lower or name_lower in query_lower:
+                    sim = 0.5
+                else:
+                    # Word overlap
+                    name_words = set(name_lower.split())
+                    if not query_words or not name_words:
+                        continue
+                    overlap = len(query_words & name_words) / max(len(query_words | name_words), 1)
+                    if overlap < min_similarity:
+                        continue
+                    sim = overlap * 0.8  # discount word-level matches
+                rels = self._get_node_relationships(node["name"])
                 similarities.append({
-                    "term": all_nodes[i]["name"],
-                    "type": all_nodes[i]["type"],
-                    "similarity": round(float(sim), 4),
-                    "relationships": relationships,
+                    "term": node["name"],
+                    "type": node["type"],
+                    "similarity": round(sim, 4),
+                    "relationships": rels,
                 })
 
         similarities.sort(key=lambda x: x["similarity"], reverse=True)

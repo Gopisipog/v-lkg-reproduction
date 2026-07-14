@@ -196,28 +196,60 @@ def run_pipeline(url, progress_cb=None):
     print(f"Registry updated ({len(registry)} video(s) total).")
 
     # ── Phase 2 & 3: Triplet Extraction & Graph Insertion ───────────────────
+    # Try LLM-based extraction first; fall back to rule-based if API unavailable
     extractor = SemanticEntityRecognizer()
-    total_segs = len(text_segments)
-    for idx, segment in enumerate(text_segments):
-        frac = 0.40 + 0.25 * ((idx + 1) / max(total_segs, 1))
-        _progress(frac, f"Extracting triplets — segment {idx+1}/{total_segs}...")
-        combined_text = (
-            f"{segment['transcript']} [Visual Context: {segment['visual_text']}]"
-        )
-        triplets = extractor.extract_triplets(combined_text)
+    use_fallback = not extractor.client
+    if not use_fallback:
+        # Quick probe: if LLM key is invalid / out of balance, detect early
+        try:
+            _probe = extractor.extract_triplets("test leadership communication")
+            if not _probe:
+                use_fallback = True
+                print("LLM extractor returned empty — falling back to rule-based extraction")
+        except Exception:
+            use_fallback = True
+            print("LLM extractor failed — falling back to rule-based extraction")
 
+    if use_fallback:
+        from src.core.fallback_extractor import FallbackExtractor
+        fallback = FallbackExtractor()
+        # Concatenate full transcript for better keyword co-occurrence
+        full_text = " ".join(seg.get("transcript", "") for seg in text_segments)
+        _progress(0.45, "Extracting triplets (rule-based fallback)...")
+        triplets = fallback.extract_triplets(full_text)
         for t in triplets:
-            subject_name = extractor.map_to_dbpedia(t["subject"])
-            object_name  = extractor.map_to_dbpedia(t["object"])
             db.insert_triplet(
-                subject=subject_name,
+                subject=t["subject"],
                 subject_type=t["subject_type"],
                 relation=t["relation"],
-                obj=object_name,
+                obj=t["object"],
                 obj_type=t["object_type"],
-                source_time=segment["start_time"],
+                source_time=datetime.datetime.utcnow().isoformat(),
                 video_id=video_id,
             )
+        _progress(0.65, f"Extracted {len(triplets)} triplets via rule-based fallback")
+    else:
+        total_segs = len(text_segments)
+        for idx, segment in enumerate(text_segments):
+            frac = 0.40 + 0.25 * ((idx + 1) / max(total_segs, 1))
+            _progress(frac, f"Extracting triplets — segment {idx+1}/{total_segs}...")
+            combined_text = (
+                f"{segment['transcript']} [Visual Context: {segment['visual_text']}]"
+            )
+            triplets = extractor.extract_triplets(combined_text)
+
+            for t in triplets:
+                subject_name = extractor.map_to_dbpedia(t["subject"])
+                object_name  = extractor.map_to_dbpedia(t["object"])
+                db.insert_triplet(
+                    subject=subject_name,
+                    subject_type=t["subject_type"],
+                    relation=t["relation"],
+                    obj=object_name,
+                    obj_type=t["object_type"],
+                    source_time=segment["start_time"],
+                    video_id=video_id,
+                )
 
     # ── Phase 4: Dependency mining & path detection ──────────────────────────
     _progress(0.65, "Mining prerequisites and learning paths...")

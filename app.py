@@ -57,7 +57,13 @@ node_count = 0
 rel_count = 0
 avg_degree = 0.0
 
-if db.driver:
+# Use local store stats if available, otherwise try Neo4j
+if db._local_fallback:
+    stats = db._local_fallback.get_stats()
+    node_count = stats.get("node_count", 0)
+    rel_count = stats.get("rel_count", 0)
+    avg_degree = stats.get("avg_degree", 0.0)
+elif db.driver:
     try:
         nodes = db.execute_read("MATCH (n) RETURN count(n) as count")
         node_count = nodes[0]["count"] if nodes else 0
@@ -74,18 +80,401 @@ st.sidebar.metric("Nodes", f"{node_count}")
 st.sidebar.metric("Relationships", f"{rel_count}")
 st.sidebar.metric("Avg Degree Centrality", f"{avg_degree:.2f}")
 
-# ── Tabs ────────────────────────────────────────────────────────────────────
-tab_search, tab_knowledge, tab_strategy, tab_proactive, tab_perspectives, tab_interview, tab_recording = st.tabs(
-    [
+st.sidebar.divider()
+
+# ── Intelligence Pipeline Runner ─────────────────────────────────────────────
+st.sidebar.header("🧠 Intelligence Pipeline")
+st.sidebar.caption("Auto-extract insights from ingested videos across all intelligence domains.")
+
+# Load corpus & registry for pipeline
+_side_corpus = []
+_side_registry = []
+if os.path.exists("data/processed/corpus.json"):
+    try:
+        with open("data/processed/corpus.json", "r", encoding="utf-8") as f:
+            _side_corpus = json.load(f)
+    except Exception:
+        pass
+if os.path.exists("data/processed/videos_registry.json"):
+    try:
+        with open("data/processed/videos_registry.json", "r", encoding="utf-8") as f:
+            _side_registry = json.load(f)
+    except Exception:
+        pass
+
+st.sidebar.metric("Videos", len(_side_registry))
+st.sidebar.metric("Segments", len(_side_corpus))
+
+if "intel_cache" not in st.session_state:
+    st.session_state.intel_cache = {}
+
+def _load_intel_cache():
+    """Load pre-computed insights from video_insights.json into session state."""
+    insights_path = "data/processed/video_insights.json"
+    if os.path.exists(insights_path):
+        try:
+            with open(insights_path, "r", encoding="utf-8") as f:
+                cache = json.load(f)
+            st.session_state.intel_cache = cache.get("videos", {})
+        except Exception:
+            st.session_state.intel_cache = {}
+    if not st.session_state.intel_cache:
+        st.session_state.intel_cache = {}
+
+_load_intel_cache()
+
+def _save_intel_cache():
+    """Persist intelligence cache to disk."""
+    insights_path = "data/processed/video_insights.json"
+    os.makedirs(os.path.dirname(insights_path), exist_ok=True)
+    payload = {
+        "videos": st.session_state.intel_cache,
+        "cross_video_themes": st.session_state.intel_cache.get("_cross_video_themes", []),
+        "expert_patterns": [],
+        "last_updated": datetime.datetime.utcnow().isoformat() + "Z",
+        "video_count": len(_side_registry),
+        "segment_count": len(_side_corpus),
+    }
+    with open(insights_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=4)
+
+def run_intelligence_pipeline():
+    """Run all intelligence engines on the ingested corpus and cache results.
+    Extracts both global (all videos) and per-video insights."""
+    if not _side_corpus:
+        st.sidebar.warning("No ingested data. Run the video pipeline first.")
+        return
+
+    st.sidebar.info("Extracting intelligence across all domains...")
+    engines = {}
+    try:
+        from src.core.learning_intelligence import LearningIntelligenceEngine
+        from src.core.competitive_intelligence import CompetitiveIntelligenceEngine
+        from src.core.sales_intelligence import SalesIntelligenceEngine
+        from src.core.compliance_intelligence import ComplianceIntelligenceEngine
+        from src.core.rd_intelligence import RDIntelligenceEngine
+        from src.core.customer_intelligence import CustomerIntelligenceEngine
+        from src.core.executive_intelligence import ExecutiveIntelligenceEngine
+        from src.core.org_knowledge import OrgKnowledgeEngine
+        from src.core.thought_leadership import ThoughtLeadershipEngine
+    except Exception as e:
+        st.sidebar.error(f"Engine import error: {e}")
+        return
+
+    # Build engine instances
+    engines["learning"] = LearningIntelligenceEngine(db_client=db)
+    engines["competitive"] = CompetitiveIntelligenceEngine(db_client=db)
+    engines["sales"] = SalesIntelligenceEngine(db_client=db)
+    engines["compliance"] = ComplianceIntelligenceEngine(db_client=db)
+    engines["rd"] = RDIntelligenceEngine(db_client=db)
+    engines["customer"] = CustomerIntelligenceEngine(db_client=db)
+    engines["executive"] = ExecutiveIntelligenceEngine(db_client=db)
+    engines["orgknowledge"] = OrgKnowledgeEngine(db_client=db)
+    engines["thoughtleadership"] = ThoughtLeadershipEngine(db_client=db)
+
+    # Collect unique video IDs for per-video extraction
+    all_video_ids = set()
+    for s in _side_corpus:
+        vid = s.get("video_id")
+        if vid:
+            all_video_ids.add(vid)
+    video_ids = sorted(all_video_ids)
+
+    total_extractions = (len(engines) * (1 + len(video_ids)))  # global + per-video
+    processed = 0
+
+    with st.sidebar.status(f"Running intelligence extraction ({total_extractions} jobs)...", expanded=False) as status:
+        # ── Global extraction (all videos) ────────────────────────────────
+        for name, engine in engines.items():
+            if hasattr(engine, "extract_from_corpus"):
+                status.write(f"📊 [global] {name.title()}...")
+                try:
+                    result = engine.extract_from_corpus(_side_corpus, _side_registry, video_id=None)
+                    st.session_state.intel_cache[f"{name}_global"] = result
+                except Exception as e:
+                    st.sidebar.error(f"[global] {name} failed: {e}")
+                    st.session_state.intel_cache[f"{name}_global"] = {"error": str(e), "status": "failed"}
+                processed += 1
+
+        # ── Per-video extraction ──────────────────────────────────────────
+        for vid in video_ids:
+            # Find video title for display
+            video_title = vid
+            for v in (_side_registry or []):
+                if v.get("video_id") == vid:
+                    video_title = v.get("title", vid)[:40]
+                    break
+            status.write(f"🎬 [per-video] {video_title}...")
+            for name, engine in engines.items():
+                if hasattr(engine, "extract_from_corpus"):
+                    try:
+                        result = engine.extract_from_corpus(_side_corpus, _side_registry, video_id=vid)
+                        st.session_state.intel_cache[f"{name}_vid_{vid}"] = result
+                    except Exception as e:
+                        print(f"[per-video] {name}/{vid} failed: {e}")
+                        st.session_state.intel_cache[f"{name}_vid_{vid}"] = {"status": "failed", "error": str(e)}
+                    processed += 1
+                    if processed % 10 == 0:
+                        status.write(f"  ... {processed}/{total_extractions}")
+
+        # Cross-video theme extraction (aggregate)
+        status.write("🔄 Aggregating cross-video themes...")
+        st.session_state.intel_cache["_cross_video_themes"] = _aggregate_themes()
+        _save_intel_cache()
+        # Persist intelligence results as knowledge graph triplets
+        status.write("🔗 Persisting to knowledge graph...")
+        _persist_intelligence_to_graph(engines, video_ids)
+        status.update(label=f"✅ Intelligence extraction complete! ({processed} jobs)", state="complete")
+
+    st.sidebar.success(f"Extracted insights: {len(engines)} domains x {len(video_ids)+1} scopes")
+    st.rerun()
+
+
+def _persist_intelligence_to_graph(engines, video_ids):
+    """Insert intelligence-derived knowledge as triplets into the knowledge graph.
+    This makes intelligence results visible in the 'Ingested Knowledge' tab and Strategy Map."""
+    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
+    inserted = 0
+
+    for name in engines:
+        # Global cache key
+        cache_key = f"{name}_global"
+        result = st.session_state.intel_cache.get(cache_key, {})
+        if not isinstance(result, dict) or result.get("status") == "failed":
+            continue
+
+        engine_title = name.capitalize()
+        # Mark each engine domain as a source in the graph
+        db.insert_triplet(engine_title, "IntelligenceDomain", "DOMAIN_FOR", "Leadership Knowledge", "KnowledgeBase",
+                          source_time=timestamp, video_id="all")
+
+        # ── L&D Inteligence ───────────────────────────────────────────────
+        if name == "learning":
+            for c in result.get("key_competencies", []):
+                db.insert_triplet(c, "Competency", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for g in result.get("skills_gaps", []):
+                gap = g.get("gap", "")
+                db.insert_triplet(gap, "SkillGap", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Competitive intelligence ──────────────────────────────────────
+        elif name == "competitive":
+            for t in result.get("competitive_topics", []):
+                topic = t.get("topic", "")
+                db.insert_triplet(topic, "CompetitiveTopic", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for t in result.get("competitive_threats", []):
+                threat = t.get("threat", "")
+                comp = t.get("competitor", "Unknown")
+                db.insert_triplet(threat, "Threat", "FROM", comp, "Competitor",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for o in result.get("market_opportunities", []):
+                opp = o.get("opportunity", "")
+                db.insert_triplet(opp, "MarketOpportunity", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Sales intelligence ────────────────────────────────────────────
+        elif name == "sales":
+            for s in result.get("buyer_signals", []):
+                sig = s.get("signal", "")
+                db.insert_triplet(sig, "BuyerSignal", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for t in result.get("deal_themes", []):
+                theme = t.get("theme", "")
+                db.insert_triplet(theme, "DealTheme", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Compliance intelligence ───────────────────────────────────────
+        elif name == "compliance":
+            for t in result.get("policy_topics_discussed", []):
+                topic = t.get("topic", "")
+                db.insert_triplet(topic, "PolicyTopic", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for r in result.get("risk_assessment", []):
+                risk = r.get("risk", "")
+                mitigation = r.get("mitigation", "")
+                db.insert_triplet(risk, "Risk", "MITIGATED_BY", mitigation, "Control",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── R&D intelligence ──────────────────────────────────────────────
+        elif name == "rd":
+            for t in result.get("emerging_trends", []):
+                trend = t.get("trend", "")
+                db.insert_triplet(trend, "EmergingTrend", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for o in result.get("innovation_opportunities", []):
+                opp = o.get("opportunity", "")
+                db.insert_triplet(opp, "Innovation", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Customer intelligence ─────────────────────────────────────────
+        elif name == "customer":
+            for t in result.get("key_themes", []):
+                theme = t.get("theme", "")
+                db.insert_triplet(theme, "CustomerTheme", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for p in result.get("pain_points", []):
+                pain = p.get("pain_point", "")
+                db.insert_triplet(pain, "PainPoint", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Executive intelligence ────────────────────────────────────────
+        elif name == "executive":
+            for t in result.get("key_themes", []):
+                db.insert_triplet(t, "ExecutiveTheme", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for d in result.get("recommended_decisions", []):
+                dec = d.get("decision", "")
+                db.insert_triplet(dec, "Decision", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Organizational knowledge ──────────────────────────────────────
+        elif name == "orgknowledge":
+            for cc in result.get("core_concepts", []):
+                concept = cc.get("concept", "")
+                db.insert_triplet(concept, "KnowledgeConcept", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for bp in result.get("best_practices", []):
+                db.insert_triplet(bp, "BestPractice", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for g in result.get("knowledge_gaps", []):
+                gap = g.get("gap", "")
+                db.insert_triplet(gap, "KnowledgeGap", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+        # ── Thought leadership ────────────────────────────────────────────
+        elif name == "thoughtleadership":
+            for n in result.get("key_narratives", []):
+                narrative = n.get("narrative", "")
+                db.insert_triplet(narrative, "Narrative", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for l in result.get("thought_leaders", []):
+                lname = l.get("name", "")
+                expertise = l.get("expertise", "")
+                db.insert_triplet(lname, "ThoughtLeader", "HAS_EXPERTISE", expertise, "Expertise",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+            for a in result.get("content_gaps", []):
+                gap = a.get("gap", "")
+                db.insert_triplet(gap, "ContentGap", "EXTRACTED_BY", engine_title, "IntelligenceDomain",
+                                  source_time=timestamp, video_id="all")
+                inserted += 1
+
+    print(f"Persisted {inserted} intelligence triplets to knowledge graph")
+
+
+def _aggregate_themes():
+    """Aggregate themes from all intelligence engine results."""
+    themes = []
+    seen = set()
+    for engine_name, data in st.session_state.intel_cache.items():
+        if engine_name.startswith("_") or not isinstance(data, dict):
+            continue
+        for theme_key in ["key_themes", "key_narratives", "deal_themes",
+                           "policy_topics_discussed", "research_directions",
+                           "cross_video_themes"]:
+            items = data.get(theme_key, [])
+            for item in items:
+                if isinstance(item, dict):
+                    name = item.get("theme") or item.get("topic") or item.get("narrative") or item.get("direction") or str(item)
+                else:
+                    name = str(item)
+                if name and name not in seen:
+                    seen.add(name)
+                    themes.append({
+                        "theme": name,
+                        "source_engine": engine_name,
+                        "frequency": "medium"
+                    })
+    return themes[:20]
+
+if st.sidebar.button("🚀 Run Intelligence Pipeline", type="primary", use_container_width=True):
+    run_intelligence_pipeline()
+
+if st.session_state.intel_cache:
+    st.sidebar.caption(f"✅ Insights cached for {len(st.session_state.intel_cache)} domains")
+
+# ── Helper: video selector widget ────────────────────────────────────────────
+def _video_selector_widget(key_prefix: str = "intel"):
+    """Render a per-video selector. Returns selected video_id or None for 'All Videos'."""
+    registry = []
+    if os.path.exists("data/processed/videos_registry.json"):
+        try:
+            with open("data/processed/videos_registry.json", "r") as f:
+                registry = json.load(f)
+        except Exception:
+            registry = []
+    options = [{"video_id": None, "label": "📊 All Videos (Global)"}]
+    for v in registry:
+        vid = v.get("video_id", "")
+        title = v.get("title", "Untitled")[:50]
+        options.append({"video_id": vid, "label": f"🎬 {title} ({vid})"})
+
+    selected = st.selectbox(
+        "🎯 Scope intelligence to a specific video:",
+        options=[o["label"] for o in options],
+        key=f"{key_prefix}_video_selector",
+        index=0,
+    )
+    for o in options:
+        if o["label"] == selected:
+            return o["video_id"]
+    return None
+
+# ── Parent Tabs ─────────────────────────────────────────────────────────────
+pt_kb, pt_media, pt_intel = st.tabs([
+    "📚 Knowledge Base",
+    "🎬 Learning & Media",
+    "🧠 Leadership Intelligence",
+])
+
+with pt_kb:
+    tab_search, tab_knowledge, tab_strategy = st.tabs([
         "Search",
         "Ingested Knowledge",
         "Strategy Map",
+    ])
+
+with pt_media:
+    tab_proactive, tab_perspectives, tab_interview, tab_recording = st.tabs([
         "Proactive Learning",
         "YouTube Perspectives",
         "Interview Intelligence",
         "🎙️ Record",
-    ]
-)
+    ])
+
+with pt_intel:
+    tab_learning, tab_competitive, tab_sales, tab_compliance, tab_rd, tab_customer, tab_executive, tab_orgknow, tab_thought = st.tabs([
+        "L&D Intelligence",
+        "Competitive Intel",
+        "Sales Intelligence",
+        "Compliance & Policy",
+        "R&D Intelligence",
+        "Customer Intel",
+        "Executive Intel",
+        "Org Knowledge",
+        "Thought Leadership",
+    ])
 
 # ── Tab 1: Search ────────────────────────────────────────────────────────────
 with tab_search:
@@ -127,15 +516,9 @@ with tab_knowledge:
     REGISTRY_PATH = "data/processed/videos_registry.json"
     CORPUS_PATH = "data/processed/corpus.json"
 
-    TYPE_COLORS = {
-        "Competency": "#2196F3",
-        "Concept": "#4CAF50",
-        "Outcome": "#FF9800",
-        "Personality": "#9C27B0",
-        "Strategy": "#FF5722",
-        "Tactic": "#E91E63",
-        "Path": "#00BCD4",
-    }
+    # Canonical entity colors — single source of truth shared by ingestion,
+    # enrichment, and every intelligence engine (src/core/entity_registry.py).
+    from src.core.entity_registry import ENTITY_COLORS as TYPE_COLORS
 
     def pill(name, color):
         return (
@@ -143,6 +526,42 @@ with tab_knowledge:
             f"border-radius:12px;font-size:0.82em;margin:2px;display:inline-block'>"
             f"{name}</span>"
         )
+
+    def render_knowledge_layer(exclude_types=None, heading="🔎 Shared Knowledge Entities (color-coded)"):
+        """Surface the shared, extracted + enriched, color-coded entity layer.
+
+        Reads every entity persisted in the knowledge graph (ingestion
+        extraction + enrichment + all intelligence domains) so the same
+        cross-domain entity set is available inside every intelligence
+        tab. Colors come from the persisted `color` property (falling
+        back to the canonical map).
+        """
+        entities = db.get_knowledge_entities(exclude_types=(exclude_types or ["IntelligenceDomain"]))
+        if not entities:
+            return
+        # group by type, preserving a stable type order
+        by_type: dict = {}
+        order: list = []
+        for e in entities:
+            t = e.get("type", "Entity")
+            if t not in by_type:
+                by_type[t] = []
+                order.append(t)
+            by_type[t].append(e)
+        st.markdown(f"**{heading}**")
+        for t in order:
+            color = by_type[t][0].get("color") or TYPE_COLORS.get(t, "#607D8B")
+            names = sorted({e.get("name", "") for e in by_type[t] if e.get("name")})
+            if not names:
+                continue
+            html = "".join(pill(n, color) for n in names)
+            st.markdown(html, unsafe_allow_html=True)
+        # legend
+        legend = " &nbsp; ".join(
+            pill(t, by_type[t][0].get("color") or TYPE_COLORS.get(t, "#607D8B"))
+            for t in order
+        )
+        st.markdown(f"<small>{legend}</small>", unsafe_allow_html=True)
 
     # ── Load registry & corpus ──────────────────────────────────────────────
     registry = []
@@ -152,8 +571,12 @@ with tab_knowledge:
 
     corpus = []
     if os.path.exists(CORPUS_PATH):
-        with open(CORPUS_PATH, "r", encoding="utf-8") as f:
-            corpus = json.load(f)
+        try:
+            with open(CORPUS_PATH, "r", encoding="utf-8") as f:
+                corpus = json.load(f)
+        except json.JSONDecodeError:
+            st.warning("Corpus file is corrupted or truncated. Some data may not display.")
+            corpus = []
 
     if not registry:
         st.info("No videos ingested yet. Use the sidebar to run the pipeline.")
@@ -172,7 +595,7 @@ with tab_knowledge:
                 thumb_col, info_col = st.columns([1, 3])
                 with thumb_col:
                     if vid.get("thumbnail_url"):
-                        st.image(vid["thumbnail_url"], use_container_width=True)
+                        st.image(vid["thumbnail_url"], width="stretch")
                 with info_col:
                     st.markdown(f"#### [{vid['title']}]({vid['url']})")
                     st.caption(
@@ -192,6 +615,8 @@ with tab_knowledge:
                 )
 
                 # ── Extracted knowledge for this video ───────────────────────
+                is_local_db = hasattr(db, '_local_fallback') and db._local_fallback is not None
+                vid_nodes = []
                 if db.driver:
                     vid_nodes = (
                         db.execute_read(
@@ -209,50 +634,101 @@ with tab_knowledge:
                         )
                         or []
                     )
+                elif is_local_db:
+                    local = db._local_fallback
+                    for t in local.get_triplets(video_id=vid_id):
+                        vid_nodes.append({
+                            "from_type": t.get("subject_type", "Entity"),
+                            "from_name": t["subject"],
+                            "relation": t["relation"],
+                            "to_type": t.get("object_type", "Entity"),
+                            "to_name": t["object"],
+                            "time": t.get("source_time", ""),
+                        })
+                    # Also add intelligence-derived nodes tagged with this vid
+                    for cache_key, data in st.session_state.intel_cache.items():
+                        if not isinstance(data, dict) or data.get("status") == "failed":
+                            continue
+                        # Check if this cache entry is per-video for this vid
+                        if f"_vid_{vid_id}" not in cache_key:
+                            continue
+                        engine_name = cache_key.replace(f"_vid_{vid_id}", "")
+                        # Add engine domain node
+                        vid_nodes.append({
+                            "from_type": "IntelligenceDomain",
+                            "from_name": engine_name.capitalize(),
+                            "relation": "ANALYZED",
+                            "to_type": "Video",
+                            "to_name": vid_id,
+                            "time": "",
+                        })
 
-                    if vid_nodes:
-                        EXTRACTED_TYPES = {"Competency", "Concept"}
-                        ENRICHED_TYPES = {
-                            "Strategy",
-                            "Tactic",
-                            "Path",
-                            "Outcome",
-                            "Personality",
-                        }
+                if vid_nodes:
+                    EXTRACTED_TYPES = {"Competency", "Concept"}
+                    ENRICHED_TYPES = {
+                        "Strategy", "Tactic", "Path", "Outcome", "Personality",
+                    }
+                    INTEL_TYPES = {
+                        "CompetitiveTopic", "Threat", "MarketOpportunity",
+                        "BuyerSignal", "DealTheme", "PolicyTopic", "Risk",
+                        "EmergingTrend", "Innovation", "CustomerTheme",
+                        "PainPoint", "ExecutiveTheme", "Decision",
+                        "KnowledgeConcept", "BestPractice", "KnowledgeGap",
+                        "Narrative", "ThoughtLeader", "ContentGap",
+                        "SkillGap", "IntelligenceDomain",
+                    }
 
-                        extracted_groups: dict = {}
-                        enriched_groups: dict = {}
+                    extracted_groups: dict = {}
+                    enriched_groups: dict = {}
+                    intel_groups: dict = {}
 
-                        for row in vid_nodes:
-                            for ntype, name in [
-                                (row["from_type"], row["from_name"]),
-                                (row["to_type"], row["to_name"]),
-                            ]:
-                                if name.startswith("http://") or name.startswith(
-                                    "https://"
-                                ):
-                                    continue
-                                if ntype in EXTRACTED_TYPES:
-                                    extracted_groups.setdefault(ntype, set()).add(name)
-                                elif ntype in ENRICHED_TYPES:
-                                    enriched_groups.setdefault(ntype, set()).add(name)
+                    for row in vid_nodes:
+                        for ntype, name in [
+                            (row["from_type"], row["from_name"]),
+                            (row["to_type"], row["to_name"]),
+                        ]:
+                            if not name or name.startswith("http://") or name.startswith("https://"):
+                                continue
+                            if ntype in EXTRACTED_TYPES:
+                                extracted_groups.setdefault(ntype, set()).add(name)
+                            elif ntype in ENRICHED_TYPES:
+                                enriched_groups.setdefault(ntype, set()).add(name)
+                            elif ntype in INTEL_TYPES:
+                                intel_groups.setdefault(ntype, set()).add(name)
 
-                        # ── Extracted pills ──────────────────────────────────
-                        if extracted_groups:
-                            st.markdown("**Extracted from Video**")
-                            html = "".join(
-                                pill(name, TYPE_COLORS.get(ntype, "#607D8B"))
-                                for ntype in sorted(extracted_groups)
-                                for name in sorted(extracted_groups[ntype])
-                            )
-                            st.markdown(html, unsafe_allow_html=True)
-                            legend = " &nbsp; ".join(
-                                pill(t, TYPE_COLORS.get(t, "#607D8B"))
-                                for t in sorted(extracted_groups)
-                            )
-                            st.markdown(
-                                f"<small>{legend}</small>", unsafe_allow_html=True
-                            )
+                    # ── Extracted pills ──────────────────────────────────
+                    if extracted_groups:
+                        st.markdown("**Extracted from Video**")
+                        html = "".join(
+                            pill(name, TYPE_COLORS.get(ntype, "#607D8B"))
+                            for ntype in sorted(extracted_groups)
+                            for name in sorted(extracted_groups[ntype])
+                        )
+                        st.markdown(html, unsafe_allow_html=True)
+                        legend = " &nbsp; ".join(
+                            pill(t, TYPE_COLORS.get(t, "#607D8B"))
+                            for t in sorted(extracted_groups)
+                        )
+                        st.markdown(
+                            f"<small>{legend}</small>", unsafe_allow_html=True
+                        )
+
+                    # ── Intelligence pills ───────────────────────────────
+                    if intel_groups:
+                        st.markdown("**Intelligence Analysis**")
+                        intel_html = "".join(
+                            pill(name, "#7C4DFF")  # purple for intel
+                            for ntype in sorted(intel_groups)
+                            for name in sorted(intel_groups[ntype])
+                        )
+                        st.markdown(intel_html, unsafe_allow_html=True)
+                        intel_types_shown = " &nbsp; ".join(
+                            pill(t, "#7C4DFF") for t in sorted(intel_groups)
+                        )
+                        st.markdown(
+                            f"<small>{intel_types_shown}</small>",
+                            unsafe_allow_html=True,
+                        )
 
                         # ── Enriched pills ───────────────────────────────────
                         if enriched_groups:
@@ -285,7 +761,7 @@ with tab_knowledge:
                                     }
                                 )
                             st.dataframe(
-                                rel_rows, use_container_width=True, hide_index=True
+                                rel_rows, width="stretch", hide_index=True
                             )
                     else:
                         st.info("No graph nodes attributed to this video yet.")
@@ -326,17 +802,30 @@ with tab_strategy:
             f"{text}</span>"
         )
 
-    if not db.driver:
-        st.error("Neo4j not connected.")
+    is_local = db._local_fallback is not None if hasattr(db, '_local_fallback') else False
+    use_neo4j = db.driver is not None
+
+    if not use_neo4j and not is_local:
+        st.error("No graph database connected.")
     else:
-        # ── Fetch all competencies that have at least one strategy ──────────
-        comp_query = """
-        MATCH (c)-[:HAS_STRATEGY|HAS_ALTERNATIVE]->(:Strategy)
-        WHERE c.name IS NOT NULL
-        RETURN DISTINCT c.name AS name, labels(c)[0] AS label
-        ORDER BY c.name
-        """
-        competencies = db.execute_read(comp_query) or []
+        # ── Fetch all competencies ─────────────────────────────────────────
+        if is_local:
+            local = db._local_fallback
+            all_triplets = local.get_triplets()
+            comp_names = set()
+            for t in all_triplets:
+                if t["relation"] in ("HAS_STRATEGY", "HAS_ALTERNATIVE", "IS_PREQUEL_TO", "LEADS_TO"):
+                    comp_names.add(t["subject"])
+            competencies = sorted(comp_names)
+        else:
+            comp_query = """
+            MATCH (c)-[:HAS_STRATEGY|HAS_ALTERNATIVE]->(:Strategy)
+            WHERE c.name IS NOT NULL
+            RETURN DISTINCT c.name AS name, labels(c)[0] AS label
+            ORDER BY c.name
+            """
+            raw_comps = db.execute_read(comp_query) or []
+            competencies = [{"name": c["name"], "label": c.get("label", "Competency")} for c in raw_comps]
 
         if not competencies:
             st.info(
@@ -534,12 +1023,13 @@ with tab_strategy:
                                     }
                                     for r in all_rels
                                 ],
-                                use_container_width=True,
+                                width="stretch",
                                 hide_index=True,
                             )
 
 # ── Tab 4: Proactive Learning ───────────────────────────────────────────────
 with tab_proactive:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
     st.markdown("### Proactive Learning")
     st.caption(
         "Answer these questions to receive personalized action items based on your leadership journey."
@@ -554,7 +1044,8 @@ with tab_proactive:
         st.session_state.show_results = False
 
     # Load knowledge graph data
-    if not db.driver:
+    is_local = db._local_fallback is not None if hasattr(db, '_local_fallback') else False
+    if not db.driver and not is_local:
         st.error("Neo4j not connected. Please start the database.")
     else:
         # Fetch nodes and relationships
@@ -784,6 +1275,7 @@ with tab_proactive:
 
 # ── Tab 5: YouTube Perspectives ─────────────────────────────────────────────
 with tab_perspectives:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
     st.markdown("### Ask Any Question, Get YouTube Leader Perspectives")
     st.caption(
         "Enter any leadership/development question and see how famous YouTube leaders would answer it - with actionable insights from each perspective."
@@ -970,6 +1462,7 @@ with tab_perspectives:
 
 # ── Tab 6: Interview Intelligence ──────────────────────────────────────────
 with tab_interview:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
     st.markdown("### Interview Intelligence")
     st.caption(
         "Analyze interview-style content: find similar terms across the knowledge graph, "
@@ -1435,10 +1928,1190 @@ with tab_recording:
             st.session_state.rec_saved = False
             st.rerun()
 
+# ── Tab 8: L&D Intelligence ─────────────────────────────────────────────────
+with tab_learning:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### L&D Intelligence")
+    st.caption(
+        "Analyze skills gaps and build personalized learning paths "
+        "based on your ingested video knowledge base."
+    )
+
+    if "ld_initialized" not in st.session_state:
+        st.session_state.ld_initialized = False
+        st.session_state.ld_results = None
+        st.session_state.ld_video_recs = None
+
+    from src.core.learning_intelligence import LearningIntelligenceEngine
+    ld_engine = LearningIntelligenceEngine(db_client=db)
+
+    # Show data source stats
+    corpus_data = []
+    registry_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    if os.path.exists("data/processed/videos_registry.json"):
+        with open("data/processed/videos_registry.json", "r") as f:
+            registry_data = json.load(f)
+    st.info(
+        f"📚 Drawing from **{len(registry_data)}** ingested videos "
+        f"({len(corpus_data)} transcript segments)"
+    )
+
+    # ── Video selector ────────────────────────────────────────────────────
+    ld_video_id = _video_selector_widget(key_prefix="ld")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    ld_cache_key = f"learning_vid_{ld_video_id}" if ld_video_id else "learning_global"
+    ld_cache = st.session_state.intel_cache.get(ld_cache_key, {})
+    if ld_cache and ld_cache.get("status") != "failed" and "error" not in ld_cache:
+        with st.expander("📊 Auto-Extracted L&D Insights from Corpus", expanded=True):
+            mc1, mc2 = st.columns(2)
+            mc1.metric("Key Competencies Identified", len(ld_cache.get("key_competencies", [])))
+            mc2.metric("Cross-Video Themes", len(ld_cache.get("cross_video_themes", [])))
+
+            if ld_cache.get("key_competencies"):
+                st.markdown("**Key Competencies Found in Content**")
+                st.markdown(" ".join(
+                    f"<span style='background:#2196F3;color:white;padding:2px 10px;"
+                    f"border-radius:12px;font-size:0.82em;margin:2px;display:inline-block'>{c}</span>"
+                    for c in ld_cache["key_competencies"]
+                ), unsafe_allow_html=True)
+
+            if ld_cache.get("skills_gaps"):
+                st.markdown("**Skills Gaps Detected**")
+                for gap in ld_cache["skills_gaps"]:
+                    sev = gap.get("severity", "medium")
+                    icon = "🔴" if sev == "high" else "🟡"
+                    st.markdown(f"{icon} **{gap['gap']}**")
+
+            if ld_cache.get("learning_paths"):
+                st.markdown("**Suggested Learning Paths**")
+                for path in ld_cache["learning_paths"]:
+                    st.markdown(f"- Step {path['step']}: **{path['competency']}** — {path.get('rationale', '')}")
+
+            if ld_cache.get("priority_areas"):
+                st.markdown("**Priority Development Areas**")
+                for pa in ld_cache["priority_areas"]:
+                    st.markdown(f"- {pa}")
+
+            if ld_cache.get("estimated_proficiency"):
+                ep = ld_cache["estimated_proficiency"]
+                st.info(f"⏱ Estimated time to proficiency for **{ep.get('role', 'leader')}**: {ep.get('timeline', 'N/A')}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract L&D insights from your entire corpus.")
+    st.divider()
+
+    col_ld1, col_ld2 = st.columns(2)
+    with col_ld1:
+        target_role = st.text_input(
+            "Target role:",
+            placeholder="e.g., VP of Engineering, Team Lead",
+            key="ld_role",
+        )
+    with col_ld2:
+        current_competencies = st.text_area(
+            "Current competencies (comma-separated):",
+            placeholder="e.g., Communication, Strategic Planning, Team Management",
+            key="ld_competencies",
+        )
+
+    if st.button("Analyze Skills Gap", type="primary", key="ld_analyze"):
+        if target_role:
+            with st.spinner("Analyzing skills gap against ingested knowledge..."):
+                comp_list = [c.strip() for c in current_competencies.split(",") if c.strip()]
+                result = ld_engine.analyze_skills_gap(target_role, comp_list)
+                st.session_state.ld_results = result
+                st.session_state.ld_initialized = True
+                st.rerun()
+        else:
+            st.warning("Please enter a target role.")
+
+    if st.session_state.ld_results:
+        r = st.session_state.ld_results
+        st.success(f"Skills gap analysis for **{r.get('target_role', 'N/A')}**")
+
+        st.markdown("#### Priority Areas")
+        for pa in r.get("priority_areas", []):
+            st.markdown(f"- {pa}")
+
+        if r.get("gap_analysis"):
+            st.markdown("#### Gap Analysis")
+            for ga in r["gap_analysis"]:
+                st.markdown(f"- {ga}")
+
+        if r.get("learning_path"):
+            st.markdown("#### Recommended Learning Path")
+            for step in r["learning_path"]:
+                with st.container(border=True):
+                    st.markdown(f"**Step {step['step']}:** {step['competency']}")
+                    st.markdown(f"*Timeline: {step.get('timeline', 'N/A')}*")
+                    if step.get("resources"):
+                        st.caption("Resources: " + ", ".join(step["resources"]))
+
+        st.markdown(f"**Estimated time:** {r.get('estimated_time', 'N/A')}")
+
+    # Video recommendations by competency
+    st.markdown("---")
+    st.markdown("#### Video Recommendations by Competency")
+    comp_search = st.text_input(
+        "Enter a competency to find related videos:",
+        placeholder="e.g., Leadership, Communication",
+        key="ld_comp_search",
+    )
+    if st.button("Find Videos", key="ld_find_videos"):
+        if comp_search:
+            with st.spinner("Searching ingested video corpus..."):
+                vids = ld_engine.get_video_recommendations(comp_search)
+                st.session_state.ld_video_recs = vids
+                st.rerun()
+
+    if st.session_state.ld_video_recs:
+        vids = st.session_state.ld_video_recs
+        if vids.get("videos"):
+            st.success(f"Found **{vids.get('count', 0)}** related videos")
+            for v in vids["videos"]:
+                st.markdown(f"- {v}")
+        else:
+            st.info(vids.get("message", "No videos found."))
+
+# ── Tab 9: Competitive Intel ────────────────────────────────────────────────
+with tab_competitive:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Competitive Intelligence")
+    st.caption(
+        "Analyze competitive landscapes and identify market opportunities "
+        "using insights from your ingested leadership content."
+    )
+
+    if "ci_initialized" not in st.session_state:
+        st.session_state.ci_initialized = False
+        st.session_state.ci_results = None
+
+    from src.core.competitive_intelligence import CompetitiveIntelligenceEngine
+    ci_engine = CompetitiveIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    st.info(f"📚 Analyzing based on **{len(corpus_data)}** transcript segments from ingested content")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    ci_video_id = _video_selector_widget(key_prefix="ci")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    ci_cache_key = f"competitive_vid_{ci_video_id}" if ci_video_id else "competitive_global"
+    ci_cache = st.session_state.intel_cache.get(ci_cache_key, {})
+    if ci_cache and ci_cache.get("status") != "failed" and "error" not in ci_cache:
+        with st.expander("📊 Auto-Extracted Competitive Intel from Corpus", expanded=True):
+            mc1, mc2, mc3 = st.columns(3)
+            mc1.metric("Topics Identified", len(ci_cache.get("competitive_topics", [])))
+            mc2.metric("Threats Found", len(ci_cache.get("competitive_threats", [])))
+            mc3.metric("Opportunities", len(ci_cache.get("market_opportunities", [])))
+
+            if ci_cache.get("competitive_topics"):
+                st.markdown("**Competitive Topics Discussed in Content**")
+                for t in ci_cache["competitive_topics"]:
+                    sent = t.get("sentiment", "neutral")
+                    icon = "🟢" if sent == "positive" else "🔴" if sent == "negative" else "🔵"
+                    st.markdown(f"{icon} **{t['topic']}** — frequency: {t.get('frequency', 'N/A')}")
+
+            if ci_cache.get("competitive_threats"):
+                st.markdown("**Competitive Threats**")
+                for t in ci_cache["competitive_threats"]:
+                    sev = t.get("severity", "medium")
+                    icon = "🔴" if sev == "high" else "🟡"
+                    st.markdown(f"{icon} **{t['threat']}** — {t.get('competitor', '')}")
+
+            if ci_cache.get("market_opportunities"):
+                st.markdown("**Market Opportunities**")
+                for o in ci_cache["market_opportunities"]:
+                    st.markdown(f"- **{o['opportunity']}** — {o.get('potential', 'N/A')}")
+
+            if ci_cache.get("strategic_recommendations"):
+                st.markdown("**Strategic Recommendations**")
+                for rec in ci_cache["strategic_recommendations"]:
+                    st.markdown(f"- {rec}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract competitive insights.")
+    st.divider()
+
+    domain = st.text_input(
+        "Industry / domain:",
+        placeholder="e.g., SaaS, AI, EdTech, Healthcare",
+        key="ci_domain",
+    )
+    competitors = st.text_area(
+        "Competitors (optional, one per line):",
+        placeholder="e.g., Competitor A\nCompetitor B",
+        key="ci_competitors",
+    )
+
+    if st.button("Analyze Competitive Landscape", type="primary", key="ci_analyze"):
+        if domain:
+            with st.spinner("Analyzing competitive landscape..."):
+                comp_list = [c.strip() for c in competitors.split("\n") if c.strip()] or None
+                result = ci_engine.analyze_competitive_landscape(domain, competitors=comp_list)
+                st.session_state.ci_results = result
+                st.session_state.ci_initialized = True
+                st.rerun()
+        else:
+            st.warning("Please enter a domain.")
+
+    if st.session_state.ci_results:
+        r = st.session_state.ci_results
+
+        st.markdown("#### Competitive Threats")
+        for t in r.get("competitive_threats", []):
+            sev = t.get("severity", "medium")
+            icon = "🔴" if sev == "high" else "🟡" if sev == "medium" else "🟢"
+            st.markdown(f"{icon} **{t['threat']}** — {t.get('competitor', 'N/A')}")
+
+        st.markdown("#### Market Opportunities")
+        for o in r.get("market_opportunities", []):
+            with st.container(border=True):
+                st.markdown(f"**{o['opportunity']}**")
+                st.caption(f"Potential: {o.get('potential', 'N/A')} | Timeframe: {o.get('timeframe', 'N/A')}")
+
+        st.markdown("#### Strategic Recommendations")
+        for rec in r.get("strategic_recommendations", []):
+            st.markdown(f"- {rec}")
+
+        if r.get("key_monitoring_signals"):
+            with st.expander("Key Monitoring Signals"):
+                for s in r["key_monitoring_signals"]:
+                    st.markdown(f"- {s}")
+
+# ── Tab 10: Sales Intelligence ──────────────────────────────────────────────
+with tab_sales:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Sales Intelligence")
+    st.caption(
+        "Analyze deals, extract buyer signals from transcripts, "
+        "and get recommended messaging based on ingested knowledge."
+    )
+
+    if "si_initialized" not in st.session_state:
+        st.session_state.si_initialized = False
+        st.session_state.si_results = None
+        st.session_state.si_signals = None
+
+    from src.core.sales_intelligence import SalesIntelligenceEngine
+    si_engine = SalesIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    st.info(f"📚 Insights drawn from **{len(corpus_data)}** transcript segments")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    si_video_id = _video_selector_widget(key_prefix="si")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    si_cache_key = f"sales_vid_{si_video_id}" if si_video_id else "sales_global"
+    si_cache = st.session_state.intel_cache.get(si_cache_key, {})
+    if si_cache and si_cache.get("status") != "failed" and "error" not in si_cache:
+        with st.expander("📊 Auto-Extracted Sales Intel from Corpus", expanded=True):
+            mc1, mc2 = st.columns(2)
+            mc1.metric("Buyer Signals Detected", len(si_cache.get("buyer_signals", [])))
+            mc2.metric("Deal Themes", len(si_cache.get("deal_themes", [])))
+
+            if si_cache.get("buyer_signals"):
+                st.markdown("**Buyer Signals from Content**")
+                for bs in si_cache["buyer_signals"]:
+                    strength = bs.get("strength", "medium")
+                    icon = "🔴" if strength == "high" else "🟡" if strength == "medium" else "🟢"
+                    st.markdown(f"{icon} **{bs['signal']}** (count: {bs.get('count', 1)})")
+
+            if si_cache.get("recommended_messaging"):
+                st.markdown("**Recommended Messaging from Content Themes**")
+                for msg in si_cache["recommended_messaging"]:
+                    st.markdown(f"- {msg}")
+
+            if si_cache.get("objection_handlers"):
+                st.markdown("**Objection Handlers Suggested**")
+                for oh in si_cache["objection_handlers"]:
+                    st.markdown(f"- **{oh['objection']}** → {oh.get('response', '')}")
+
+            if si_cache.get("next_actions"):
+                st.markdown("**Recommended Next Actions**")
+                for na in si_cache["next_actions"]:
+                    pri = na.get("priority", "medium")
+                    icon = "🔴" if pri == "high" else "🟡"
+                    st.markdown(f"{icon} **{na['action']}**")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract sales insights.")
+    st.divider()
+
+    deal_tab, signal_tab = st.tabs(["💼 Deal Analysis", "📡 Buyer Signals"])
+
+    with deal_tab:
+        col_si1, col_si2 = st.columns(2)
+        with col_si1:
+            deal_context = st.text_area(
+                "Deal context:",
+                placeholder="Describe the deal, stage, key stakeholders...",
+                key="si_context",
+                height=120,
+            )
+        with col_si2:
+            buyer_persona = st.text_input(
+                "Buyer persona:",
+                placeholder="e.g., CTO, VP Marketing",
+                key="si_persona",
+            )
+
+        if st.button("Analyze Deal", type="primary", key="si_analyze"):
+            if deal_context:
+                with st.spinner("Analyzing deal against ingested knowledge..."):
+                    result = si_engine.analyze_deal(deal_context, buyer_persona)
+                    st.session_state.si_results = result
+                    st.session_state.si_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter deal context.")
+
+        if st.session_state.si_results:
+            r = st.session_state.si_results
+            health = r.get("deal_health", "moderate")
+            health_icon = "🟢" if health == "strong" else "🟡" if health == "moderate" else "🔴"
+            st.metric("Deal Health", f"{health_icon} {health.title()}")
+
+            st.markdown("#### Recommended Messaging")
+            for msg in r.get("recommended_messaging", []):
+                st.markdown(f"- {msg}")
+
+            st.markdown("#### Objection Handlers")
+            for oh in r.get("objection_handlers", []):
+                with st.container(border=True):
+                    st.markdown(f"**Objection:** {oh['objection']}")
+                    st.markdown(f"*Response:* {oh['response']}")
+
+            st.markdown("#### Next Actions")
+            for na in r.get("next_actions", []):
+                st.markdown(f"- **{na['action']}** (priority: {na.get('priority', 'N/A')})")
+
+    with signal_tab:
+        if st.button("Extract Buyer Signals from Transcripts", type="primary", key="si_extract"):
+            with st.spinner("Scanning transcripts for buyer signals..."):
+                segments = [{"text": s.get("transcript", ""), "start": s.get("start_time", 0)}
+                           for s in corpus_data if s.get("transcript")]
+                signals = si_engine.extract_buyer_signals(segments)
+                st.session_state.si_signals = signals
+                st.rerun()
+
+        if st.session_state.si_signals:
+            signals = st.session_state.si_signals
+            st.success(f"Found **{len(signals)}** buyer signals")
+            for s in signals[:20]:
+                st.markdown(f"- **{s['signal']}** — *\"{s['segment'][:80]}...\"*")
+
+# ── Tab 11: Compliance & Policy ─────────────────────────────────────────────
+with tab_compliance:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Compliance & Policy Intelligence")
+    st.caption(
+        "Analyze compliance risks, scan transcripts for policy keywords, "
+        "and get recommended controls based on ingested content."
+    )
+
+    if "comp_initialized" not in st.session_state:
+        st.session_state.comp_initialized = False
+        st.session_state.comp_results = None
+        st.session_state.comp_scans = None
+
+    from src.core.compliance_intelligence import ComplianceIntelligenceEngine
+    comp_engine = ComplianceIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    st.info(f"📚 Drawing from **{len(corpus_data)}** transcript segments")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    comp_video_id = _video_selector_widget(key_prefix="comp")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    comp_cache_key = f"compliance_vid_{comp_video_id}" if comp_video_id else "compliance_global"
+    comp_cache = st.session_state.intel_cache.get(comp_cache_key, {})
+    if comp_cache and comp_cache.get("status") != "failed" and "error" not in comp_cache:
+        with st.expander("📊 Auto-Extracted Compliance Intel from Corpus", expanded=True):
+            mc1, mc2 = st.columns(2)
+            mc1.metric("Policy Topics Discussed", len(comp_cache.get("policy_topics_discussed", [])))
+            mc2.metric("Keyword Matches", comp_cache.get("keyword_findings_count", 0))
+
+            if comp_cache.get("policy_topics_discussed"):
+                st.markdown("**Policy Topics Found in Content**")
+                for pt in comp_cache["policy_topics_discussed"]:
+                    sev = pt.get("severity", "medium")
+                    icon = "🔴" if sev in ("critical", "high") else "🟡"
+                    st.markdown(f"{icon} **{pt['topic']}** — {pt.get('mentions', 0)} mentions")
+
+            if comp_cache.get("risk_assessment"):
+                st.markdown("**Risk Assessment Based on Content**")
+                for ra in comp_cache["risk_assessment"]:
+                    sev = ra.get("severity", "medium")
+                    icon = "🔴" if sev in ("critical", "high") else "🟡"
+                    st.markdown(f"{icon} **{ra['risk']}** → {ra.get('mitigation', '')}")
+
+            if comp_cache.get("recommended_controls"):
+                st.markdown("**Recommended Controls**")
+                for ctrl in comp_cache["recommended_controls"]:
+                    st.markdown(f"- {ctrl}")
+
+            if comp_cache.get("monitoring_plan"):
+                mp = comp_cache["monitoring_plan"]
+                st.info(f"📋 Monitoring: {mp.get('frequency', 'N/A')} via {mp.get('method', 'N/A')}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract compliance insights.")
+    st.divider()
+
+    risk_tab, scan_tab = st.tabs(["⚠️ Risk Analysis", "🔍 Transcript Scan"])
+
+    with risk_tab:
+        col_c1, col_c2 = st.columns(2)
+        with col_c1:
+            policy_area = st.text_input(
+                "Policy area:",
+                placeholder="e.g., Data Privacy, AI Ethics, GDPR",
+                key="comp_policy",
+            )
+        with col_c2:
+            context = st.text_area(
+                "Context:",
+                placeholder="Describe your compliance context...",
+                key="comp_context",
+                height=100,
+            )
+
+        if st.button("Analyze Compliance Risk", type="primary", key="comp_analyze"):
+            if policy_area:
+                with st.spinner("Analyzing compliance risks..."):
+                    result = comp_engine.analyze_compliance_risk(policy_area, context)
+                    st.session_state.comp_results = result
+                    st.session_state.comp_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter a policy area.")
+
+        if st.session_state.comp_results:
+            r = st.session_state.comp_results
+            st.markdown("#### Requirements")
+            for req in r.get("requirements", []):
+                st.markdown(f"- **{req['requirement']}** — priority: {req.get('priority', 'N/A')}")
+
+            st.markdown("#### Risk Assessment")
+            for risk in r.get("risk_assessment", []):
+                st.markdown(f"- **{risk['risk']}** — mitigation: {risk.get('mitigation', 'N/A')}")
+
+            st.markdown("#### Recommended Controls")
+            for ctrl in r.get("recommended_controls", []):
+                st.markdown(f"- {ctrl}")
+
+    with scan_tab:
+        policy_keywords = st.text_input(
+            "Policy keywords to scan (comma-separated):",
+            placeholder="e.g., privacy, compliance, regulation, ethics",
+            key="comp_keywords",
+        )
+        if st.button("Scan Transcripts", type="primary", key="comp_scan"):
+            if policy_keywords:
+                with st.spinner("Scanning transcripts for policy keywords..."):
+                    keywords = [k.strip() for k in policy_keywords.split(",") if k.strip()]
+                    segs = [{"text": s.get("transcript", ""), "start": s.get("start_time", 0), "video_id": s.get("video_id", "")}
+                           for s in corpus_data if s.get("transcript")]
+                    results = comp_engine.scan_transcript_for_compliance(segs, keywords)
+                    st.session_state.comp_scans = results
+                    st.rerun()
+            else:
+                st.warning("Please enter policy keywords.")
+
+        if st.session_state.comp_scans:
+            scans = st.session_state.comp_scans
+            st.success(f"Found **{len(scans)}** compliance-related segments")
+            for s in scans[:15]:
+                st.markdown(f"- **{s['keyword']}** — *\"{s['context'][:100]}...\"*")
+
+# ── Tab 12: R&D Intelligence ────────────────────────────────────────────────
+with tab_rd:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### R&D Intelligence")
+    st.caption(
+        "Discover emerging trends, innovation opportunities, "
+        "and convergence patterns from your ingested knowledge base."
+    )
+
+    if "rd_initialized" not in st.session_state:
+        st.session_state.rd_initialized = False
+        st.session_state.rd_results = None
+        st.session_state.rd_related = None
+
+    from src.core.rd_intelligence import RDIntelligenceEngine
+    rd_engine = RDIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    st.info(f"📚 Analyzing **{len(corpus_data)}** transcript segments from ingested content")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    rd_video_id = _video_selector_widget(key_prefix="rd")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    rd_cache_key = f"rd_vid_{rd_video_id}" if rd_video_id else "rd_global"
+    rd_cache = st.session_state.intel_cache.get(rd_cache_key, {})
+    if rd_cache and rd_cache.get("status") != "failed" and "error" not in rd_cache:
+        with st.expander("📊 Auto-Extracted R&D Intel from Corpus", expanded=True):
+            mc1, mc2, mc3 = st.columns(3)
+            mc1.metric("Emerging Trends", len(rd_cache.get("emerging_trends", [])))
+            mc2.metric("Innovation Opportunities", len(rd_cache.get("innovation_opportunities", [])))
+            mc3.metric("Research Directions", len(rd_cache.get("research_directions", [])))
+
+            if rd_cache.get("emerging_trends"):
+                st.markdown("**Emerging Trends Found in Content**")
+                for t in rd_cache["emerging_trends"]:
+                    impact = t.get("impact", "medium")
+                    icon = "🔴" if impact == "high" else "🟡"
+                    st.markdown(f"{icon} **{t['trend']}** — maturity: {t.get('maturity', 'N/A')}")
+
+            if rd_cache.get("innovation_opportunities"):
+                st.markdown("**Innovation Opportunities**")
+                for o in rd_cache["innovation_opportunities"]:
+                    st.markdown(f"- **{o['opportunity']}** — effort: {o.get('effort', 'N/A')}")
+
+            if rd_cache.get("convergence_patterns"):
+                st.markdown("**Convergence Patterns**")
+                for cp in rd_cache["convergence_patterns"]:
+                    domains = ", ".join(cp.get("domains", []))
+                    st.markdown(f"- {domains}: {cp.get('description', '')}")
+
+            if rd_cache.get("research_directions"):
+                st.markdown("**Recommended Research Directions**")
+                for rd_dir in rd_cache["research_directions"]:
+                    st.markdown(f"- **{rd_dir['direction']}** — {rd_dir.get('rationale', '')} ({rd_dir.get('timeframe', 'N/A')})")
+
+            if rd_cache.get("potential_disruptions"):
+                with st.expander("Potential Disruptions"):
+                    for d in rd_cache["potential_disruptions"]:
+                        st.markdown(f"- {d}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract R&D insights.")
+    st.divider()
+
+    col_rd1, col_rd2 = st.columns(2)
+    with col_rd1:
+        rd_domain = st.text_input(
+            "Domain:",
+            placeholder="e.g., AI, Blockchain, Biotech",
+            key="rd_domain",
+        )
+    with col_rd2:
+        rd_signals = st.text_area(
+            "Signals (optional, one per line):",
+            placeholder="e.g., Rising GPU demand\nOpen source LLM adoption",
+            key="rd_signals",
+            height=80,
+        )
+
+    if st.button("Analyze Innovation Trends", type="primary", key="rd_analyze"):
+        if rd_domain:
+            with st.spinner("Analyzing innovation trends..."):
+                signals_list = [s.strip() for s in rd_signals.split("\n") if s.strip()] or None
+                result = rd_engine.analyze_innovation_trends(rd_domain, signals=signals_list)
+                st.session_state.rd_results = result
+                st.session_state.rd_initialized = True
+                st.rerun()
+        else:
+            st.warning("Please enter a domain.")
+
+    if st.session_state.rd_results:
+        r = st.session_state.rd_results
+        st.markdown("#### Emerging Trends")
+        for t in r.get("emerging_trends", []):
+            mat = t.get("maturity", "")
+            icon = "🌱" if mat == "emerging" else "📈" if mat == "growing" else "🌳"
+            st.markdown(f"{icon} **{t['trend']}** — {mat} (impact: {t.get('impact', 'N/A')})")
+
+        st.markdown("#### Innovation Opportunities")
+        for o in r.get("innovation_opportunities", []):
+            with st.container(border=True):
+                st.markdown(f"**{o['opportunity']}**")
+                st.caption(f"Effort: {o.get('effort', 'N/A')} | Potential: {o.get('potential', 'N/A')}")
+
+        st.markdown("#### Research Directions")
+        for d in r.get("research_directions", []):
+            st.markdown(f"- **{d['direction']}** — {d.get('rationale', '')} ({d.get('timeframe', 'N/A')})")
+
+        if r.get("convergence_patterns"):
+            with st.expander("Convergence Patterns"):
+                for cp in r["convergence_patterns"]:
+                    st.markdown(f"- **{' + '.join(cp.get('domains', []))}**: {cp.get('description', '')}")
+
+# ── Tab 13: Customer Intel ──────────────────────────────────────────────────
+with tab_customer:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Customer Intelligence")
+    st.caption(
+        "Analyze customer sentiment, extract pain points, "
+        "and identify desired outcomes from ingested content."
+    )
+
+    if "cust_initialized" not in st.session_state:
+        st.session_state.cust_initialized = False
+        st.session_state.cust_results = None
+        st.session_state.cust_needs = None
+
+    from src.core.customer_intelligence import CustomerIntelligenceEngine
+    cust_engine = CustomerIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    st.info(f"📚 Analyzing **{len(corpus_data)}** transcript segments for customer signals")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    cust_video_id = _video_selector_widget(key_prefix="cust")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    cust_cache_key = f"customer_vid_{cust_video_id}" if cust_video_id else "customer_global"
+    cust_cache = st.session_state.intel_cache.get(cust_cache_key, {})
+    if cust_cache and cust_cache.get("status") != "failed" and "error" not in cust_cache:
+        with st.expander("📊 Auto-Extracted Customer Intel from Corpus", expanded=True):
+            sent = cust_cache.get("overall_sentiment", "neutral")
+            sent_icon = "🟢" if sent == "positive" else "🔴" if sent == "negative" else "🔵"
+            st.metric("Overall Sentiment", f"{sent_icon} {sent.title()}")
+
+            if cust_cache.get("sentiment_breakdown"):
+                sb = cust_cache["sentiment_breakdown"]
+                cols = st.columns(3)
+                cols[0].metric("Positive", sb.get("positive", 0))
+                cols[1].metric("Negative", sb.get("negative", 0))
+                cols[2].metric("Neutral", sb.get("neutral", 0))
+
+            if cust_cache.get("key_themes"):
+                st.markdown("**Key Themes from Content**")
+                for t in cust_cache["key_themes"]:
+                    st.markdown(f"- **{t['theme']}** — sentiment: {t.get('sentiment', 'N/A')}")
+
+            if cust_cache.get("pain_points"):
+                st.markdown("**Pain Points Identified**")
+                for pp in cust_cache["pain_points"]:
+                    sev = pp.get("severity", "medium")
+                    icon = "🔴" if sev == "high" else "🟡"
+                    st.markdown(f"{icon} **{pp['pain_point']}**")
+
+            if cust_cache.get("desired_outcomes"):
+                st.markdown("**Desired Outcomes**")
+                for out in cust_cache["desired_outcomes"]:
+                    pri = out.get("priority", "medium")
+                    icon = "🔴" if pri == "high" else "🟡"
+                    st.markdown(f"{icon} **{out['outcome']}**")
+
+            if cust_cache.get("recommendations"):
+                st.markdown("**Recommendations**")
+                for rec in cust_cache["recommendations"]:
+                    st.markdown(f"- {rec}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract customer insights.")
+    st.divider()
+
+    col_cust1, col_cust2 = st.columns(2)
+    with col_cust1:
+        cust_topic = st.text_input(
+            "Topic / theme:",
+            placeholder="e.g., Product experience, Support quality",
+            key="cust_topic",
+        )
+    with col_cust2:
+        st.markdown("##### Available Data")
+        st.metric("Transcripts", len(corpus_data))
+
+    if st.button("Analyze Customer Sentiment", type="primary", key="cust_analyze"):
+        if cust_topic:
+            with st.spinner("Analyzing customer sentiment from transcripts..."):
+                segs = [{"text": s.get("transcript", ""), "start": s.get("start_time", 0)}
+                       for s in corpus_data if s.get("transcript")]
+                result = cust_engine.analyze_customer_sentiment(segs, topic=cust_topic)
+                st.session_state.cust_results = result
+                st.session_state.cust_initialized = True
+                st.rerun()
+        else:
+            st.warning("Please enter a topic.")
+
+    if st.session_state.cust_results:
+        r = st.session_state.cust_results
+        sent = r.get("overall_sentiment", "neutral")
+        sent_icon = "🟢" if sent == "positive" else "🔴" if sent == "negative" else "🔵"
+        st.metric("Overall Sentiment", f"{sent_icon} {sent.title()}")
+
+        if r.get("sentiment_breakdown"):
+            sb = r["sentiment_breakdown"]
+            cols = st.columns(3)
+            cols[0].metric("Positive", sb.get("positive", 0))
+            cols[1].metric("Negative", sb.get("negative", 0))
+            cols[2].metric("Neutral", sb.get("neutral", 0))
+
+        st.markdown("#### Key Themes")
+        for theme in r.get("key_themes", []):
+            st.markdown(f"- **{theme['theme']}** — sentiment: {theme.get('sentiment', 'N/A')}")
+
+        st.markdown("#### Pain Points")
+        for pp in r.get("pain_points", []):
+            st.markdown(f"- **{pp['pain_point']}** — severity: {pp.get('severity', 'N/A')}")
+
+        st.markdown("#### Recommendations")
+        for rec in r.get("recommendations", []):
+            st.markdown(f"- {rec}")
+
+    # Extract customer needs from text
+    st.markdown("---")
+    st.markdown("#### Extract Customer Needs from Text")
+    cust_text = st.text_area(
+        "Paste a transcript excerpt or customer feedback:",
+        placeholder="Paste text here to extract customer needs signals...",
+        key="cust_text",
+        height=100,
+    )
+    if st.button("Extract Needs", key="cust_extract"):
+        if cust_text:
+            with st.spinner("Extracting customer needs..."):
+                needs = cust_engine.extract_customer_needs(cust_text)
+                st.session_state.cust_needs = needs
+                st.rerun()
+
+    if st.session_state.cust_needs:
+        st.success(f"Extracted **{len(st.session_state.cust_needs)}** customer need signals")
+        for n in st.session_state.cust_needs:
+            st.markdown(f"- **{n['category']}**: {n['signal']}")
+
+# ── Tab 14: Executive Intel ─────────────────────────────────────────────────
+with tab_executive:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Executive Intelligence")
+    st.caption(
+        "Generate executive briefs and strategic insights "
+        "synthesized from your ingested video content."
+    )
+
+    if "exec_initialized" not in st.session_state:
+        st.session_state.exec_initialized = False
+        st.session_state.exec_results = None
+        st.session_state.exec_synthesis = None
+
+    from src.core.executive_intelligence import ExecutiveIntelligenceEngine
+    exec_engine = ExecutiveIntelligenceEngine(db_client=db)
+
+    corpus_data = []
+    registry_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    if os.path.exists("data/processed/videos_registry.json"):
+        with open("data/processed/videos_registry.json", "r") as f:
+            registry_data = json.load(f)
+    st.info(f"📚 Synthesizing from **{len(registry_data)}** videos ({len(corpus_data)} segments)")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    exec_video_id = _video_selector_widget(key_prefix="exec")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    exec_cache_key = f"executive_vid_{exec_video_id}" if exec_video_id else "executive_global"
+    exec_cache = st.session_state.intel_cache.get(exec_cache_key, {})
+    if exec_cache and exec_cache.get("status") != "failed" and "error" not in exec_cache:
+        with st.expander("📊 Auto-Extracted Executive Intel from Corpus", expanded=True):
+            st.markdown("**Executive Summary**")
+            st.info(exec_cache.get("executive_summary", "Synthesis of ingested leadership content."))
+
+            if exec_cache.get("key_themes"):
+                st.markdown("**Key Themes**")
+                for t in exec_cache["key_themes"]:
+                    st.markdown(f"- {t}")
+
+            if exec_cache.get("strategic_implications"):
+                st.markdown("**Strategic Implications**")
+                for si in exec_cache["strategic_implications"]:
+                    urg = si.get("urgency", "medium")
+                    icon = "🔴" if urg == "high" else "🟡"
+                    st.markdown(f"{icon} **{si['topic']}**: {si['implication']}")
+
+            if exec_cache.get("recommended_decisions"):
+                st.markdown("**Recommended Decisions**")
+                for rd in exec_cache["recommended_decisions"]:
+                    st.markdown(f"- **{rd['decision']}** — {rd.get('rationale', '')}")
+
+            if exec_cache.get("key_metrics"):
+                with st.expander("Key Metrics"):
+                    for km in exec_cache["key_metrics"]:
+                        st.markdown(f"- **{km['metric']}**: {km.get('current_state', 'N/A')} → {km.get('target', 'N/A')} ({km.get('trend', 'N/A')})")
+
+            if exec_cache.get("cross_domain_connections"):
+                with st.expander("Cross-Domain Connections"):
+                    for cd in exec_cache["cross_domain_connections"]:
+                        domains = ", ".join(cd.get("domains", []))
+                        st.markdown(f"- {domains}: {cd.get('insight', '')}")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract executive insights.")
+    st.divider()
+
+    brief_tab, synth_tab = st.tabs(["📋 Executive Brief", "🧩 Video Synthesis"])
+
+    with brief_tab:
+        col_ex1, col_ex2 = st.columns(2)
+        with col_ex1:
+            exec_topics = st.text_area(
+                "Topics (one per line):",
+                placeholder="e.g., AI Strategy\nTalent Retention\nMarket Expansion",
+                key="exec_topics",
+                height=100,
+            )
+        with col_ex2:
+            exec_context = st.text_area(
+                "Optional context:",
+                placeholder="Recent developments, priorities...",
+                key="exec_context",
+                height=100,
+            )
+
+        if st.button("Generate Executive Brief", type="primary", key="exec_generate"):
+            topics = [t.strip() for t in exec_topics.split("\n") if t.strip()]
+            if topics:
+                with st.spinner("Generating executive brief from ingested knowledge..."):
+                    result = exec_engine.generate_executive_brief(topics, context=exec_context or None)
+                    st.session_state.exec_results = result
+                    st.session_state.exec_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter at least one topic.")
+
+        if st.session_state.exec_results:
+            r = st.session_state.exec_results
+            st.markdown("#### Executive Summary")
+            st.info(r.get("executive_summary", "N/A"))
+
+            st.markdown("#### Strategic Implications")
+            for si in r.get("strategic_implications", []):
+                urg = si.get("urgency", "medium")
+                icon = "🔴" if urg == "high" else "🟡"
+                st.markdown(f"{icon} **{si['topic']}**: {si['implication']}")
+
+            st.markdown("#### Key Metrics")
+            for km in r.get("key_metrics", []):
+                with st.container(border=True):
+                    st.markdown(f"**{km['metric']}** — {km.get('current_state', 'N/A')} → {km.get('target', 'N/A')}")
+                    st.caption(f"Trend: {km.get('trend', 'N/A')}")
+
+            st.markdown("#### Recommended Decisions")
+            for rd in r.get("recommended_decisions", []):
+                st.markdown(f"- **{rd['decision']}** — {rd.get('rationale', '')}")
+
+    with synth_tab:
+        if st.button("Synthesize All Video Insights", type="primary", key="exec_synthesize"):
+            with st.spinner("Synthesizing insights from all ingested videos..."):
+                video_data = {
+                    "corpus": corpus_data,
+                    "registry": registry_data,
+                }
+                result = exec_engine.synthesize_video_insights(video_data)
+                st.session_state.exec_synthesis = result
+                st.rerun()
+
+        if st.session_state.exec_synthesis:
+            s = st.session_state.exec_synthesis
+            st.success("Video insights synthesized")
+            st.markdown("#### Key Themes")
+            for theme in s.get("key_themes", []):
+                st.markdown(f"- {theme}")
+            st.markdown("#### Actionable Insights")
+            for ai in s.get("actionable_insights", []):
+                st.markdown(f"- {ai}")
+            if s.get("knowledge_gaps"):
+                with st.expander("Knowledge Gaps"):
+                    for g in s["knowledge_gaps"]:
+                        st.markdown(f"- {g}")
+
+# ── Tab 15: Org Knowledge ───────────────────────────────────────────────────
+with tab_orgknow:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Organizational Knowledge")
+    st.caption(
+        "Capture and organize knowledge assets, identify gaps, "
+        "and cross-reference across your ingested content."
+    )
+
+    if "org_initialized" not in st.session_state:
+        st.session_state.org_initialized = False
+        st.session_state.org_results = None
+        st.session_state.org_gaps = None
+
+    from src.core.org_knowledge import OrgKnowledgeEngine
+    org_engine = OrgKnowledgeEngine(db_client=db)
+
+    corpus_data = []
+    registry_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    if os.path.exists("data/processed/videos_registry.json"):
+        with open("data/processed/videos_registry.json", "r") as f:
+            registry_data = json.load(f)
+    st.info(f"📚 Knowledge base: **{len(registry_data)}** videos, **{len(corpus_data)}** segments")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    org_video_id = _video_selector_widget(key_prefix="org")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    org_cache_key = f"orgknowledge_vid_{org_video_id}" if org_video_id else "orgknowledge_global"
+    org_cache = st.session_state.intel_cache.get(org_cache_key, {})
+    if org_cache and org_cache.get("status") != "failed" and "error" not in org_cache:
+        with st.expander("📊 Auto-Extracted Org Knowledge from Corpus", expanded=True):
+            mc1, mc2 = st.columns(2)
+            mc1.metric("Core Concepts Identified", len(org_cache.get("core_concepts", [])))
+            mc2.metric("Knowledge Gaps Found", len(org_cache.get("knowledge_gaps", [])))
+
+            if org_cache.get("core_concepts"):
+                st.markdown("**Core Concepts from Content**")
+                for cc in org_cache["core_concepts"]:
+                    st.markdown(f"- **{cc['concept']}**: {cc.get('definition', '')}")
+
+            if org_cache.get("key_principles"):
+                st.markdown("**Key Principles**")
+                for kp in org_cache["key_principles"]:
+                    st.markdown(f"- **{kp['principle']}**: {kp.get('explanation', '')}")
+
+            if org_cache.get("best_practices"):
+                st.markdown("**Best Practices**")
+                for bp in org_cache["best_practices"]:
+                    st.markdown(f"- {bp}")
+
+            if org_cache.get("common_pitfalls"):
+                st.markdown("**Common Pitfalls**")
+                for cp in org_cache["common_pitfalls"]:
+                    st.markdown(f"- **{cp['pitfall']}** → {cp.get('prevention', '')}")
+
+            if org_cache.get("knowledge_gaps"):
+                st.markdown("**Knowledge Gaps Identified**")
+                for kg in org_cache["knowledge_gaps"]:
+                    imp = kg.get("importance", "medium")
+                    icon = "🔴" if imp == "high" else "🟡"
+                    st.markdown(f"{icon} **{kg['gap']}**")
+
+            if org_cache.get("expertise_level"):
+                st.info(f"📊 Overall expertise level: **{org_cache['expertise_level'].title()}**")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract organizational knowledge.")
+    st.divider()
+
+    cap_tab, gap_tab = st.tabs(["📝 Knowledge Capture", "🔍 Gap Analysis"])
+
+    with cap_tab:
+        col_o1, col_o2 = st.columns(2)
+        with col_o1:
+            org_topic = st.text_input(
+                "Knowledge topic:",
+                placeholder="e.g., Agile Methodology, OKR Framework",
+                key="org_topic",
+            )
+        with col_o2:
+            org_source = st.text_input(
+                "Source (optional):",
+                placeholder="e.g., Video ID, Book, Workshop",
+                key="org_source",
+            )
+        org_content = st.text_area(
+            "Content / notes:",
+            placeholder="Paste knowledge content or transcript excerpt...",
+            key="org_content",
+            height=150,
+        )
+
+        if st.button("Capture Knowledge Asset", type="primary", key="org_capture"):
+            if org_topic and org_content:
+                with st.spinner("Processing knowledge asset..."):
+                    result = org_engine.capture_knowledge_asset(org_topic, org_content, source=org_source or None)
+                    st.session_state.org_results = result
+                    st.session_state.org_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter both topic and content.")
+
+        if st.session_state.org_results:
+            r = st.session_state.org_results
+            st.success(f"Knowledge asset captured: **{r.get('topic', 'N/A')}**")
+
+            st.markdown("#### Core Concepts")
+            for c in r.get("core_concepts", []):
+                st.markdown(f"- **{c['concept']}**: {c.get('definition', '')}")
+
+            st.markdown("#### Key Principles")
+            for p in r.get("key_principles", []):
+                st.markdown(f"- **{p['principle']}**: {p.get('explanation', '')}")
+
+            st.markdown("#### Best Practices")
+            for bp in r.get("best_practices", []):
+                st.markdown(f"- {bp}")
+
+            st.markdown("#### Common Pitfalls")
+            for cp in r.get("common_pitfalls", []):
+                st.markdown(f"- **{cp['pitfall']}** — prevention: {cp.get('prevention', '')}")
+
+            st.metric("Expertise Level", r.get("expertise_level", "N/A").title())
+
+    with gap_tab:
+        if st.button("Find Knowledge Gaps", type="primary", key="org_find_gaps"):
+            with st.spinner("Analyzing knowledge gaps across ingested content..."):
+                if db.driver:
+                    nodes = db.execute_read("MATCH (n) WHERE n.name IS NOT NULL RETURN n.name AS name, labels(n)[0] AS type")
+                else:
+                    nodes = []
+                result = org_engine.find_knowledge_gaps(nodes)
+                st.session_state.org_gaps = result
+                st.rerun()
+
+        if st.session_state.org_gaps:
+            r = st.session_state.org_gaps
+            if r.get("gaps"):
+                st.warning(f"Found **{len(r['gaps'])}** knowledge gaps")
+                for g in r["gaps"]:
+                    st.markdown(f"- {g}")
+            else:
+                st.success(r.get("message", "No gaps identified."))
+
+# ── Tab 16: Thought Leadership ──────────────────────────────────────────────
+with tab_thought:
+    render_knowledge_layer(exclude_types=["IntelligenceDomain"])
+    st.markdown("### Thought Leadership")
+    st.caption(
+        "Analyze industry pulse, identify key narratives and thought leaders, "
+        "and discover content opportunities from your ingested knowledge."
+    )
+
+    if "tl_initialized" not in st.session_state:
+        st.session_state.tl_initialized = False
+        st.session_state.tl_results = None
+        st.session_state.tl_insights = None
+
+    from src.core.thought_leadership import ThoughtLeadershipEngine
+    tl_engine = ThoughtLeadershipEngine(db_client=db)
+
+    corpus_data = []
+    registry_data = []
+    if os.path.exists("data/processed/corpus.json"):
+        with open("data/processed/corpus.json", "r") as f:
+            corpus_data = json.load(f)
+    if os.path.exists("data/processed/videos_registry.json"):
+        with open("data/processed/videos_registry.json", "r") as f:
+            registry_data = json.load(f)
+    st.info(f"📚 Drawing from **{len(registry_data)}** videos ({len(corpus_data)} segments)")
+
+    # ── Video selector ────────────────────────────────────────────────────
+    tl_video_id = _video_selector_widget(key_prefix="tl")
+    # ── Auto-extracted Corpus Insights ─────────────────────────────────────
+    tl_cache_key = f"thoughtleadership_vid_{tl_video_id}" if tl_video_id else "thoughtleadership_global"
+    tl_cache = st.session_state.intel_cache.get(tl_cache_key, {})
+    if tl_cache and tl_cache.get("status") != "failed" and "error" not in tl_cache:
+        with st.expander("📊 Auto-Extracted Thought Leadership from Corpus", expanded=True):
+            momentum = tl_cache.get("industry_momentum", "stable")
+            momentum_icon = "📈" if momentum == "rising" else "📉" if momentum == "declining" else "📊"
+            st.metric("Industry Momentum", f"{momentum_icon} {momentum.title()}")
+
+            if tl_cache.get("key_narratives"):
+                st.markdown("**Key Narratives Found in Content**")
+                for kn in tl_cache["key_narratives"]:
+                    strength = kn.get("strength", "emerging")
+                    icon = "🔴" if strength == "dominant" else "🟡" if strength == "emerging" else "🟢"
+                    st.markdown(f"{icon} **{kn['narrative']}** — {', '.join(kn.get('proponents', []))}")
+
+            if tl_cache.get("content_gaps"):
+                st.markdown("**Content Gaps / Opportunities**")
+                for cg in tl_cache["content_gaps"]:
+                    st.markdown(f"- **{cg['gap']}** — demand: {cg.get('audience_demand', 'N/A')}")
+
+            if tl_cache.get("recommended_angles"):
+                st.markdown("**Recommended Thought Leadership Angles**")
+                for ra in tl_cache["recommended_angles"]:
+                    st.markdown(f"- **{ra['angle']}** — {ra.get('rationale', '')} (format: {ra.get('format', 'N/A')})")
+
+            if tl_cache.get("thought_leaders"):
+                with st.expander("Thought Leaders Referenced"):
+                    for tl_ref in tl_cache["thought_leaders"]:
+                        st.markdown(f"- **{tl_ref['name']}** — {tl_ref.get('expertise', '')}")
+
+            if tl_cache.get("contrarian_viewpoints"):
+                with st.expander("Contrarian Viewpoints"):
+                    for cv in tl_cache["contrarian_viewpoints"]:
+                        st.markdown(f"- **{cv['viewpoint']}** — {cv.get('evidence', '')} (risk: {cv.get('risk_level', 'N/A')})")
+    else:
+        st.info("💡 Run the **Intelligence Pipeline** from the sidebar to auto-extract thought leadership insights.")
+    st.divider()
+
+    pulse_tab, insight_tab = st.tabs(["🌐 Industry Pulse", "💡 Insight Extraction"])
+
+    with pulse_tab:
+        col_t1, col_t2 = st.columns(2)
+        with col_t1:
+            tl_industry = st.text_input(
+                "Industry:",
+                placeholder="e.g., SaaS, AI, Healthcare",
+                key="tl_industry",
+            )
+        with col_t2:
+            tl_signals = st.text_area(
+                "Market signals (optional):",
+                placeholder="e.g., Remote work shift\nAI regulation",
+                key="tl_signals",
+                height=80,
+            )
+
+        if st.button("Analyze Industry Pulse", type="primary", key="tl_analyze"):
+            if tl_industry:
+                with st.spinner("Analyzing industry pulse from ingested content..."):
+                    signals = [s.strip() for s in tl_signals.split("\n") if s.strip()] or None
+                    result = tl_engine.analyze_industry_pulse(tl_industry, signals=signals)
+                    st.session_state.tl_results = result
+                    st.session_state.tl_initialized = True
+                    st.rerun()
+            else:
+                st.warning("Please enter an industry.")
+
+        if st.session_state.tl_results:
+            r = st.session_state.tl_results
+            momentum = r.get("industry_momentum", "stable")
+            m_icon = "📈" if momentum == "rising" else "📉" if momentum == "declining" else "🔄"
+            st.metric("Industry Momentum", f"{m_icon} {momentum.title()}")
+
+            st.markdown("#### Key Narratives")
+            for n in r.get("key_narratives", []):
+                with st.container(border=True):
+                    st.markdown(f"**{n['narrative']}**")
+                    st.caption(f"Strength: {n.get('strength', 'N/A')}")
+
+            st.markdown("#### Content Gaps & Opportunities")
+            for g in r.get("content_gaps", []):
+                st.markdown(f"- **{g['gap']}** — {g.get('opportunity', '')}")
+
+            st.markdown("#### Recommended Angles")
+            for a in r.get("recommended_angles", []):
+                st.markdown(f"- **{a['angle']}** — {a.get('format', '')}")
+
+    with insight_tab:
+        if st.button("Extract Leadership Insights", type="primary", key="tl_extract"):
+            with st.spinner("Extracting leadership insights from transcripts..."):
+                segs = [{"text": s.get("transcript", ""), "start": s.get("start_time", 0)}
+                       for s in corpus_data if s.get("transcript")]
+                insights = tl_engine.extract_leadership_insights(segs[:50])
+                st.session_state.tl_insights = insights
+                st.rerun()
+
+        if st.session_state.tl_insights:
+            insights = st.session_state.tl_insights
+            st.success(f"Extracted **{len(insights)}** leadership insights")
+            for ins in insights[:15]:
+                st.markdown(f"- *\"{ins['insight'][:120]}...\"* — type: {ins.get('signal_type', 'N/A')}")
+
 # ── Detect running environment ──────────────────────────────────────────────
 _IS_CLOUD = os.environ.get("STREAMLIT_CLOUD", False) or os.path.exists("/mount/src")
+print(f"DBG_IS_CLOUD={_IS_CLOUD}", flush=True)
 
 # ── Sidebar: Ingest ──────────────────────────────────────────────────────────
+
 st.sidebar.divider()
 st.sidebar.header("Ingest New Leadership Content")
 
@@ -1598,39 +3271,44 @@ if _IS_CLOUD:
                 st.sidebar.error(f"Error processing upload: {e}")
 else:
     # ── Local mode — YouTube downloads work ────────────────────────────────
-    video_url = st.sidebar.text_input("YouTube Video URL")
+    video_url = st.sidebar.text_input("YouTube Video URL", key="video_url_input")
+    # Guard: only run pipeline on explicit button click, never on initial render
+    if "pipeline_armed" not in st.session_state:
+        st.session_state.pipeline_armed = False
     if st.sidebar.button("Run V-LKG Pipeline"):
-        if video_url:
-            # Lazy import for pipeline (heavy deps only needed on local machine)
-            from main import run_pipeline
+        st.session_state.pipeline_armed = True
+    if st.session_state.pipeline_armed and video_url:
+        st.session_state.pipeline_armed = False  # fire once
+        # Lazy import for pipeline (heavy deps only needed on local machine)
+        from main import run_pipeline
 
-            sb_progress = st.sidebar.progress(0.0)
-            sb_label = st.sidebar.empty()
-            sb_label.caption("0%")
+        sb_progress = st.sidebar.progress(0.0)
+        sb_label = st.sidebar.empty()
+        sb_label.caption("0%")
 
-            with st.status("Executing Multimodal Pipeline...", expanded=True) as status:
+        with st.status("Executing Multimodal Pipeline...", expanded=True) as status:
 
-                def _on_progress(frac, label):
-                    sb_progress.progress(min(frac, 1.0))
-                    sb_label.caption(f"{int(frac * 100)}%")
-                    status.update(label=label)
-                    st.write(f"`{int(frac * 100):3d}%` {label}")
+            def _on_progress(frac, label):
+                sb_progress.progress(min(frac, 1.0))
+                sb_label.caption(f"{int(frac * 100)}%")
+                status.update(label=label)
+                st.write(f"`{int(frac * 100):3d}%` {label}")
 
-                try:
-                    run_pipeline(video_url, progress_cb=_on_progress)
-                    sb_progress.progress(1.0)
-                    sb_label.caption("100%")
-                    status.update(
-                        label="Pipeline Complete!", state="complete", expanded=False
-                    )
-                    st.sidebar.success("Knowledge Graph extracted successfully!")
-                    st.rerun()
-                except Exception as e:
-                    status.update(label="Pipeline Failed", state="error")
-                    sb_label.caption("Failed")
-                    st.sidebar.error(f"Error: {e}")
-                    st.error(f"**{type(e).__name__}:** {e}")
-                    st.code(traceback.format_exc(), language="text")
-        else:
-            st.sidebar.warning("Please enter a valid URL.")
+            try:
+                run_pipeline(video_url, progress_cb=_on_progress)
+                sb_progress.progress(1.0)
+                sb_label.caption("100%")
+                status.update(
+                    label="Pipeline Complete!", state="complete", expanded=False
+                )
+                st.sidebar.success("Knowledge Graph extracted successfully!")
+                st.rerun()
+            except Exception as e:
+                status.update(label="Pipeline Failed", state="error")
+                sb_label.caption("Failed")
+                st.sidebar.error(f"Error: {e}")
+                st.error(f"**{type(e).__name__}:** {e}")
+                st.code(traceback.format_exc(), language="text")
+    elif video_url:
+        st.sidebar.warning("Pipeline not triggered. Click the button to start.")
 
