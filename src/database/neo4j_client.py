@@ -202,3 +202,50 @@ class Neo4jClient:
             except Exception:
                 pass
         return []
+
+    def get_entities_by_domain(self, domain_name):
+        """Return intelligence entities extracted by a specific domain, with video provenance.
+
+        Returns list of dicts: {name, type, color, video_ids: [...], source_domain}
+        """
+        from src.core.entity_registry import canonical_color
+        if self._local_fallback:
+            triplets = self._local_fallback.get_triplets()
+            out = []
+            for t in triplets:
+                if t.get("obj") == domain_name and t.get("relation") == "EXTRACTED_BY":
+                    out.append({
+                        "name": t["subject"],
+                        "type": t.get("subject_type", "Entity"),
+                        "color": canonical_color(t.get("subject_type", "Entity")),
+                        "video_ids": [t.get("video_id", "all")] if t.get("video_id") else ["all"],
+                        "source_domain": domain_name,
+                    })
+            return out
+        if self.driver:
+            try:
+                rows = self.execute_read(
+                    "MATCH (n)-[r:EXTRACTED_BY]->(d:IntelligenceDomain {name: $domain}) "
+                    "RETURN n.name AS name, labels(n)[0] AS type, n.color AS color, "
+                    "collect(DISTINCT r.video_id) AS video_ids",
+                    {"domain": domain_name}
+                ) or []
+                out = []
+                for r in rows:
+                    name = r.get("name")
+                    if not name:
+                        continue
+                    vid_ids = r.get("video_ids", [])
+                    if not vid_ids:
+                        vid_ids = ["all"]
+                    out.append({
+                        "name": name,
+                        "type": r.get("type"),
+                        "color": r.get("color") or canonical_color(r.get("type")),
+                        "video_ids": vid_ids,
+                        "source_domain": domain_name,
+                    })
+                return out
+            except Exception as e:
+                print(f"Error fetching entities for domain {domain_name}: {e}")
+        return []
