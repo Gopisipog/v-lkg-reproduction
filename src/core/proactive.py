@@ -1,15 +1,14 @@
 import os
 import json
 import random
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class ProactiveLearningEngine:
     """Generates questions and action items from YouTube video content with cross-video insights."""
 
     def __init__(self):
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
         self.insights_path = "data/processed/video_insights.json"
         self._load_or_initialize_insights()
 
@@ -34,7 +33,7 @@ class ProactiveLearningEngine:
 
     def extract_cross_video_patterns(self, nodes, relationships, corpus_segments):
         """Extract patterns that connect to other leadership YouTube content."""
-        if not self.client:
+        if not self.client.available:
             return self._default_patterns()
 
         nodes_summary = "\n".join([f"- {n['name']} ({n['type']})" for n in nodes])
@@ -96,23 +95,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a leadership content analyst with knowledge of YouTube leadership content.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.7,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_patterns()
+            return result
         except Exception as e:
             print(f"Error extracting patterns: {e}")
             return self._default_patterns()
@@ -149,7 +135,7 @@ Return ONLY valid JSON.
         if not corpus_segments:
             return self._default_questions(nodes)
 
-        if not self.client:
+        if not self.client.available:
             return self._default_questions(nodes)
 
         nodes_summary = "\n".join([f"- {n['name']} ({n['type']})" for n in nodes])
@@ -234,23 +220,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a leadership coach. Generate questions referencing this video AND other YouTube leadership content.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.7,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_questions(nodes)
+            return result
         except Exception as e:
             print(f"Error generating questions: {e}")
             return self._default_questions(nodes)
@@ -346,7 +319,7 @@ Return ONLY valid JSON.
 
     def generate_action_items(self, questions, answers, corpus_segments):
         """Generate action items with cross-video YouTube insights."""
-        if not self.client:
+        if not self.client.available:
             return self._default_action_items(answers)
 
         qa_pairs = []
@@ -404,23 +377,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a leadership coach. Generate action items referencing this YouTube video AND other leadership YouTube content.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.7,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_action_items(answers)
+            return result
         except Exception as e:
             print(f"Error generating action items: {e}")
             return self._default_action_items(answers)

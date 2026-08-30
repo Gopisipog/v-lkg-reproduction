@@ -1,6 +1,5 @@
-import os
 import json
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class SalesIntelligenceEngine:
@@ -9,11 +8,10 @@ class SalesIntelligenceEngine:
 
     def __init__(self, db_client=None):
         self.db = db_client
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
 
     def analyze_deal(self, deal_context, buyer_persona):
-        if not self.client:
+        if not self.client.available:
             return self._default_deal_analysis(deal_context)
 
         prompt = f"""
@@ -43,20 +41,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Sales Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.3,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_deal_analysis(deal_context)
+            return result
         except Exception as e:
             print(f"Deal analysis error: {e}")
             return self._default_deal_analysis(deal_context)
@@ -106,7 +94,7 @@ Return ONLY valid JSON.
             for s in corpus_data
         ])
 
-        if not self.client:
+        if not self.client.available:
             return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_signals)
 
         video_titles = [v.get("title", "Untitled") for v in (registry_data or [])]
@@ -149,20 +137,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Sales Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.3,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_signals)
+            return result
         except Exception as e:
             print(f"Corpus sales extraction error: {e}")
             return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_signals)

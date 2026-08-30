@@ -1820,8 +1820,11 @@ with tab_recording:
         )
 
         # Transcription method
+        has_gcp_speech = bool(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("GOOGLE_CLOUD_PROJECT"))
         has_openai_key = bool(os.environ.get("OPENAI_API_KEY"))
         transcription_options = []
+        if has_gcp_speech:
+            transcription_options.append("Google Cloud Speech-to-Text (cloud, recommended)")
         if has_openai_key:
             transcription_options.append("OpenAI Whisper API (cloud, fast)")
         transcription_options.append("Local Whisper (on-device)")
@@ -1855,6 +1858,7 @@ with tab_recording:
                 generate_recording_id,
                 transcribe_recording,
                 transcribe_recording_openai,
+                transcribe_recording_gcp,
                 save_to_corpus,
             )
 
@@ -1871,7 +1875,9 @@ with tab_recording:
 
                     # Transcribe
                     st.info("🔊 Transcribing audio...")
-                    if "OpenAI" in transcription_method:
+                    if "Google Cloud" in transcription_method:
+                        segments = transcribe_recording_gcp(tmp_path)
+                    elif "OpenAI" in transcription_method:
                         segments = transcribe_recording_openai(tmp_path)
                     else:
                         segments = transcribe_recording(tmp_path, model_size=whisper_model)

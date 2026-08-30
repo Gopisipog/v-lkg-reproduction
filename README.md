@@ -23,13 +23,38 @@ pip install -r requirements.txt
 ```
 
 2. **Environment Setup**:
-Create a `.env` file in the root directory with your API keys:
-```
-OPENAI_API_KEY=your_openai_key
+Create a `.env` file in the root directory:
+```env
+# ── Google Cloud (Gemini — primary LLM) ───────────────────────────────────
+GEMINI_API_KEY=your_gemini_api_key         # from Google AI Studio (aistudio.google.com)
+GOOGLE_API_KEY=your_google_api_key         # alias for GEMINI_API_KEY
+
+# ── Google Cloud Project (Speech-to-Text, Cloud Storage) ──────────────────
+GOOGLE_CLOUD_PROJECT=your-gcp-project-id
+GOOGLE_CLOUD_LOCATION=us-central1
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+
+# ── Google Cloud Storage (optional — syncs processed JSON to GCS) ─────────
+GCS_BUCKET=vlkg-knowledge-graph
+
+# ── Neo4j Graph Database ───────────────────────────────────────────────────
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=password
+
+# ── OpenAI / DeepSeek (fallback if Gemini key not provided) ───────────────
+OPENAI_API_KEY=your_openai_key
+DEEPSEEK_API_KEY=your_deepseek_key
 ```
+
+## Google Cloud Services Used
+
+| Service | Purpose |
+|---|---|
+| **Vertex AI / Gemini 2.5 Flash** | Primary LLM for entity extraction, intelligence engines, QA |
+| **Cloud Speech-to-Text** | Managed audio transcription (fallback: local Whisper) |
+| **Cloud Storage (GCS)** | Persistent JSON store for corpus, entities, and triplets |
+
 
 3. **Run the Pipeline**:
 ```bash

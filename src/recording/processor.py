@@ -53,6 +53,82 @@ def transcribe_recording(file_path: str, model_size: str = "base") -> list[dict]
     return segments
 
 
+def transcribe_recording_gcp(file_path: str) -> list[dict]:
+    """
+    Transcribe using Google Cloud Speech-to-Text API.
+    Converts audio to LINEAR16 WAV first. Falls back to local Whisper base if unavailable.
+    """
+    try:
+        from google.cloud import speech  # type: ignore
+    except ImportError:
+        print("[GCP] google-cloud-speech not installed. Falling back to local Whisper.")
+        return transcribe_recording(file_path, "base")
+
+    try:
+        client = speech.SpeechClient()
+    except Exception as exc:
+        print(f"[GCP] Speech client init failed: {exc}. Falling back to local Whisper.")
+        return transcribe_recording(file_path, "base")
+
+    # Convert to LINEAR16 WAV for Cloud Speech-to-Text
+    wav_path = file_path.rsplit(".", 1)[0] + "_rec_gcp.wav"
+    try:
+        import subprocess
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", file_path, "-ac", "1", "-ar", "16000",
+             "-f", "wav", wav_path],
+            check=True, capture_output=True,
+        )
+    except Exception as exc:
+        print(f"[GCP] ffmpeg conversion failed: {exc}. Falling back to local Whisper.")
+        return transcribe_recording(file_path, "base")
+
+    try:
+        with open(wav_path, "rb") as f:
+            content = f.read()
+
+        audio   = speech.RecognitionAudio(content=content)
+        config  = speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=16000,
+            language_code="en-US",
+            enable_word_time_offsets=True,
+            enable_automatic_punctuation=True,
+        )
+
+        operation = client.long_running_recognize(config=config, audio=audio)
+        print("[GCP] Waiting for Cloud Speech-to-Text operation...")
+        response = operation.result(timeout=300)
+    except Exception as exc:
+        print(f"[GCP] Speech recognition failed: {exc}. Falling back to local Whisper.")
+        return transcribe_recording(file_path, "base")
+    finally:
+        try:
+            os.remove(wav_path)
+        except OSError:
+            pass
+
+    segments = []
+    for result in response.results:
+        alt = result.alternatives[0]
+        words = alt.words
+        if not words:
+            continue
+        start = words[0].start_time.total_seconds()
+        end   = words[-1].end_time.total_seconds()
+        segments.append({
+            "start": start,
+            "end":   end,
+            "text":  alt.transcript.strip(),
+        })
+
+    if not segments:
+        print("[GCP] Cloud Speech-to-Text returned empty transcript. Trying local Whisper.")
+        return transcribe_recording(file_path, "base")
+
+    return segments
+
+
 def transcribe_recording_openai(file_path: str) -> list[dict]:
     """
     Transcribe using OpenAI's Whisper API (cloud-based, no local model needed).

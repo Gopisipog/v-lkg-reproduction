@@ -1,6 +1,5 @@
-import os
 import json
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class ComplianceIntelligenceEngine:
@@ -9,11 +8,10 @@ class ComplianceIntelligenceEngine:
 
     def __init__(self, db_client=None):
         self.db = db_client
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
 
     def analyze_compliance_risk(self, policy_area, context):
-        if not self.client:
+        if not self.client.available:
             return self._default_compliance_analysis(policy_area)
 
         prompt = f"""
@@ -43,20 +41,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Compliance Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.2,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_compliance_analysis(policy_area)
+            return result
         except Exception as e:
             print(f"Compliance analysis error: {e}")
             return self._default_compliance_analysis(policy_area)
@@ -110,7 +98,7 @@ Return ONLY valid JSON.
         ]
         all_findings = self.scan_transcript_for_compliance(corpus_data, policy_keywords)
 
-        if not self.client:
+        if not self.client.available:
             return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_findings)
 
         video_titles = [v.get("title", "Untitled") for v in (registry_data or [])]
@@ -155,20 +143,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Compliance Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.2,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_findings)
+            return result
         except Exception as e:
             print(f"Corpus compliance extraction error: {e}")
             return self._default_corpus_extraction(corpus_data, registry_data, video_id, all_findings)

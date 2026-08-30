@@ -1,8 +1,7 @@
-import os
 import json
 import re
 import numpy as np
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class InterviewIntelligenceEngine:
@@ -11,8 +10,7 @@ class InterviewIntelligenceEngine:
 
     def __init__(self, db_client=None, model_name="all-MiniLM-L6-v2"):
         self.db = db_client
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.llm_client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.llm_client = GeminiClient()
         self._model_name = model_name
         self._embedder = None
         print(f"InterviewIntelligenceEngine initialized (model will load on first use)")
@@ -196,7 +194,7 @@ class InterviewIntelligenceEngine:
         """Extract key leadership terms from interview text.
         Uses keyword heuristics by default, optional LLM for deeper extraction.
         """
-        if use_llm and self.llm_client:
+        if use_llm and self.llm_client.available:
             return self._llm_term_extraction(text)
 
         leadership_terms = [
@@ -224,7 +222,7 @@ class InterviewIntelligenceEngine:
 
     def _llm_term_extraction(self, text):
         """Use LLM to extract key terms from interview text."""
-        if not self.llm_client:
+        if not self.llm_client.available:
             return self.extract_key_terms(text, use_llm=False)
 
         prompt = f"""
@@ -239,20 +237,10 @@ Example output:
 [{{"term": "psychological safety", "category": "Culture"}}, {{"term": "active listening", "category": "Communication"}}]
 """
         try:
-            response = self.llm_client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "Extract key leadership terms from interview text. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.1,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.llm_client.chat_json(prompt)
+            if result is None:
+                return self.extract_key_terms(text, use_llm=False)
+            return result
         except Exception as e:
             print(f"LLM term extraction error: {e}")
             return self.extract_key_terms(text, use_llm=False)
@@ -261,7 +249,7 @@ Example output:
 
     def generate_interview_insights(self, qa_pairs, similar_terms=None):
         """Generate insights about interview content using LLM."""
-        if not self.llm_client or not qa_pairs:
+        if not self.llm_client.available or not qa_pairs:
             return self._default_insights(qa_pairs)
 
         top_qa = qa_pairs[:5]
@@ -297,20 +285,10 @@ Generate interview intelligence insights as JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.llm_client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are an interview intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.5,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.llm_client.chat_json(prompt)
+            if result is None:
+                return self._default_insights(qa_pairs)
+            return result
         except Exception as e:
             print(f"Insight generation error: {e}")
             return self._default_insights(qa_pairs)
@@ -368,6 +346,7 @@ Return ONLY valid JSON.
 
     def get_video_corpus(self):
         """Load transcript corpus from disk."""
+        import os
         if os.path.exists("data/processed/corpus.json"):
             with open("data/processed/corpus.json", "r", encoding="utf-8") as f:
                 return json.load(f)

@@ -1,6 +1,6 @@
 import os
 import json
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class YouTubePerspectivesEngine:
@@ -62,8 +62,7 @@ class YouTubePerspectivesEngine:
     }
 
     def __init__(self, db_client=None):
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
         self.db_client = db_client
 
     def get_video_knowledge_context(self):
@@ -175,7 +174,7 @@ class YouTubePerspectivesEngine:
 
     def get_youtuber_perspective(self, youtuber_name, question, video_context=None):
         """Get how a specific YouTuber would answer, incorporating video knowledge."""
-        if not self.client:
+        if not self.client.available:
             return self._default_perspective(youtuber_name, question)
 
         youtuber = self.YOUTUBERS.get(youtuber_name, {})
@@ -228,23 +227,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": f"You are {youtuber_name}. Answer as they would, incorporating video knowledge if relevant.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.8,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_perspective(youtuber_name, question)
+            return result
         except Exception as e:
             print(f"Error generating perspective: {e}")
             return self._default_perspective(youtuber_name, question)
@@ -321,7 +307,7 @@ Return ONLY valid JSON.
 
     def generate_consensus_action_plan(self, perspectives, db_client=None):
         """Generate a consolidated action plan from all perspectives and video knowledge."""
-        if not self.client:
+        if not self.client.available:
             return self._default_action_plan(perspectives)
 
         self.db_client = db_client
@@ -363,23 +349,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a leadership coach synthesizing multiple perspectives and video knowledge into actionable guidance.",
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.7,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_action_plan(perspectives)
+            return result
         except Exception as e:
             print(f"Error generating consensus: {e}")
             return self._default_action_plan(perspectives)

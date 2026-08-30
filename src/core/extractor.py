@@ -1,7 +1,7 @@
 import os
 import json
 import re
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 def _safe_parse_json_array(raw: str) -> list:
@@ -87,32 +87,15 @@ class SemanticEntityRecognizer:
     """Uses Google Gemini / LLM to identify Nodes and relationships from text segments."""
 
     def __init__(self):
-        self.gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
-        self.openai_key = os.environ.get("OPENAI_API_KEY")
-        self.deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
-
-        self.gemini_client = None
-        if self.gemini_key:
-            try:
-                from google import genai
-                self.gemini_client = genai.Client(api_key=self.gemini_key)
-            except ImportError:
-                print("google-genai library not installed. Falling back to OpenAI client.")
-
-        self.client = None
-        if not self.gemini_client:
-            if self.deepseek_key:
-                self.client = OpenAI(api_key=self.deepseek_key, base_url="https://api.deepseek.com")
-            elif self.openai_key:
-                self.client = OpenAI(api_key=self.openai_key)
+        self.client = GeminiClient()
 
     def extract_triplets(self, text_segment):
         """
         Extracts (Subject, Relation, Object) from a text segment using few-shot prompting.
         Returns a list of dictionaries representing the graph edges.
         """
-        if not self.gemini_client and not self.client:
-            print("Warning: Neither GEMINI_API_KEY nor OPENAI_API_KEY found. Returning empty triplets.")
+        if not self.client.available:
+            print("Warning: No LLM client available. Returning empty triplets.")
             return []
 
         print(f"Extracting triplets from: {text_segment[:50]}...")
@@ -166,26 +149,10 @@ class SemanticEntityRecognizer:
         """
         
         try:
-            if self.gemini_client:
-                response = self.gemini_client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt,
-                )
-                content = response.text.strip()
-            else:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat" if self.deepseek_key else "gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": "You are a specialized triple extraction API matching a predefined schema. Output ONLY valid JSON."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    temperature=0.0,
-                    max_tokens=16384,
-                )
-                content = response.choices[0].message.content.strip()
-            result = _safe_parse_json_array(content)
+            result = self.client.chat_json(prompt)
             if not result:
-                print(f"  Warning: no triplets parsed from response ({len(content)} chars)")
+                print(f"  Warning: no triplets parsed from response")
+                return []
             return result
         except Exception as e:
             print(f"Error extracting triplets: {e}")

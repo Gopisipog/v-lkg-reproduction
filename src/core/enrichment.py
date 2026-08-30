@@ -1,17 +1,12 @@
-import os
 import re
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 class GraphEnrichmentEngine:
     """Applies centrality metrics, strategy/tactic generation, and path discovery to enrich the graph."""
 
     def __init__(self, db_client):
         self.db = db_client
-        self.api_key = os.environ.get("DEEPSEEK_API_KEY")
-        self.client = OpenAI(
-            api_key=self.api_key,
-            base_url="https://api.deepseek.com",
-        ) if self.api_key else None
+        self.client = GeminiClient()
 
     # ── Centrality ────────────────────────────────────────────────────────────
 
@@ -62,7 +57,7 @@ class GraphEnrichmentEngine:
         print("\n[Enrichment Phase A] Bridging isolated nodes...")
         isolated_nodes = self.compute_betweenness_centrality()
 
-        if not isolated_nodes or not self.client:
+        if not isolated_nodes or not self.client.available:
             print("Skipping isolation enrichment: missing nodes or API key.")
             return
 
@@ -79,12 +74,7 @@ class GraphEnrichmentEngine:
         """
 
         try:
-            response = self.client.chat.completions.create(
-                model="deepseek-chat",
-                messages=[{"role": "user", "content": prompt}],
-                temperature=0.7
-            )
-            content = response.choices[0].message.content
+            content = self.client.chat(prompt)
             print("Enrichment Suggestions (isolation):")
             print(content)
 
@@ -121,7 +111,7 @@ class GraphEnrichmentEngine:
         1-2 strategies and 2-3 concrete tactics per strategy, then insert them.
         """
         print("\n[Enrichment Phase B] Generating strategies and tactics...")
-        if not self.client:
+        if not self.client.available:
             print("Skipping strategy/tactic enrichment: no API key.")
             return
 
@@ -156,12 +146,7 @@ Also add one LEADS_TO relationship showing what outcome this competency leads to
 "{node_name}" -> [LEADS_TO] -> "Outcome Name"
 """
             try:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.5
-                )
-                content = response.choices[0].message.content
+                content = self.client.chat(prompt)
                 suggestions = self._parse_enrichment_suggestions(content)
 
                 for s in suggestions:
@@ -209,7 +194,7 @@ Also add one LEADS_TO relationship showing what outcome this competency leads to
         structured learning paths, then insert Path nodes with IS_PART_OF and LEADS_TO edges.
         """
         print("\n[Enrichment Phase C] Discovering and naming learning paths...")
-        if not self.client:
+        if not self.client.available:
             print("Skipping path enrichment: no API key.")
             return
 
@@ -236,12 +221,7 @@ Steps (in order): {steps}
    "Path Name" -> [LEADS_TO] -> "{steps[-1]}"
 """
             try:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.4
-                )
-                content = response.choices[0].message.content.strip()
+                content = self.client.chat(prompt)
                 suggestions = self._parse_enrichment_suggestions(content)
 
                 for s in suggestions:
@@ -291,7 +271,7 @@ Steps (in order): {steps}
         achieves the same outcome, creating parallel paths in the graph.
         """
         print("\n[Enrichment Phase D] Adding alternative strategy paths...")
-        if not self.client:
+        if not self.client.available:
             print("Skipping alternative path enrichment: no API key.")
             return
 
@@ -329,12 +309,7 @@ Format:
 "Alternative Strategy Name" -> [HAS_TACTIC] -> "Tactic B"
 """
             try:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.6
-                )
-                content = response.choices[0].message.content
+                content = self.client.chat(prompt)
                 suggestions = self._parse_enrichment_suggestions(content)
 
                 for s in suggestions:
@@ -365,7 +340,7 @@ Format:
           to the existing one, so both are surfaced as parallel options in the UI.
         """
         print("\n[Enrichment Phase E] Generating prequels, sequels & alternatives...")
-        if not self.client:
+        if not self.client.available:
             print("Skipping prequel/sequel enrichment: no API key.")
             return
 
@@ -417,12 +392,7 @@ Produce EXACTLY these 4 lines (no extra text, no numbering):
    "Prerequisite Concept Name" -> [IS_PREQUEL_TO] -> "{competency}"
 """
             try:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.5
-                )
-                content = response.choices[0].message.content
+                content = self.client.chat(prompt)
                 suggestions = self._parse_enrichment_suggestions(content)
 
                 type_map = {
@@ -461,7 +431,7 @@ Produce EXACTLY these 4 lines (no extra text, no numbering):
         stored directly on the Tactic node.
         """
         print("\n[Enrichment Phase F] Adding tactic replies, intent & detail...")
-        if not self.client:
+        if not self.client.available:
             print("Skipping tactic detail enrichment: no API key.")
             return
 
@@ -503,12 +473,7 @@ DIFFICULTY: Beginner|Intermediate|Advanced
 APPLIES_WHEN: One sentence describing when a leader should use this tactic.
 """
             try:
-                response = self.client.chat.completions.create(
-                    model="deepseek-chat",
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.3
-                )
-                content = response.choices[0].message.content.strip()
+                content = self.client.chat(prompt)
 
                 # Parse graph edges
                 suggestions = self._parse_enrichment_suggestions(content)

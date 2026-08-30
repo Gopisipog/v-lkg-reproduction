@@ -1,6 +1,5 @@
-import os
 import json
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class ThoughtLeadershipEngine:
@@ -9,11 +8,10 @@ class ThoughtLeadershipEngine:
 
     def __init__(self, db_client=None):
         self.db = db_client
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
 
     def analyze_industry_pulse(self, industry, signals=None):
-        if not self.client:
+        if not self.client.available:
             return self._default_pulse_analysis(industry)
 
         sigs = ", ".join(signals) if signals else "Current industry developments"
@@ -44,20 +42,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Thought Leadership analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.5,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_pulse_analysis(industry)
+            return result
         except Exception as e:
             print(f"Industry pulse error: {e}")
             return self._default_pulse_analysis(industry)
@@ -107,7 +95,7 @@ Return ONLY valid JSON.
             if not corpus_data:
                 return {"status": "no_data", "message": f"No data for video: {video_id}"}
 
-        if not self.client:
+        if not self.client.available:
             return self._default_corpus_extraction(corpus_data, registry_data, video_id)
 
         all_insights = self.extract_leadership_insights(corpus_data)
@@ -154,20 +142,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are a Thought Leadership analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.5,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_corpus_extraction(corpus_data, registry_data, video_id)
+            return result
         except Exception as e:
             print(f"Corpus thought leadership extraction error: {e}")
             return self._default_corpus_extraction(corpus_data, registry_data, video_id)

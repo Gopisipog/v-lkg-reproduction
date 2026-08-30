@@ -54,12 +54,11 @@ def _save_registry(registry):
 
 
 def _generate_summary(segments, meta):
-    """Generates a concise summary of the video using DeepSeek."""
-    from openai import OpenAI
-    api_key = os.environ.get("DEEPSEEK_API_KEY")
-    if not api_key:
-        return "Summary unavailable (no DeepSeek key)."
-    client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+    """Generates a concise summary of the video using Gemini."""
+    from src.gcp.client import GeminiClient
+    client = GeminiClient()
+    if not client.available:
+        return "Summary unavailable (no LLM key)."
 
     # Use up to ~3 000 chars of transcript
     full_text = " ".join(s["transcript"] for s in segments)[:3000]
@@ -69,12 +68,8 @@ def _generate_summary(segments, meta):
         "Write a 3-sentence summary of what this video teaches about leadership or communication."
     )
     try:
-        resp = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=200,
-        )
-        return resp.choices[0].message.content.strip()
+        summary = client.chat(prompt)
+        return summary or "Summary unavailable."
     except Exception as e:
         print(f"Summary generation error: {e}")
         return "Summary unavailable."

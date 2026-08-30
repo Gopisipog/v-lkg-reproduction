@@ -1,6 +1,5 @@
-import os
 import json
-from openai import OpenAI
+from src.gcp.client import GeminiClient
 
 
 class RDIntelligenceEngine:
@@ -9,11 +8,10 @@ class RDIntelligenceEngine:
 
     def __init__(self, db_client=None):
         self.db = db_client
-        self.api_key = os.environ.get("OPENAI_API_KEY")
-        self.client = OpenAI(api_key=self.api_key) if self.api_key else None
+        self.client = GeminiClient()
 
     def analyze_innovation_trends(self, domain, signals=None):
-        if not self.client:
+        if not self.client.available:
             return self._default_innovation_analysis(domain)
 
         sigs = ", ".join(signals) if signals else "Emerging patterns in the field"
@@ -44,20 +42,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are an R&D Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.5,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_innovation_analysis(domain)
+            return result
         except Exception as e:
             print(f"Innovation analysis error: {e}")
             return self._default_innovation_analysis(domain)
@@ -106,7 +94,7 @@ Return ONLY valid JSON.
             if not corpus_data:
                 return {"status": "no_data", "message": f"No data for video: {video_id}"}
 
-        if not self.client:
+        if not self.client.available:
             return self._default_corpus_extraction(corpus_data, registry_data, video_id)
 
         video_titles = [v.get("title", "Untitled") for v in (registry_data or [])]
@@ -148,20 +136,10 @@ Return JSON:
 Return ONLY valid JSON.
 """
         try:
-            response = self.client.chat.completions.create(
-                model="gpt-4",
-                messages=[
-                    {"role": "system", "content": "You are an R&D Intelligence analyst. Output ONLY valid JSON."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.5,
-            )
-            content = response.choices[0].message.content.strip()
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-            return json.loads(content)
+            result = self.client.chat_json(prompt)
+            if result is None:
+                return self._default_corpus_extraction(corpus_data, registry_data, video_id)
+            return result
         except Exception as e:
             print(f"Corpus R&D extraction error: {e}")
             return self._default_corpus_extraction(corpus_data, registry_data, video_id)
