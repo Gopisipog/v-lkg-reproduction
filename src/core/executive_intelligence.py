@@ -89,7 +89,12 @@ Return ONLY valid JSON.
         if not self.client or not video_data:
             return {"summary": "No video data available", "key_takeaways": []}
 
-        titles = [v.get("title", "Untitled") for v in video_data[:5]]
+        # Accept either a list of video dicts or a dict with a "registry" key
+        if isinstance(video_data, dict):
+            videos = video_data.get("registry", [])
+        else:
+            videos = video_data
+        titles = [v.get("title", "Untitled") for v in videos[:5]]
         prompt = f"""
 Synthesize key executive insights from these leadership video titles:
 {chr(10).join('- ' + t for t in titles)}

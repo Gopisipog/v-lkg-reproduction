@@ -1,6 +1,11 @@
-# V-LKG: Video Knowledge Graph Construction
+# V-LKG: Video Knowledge Graph Agent
 
-A multimodal pipeline that transforms unstructured YouTube leadership content into a structured, queryable Neo4j Knowledge Graph specifically optimized for leadership education.
+[![All Things Agentic Hackathon](https://img.shields.io/badge/Hackathon-All%20Things%20Agentic-blue)](HACKATHON_SUBMISSION.md)
+**Participating Tracks**:
+- ⚙️ **Track 1: The Taskmaster** (Autonomous background video ingestion, multimodal ASR/OCR, & knowledge extraction)
+- 🤝 **Track 2: The Collaborative Partner** (Interactive AI co-pilot, visual graph queries, timestamp links, & MCP protocol support)
+
+A multimodal agentic pipeline that transforms unstructured YouTube leadership and educational content into a structured, queryable Neo4j Knowledge Graph.
 
 ## Architecture
 

@@ -81,8 +81,8 @@ class Neo4jClient:
 
             query = f"""
             MERGE (s:{s_label} {{name: $subject}})
-            MEREE (o:{o_label} {{name: $obj}})
-            MEREE (s)-[r:{rel_type}]->(o)
+            MERGE (o:{o_label} {{name: $obj}})
+            MERGE (s)-[r:{rel_type}]->(o)
             ON CREATE SET r.source_time = $source_time, r.video_id = $video_id, r.weight = 1,
                             s.color = $s_color, o.color = $o_color
             ON MATCH SET  r.weight = coalesce(r.weight, 1) + 1,

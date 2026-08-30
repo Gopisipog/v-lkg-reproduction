@@ -1,6 +1,87 @@
 import os
 import json
+import re
 from openai import OpenAI
+
+
+def _safe_parse_json_array(raw: str) -> list:
+    """Parse a JSON array from LLM output, tolerating common malformations.
+
+    Handles markdown fences, prose around the array, unescaped control
+    characters inside string values, trailing commas, and truncated output
+    (LLM hitting the token limit mid-stream).
+    """
+    if not raw:
+        return []
+
+    text = raw.strip()
+
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*\n?", "", text)
+        text = re.sub(r"\n?```\s*$", "", text)
+
+    start = text.find("[")
+    if start == -1:
+        return []
+
+    end = text.rfind("]")
+    has_close = end != -1 and end > start
+
+    if not has_close:
+        text = _close_truncated_array(text, start)
+    else:
+        text = text[start : end + 1]
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
+    text = _escape_controls_in_strings(text)
+    text = re.sub(r",\s*([}\]])", r"\1", text)
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as e:
+        print(f"  JSON repair failed: {e}")
+        return []
+
+
+def _close_truncated_array(text: str, start: int) -> str:
+    """Salvage a truncated JSON array by closing it at the last complete object."""
+    body = text[start:]
+    last_brace = body.rfind("}")
+    if last_brace == -1:
+        return text
+    trimmed = body[: last_brace + 1]
+    trimmed = re.sub(r",\s*$", "", trimmed)
+    return trimmed + "\n]"
+
+
+def _escape_controls_in_strings(s: str) -> str:
+    """Replace literal control characters inside JSON string values."""
+    out = []
+    in_str = False
+    esc = False
+    for ch in s:
+        if esc:
+            out.append(ch)
+            esc = False
+            continue
+        if ch == "\\":
+            out.append(ch)
+            esc = True
+            continue
+        if ch == '"':
+            in_str = not in_str
+            out.append(ch)
+            continue
+        if in_str and ch in ("\n", "\r", "\t"):
+            out.append("\\" + {"\n": "n", "\r": "r", "\t": "t"}[ch])
+        else:
+            out.append(ch)
+    return "".join(out)
+
 
 class SemanticEntityRecognizer:
     """Uses LLM to identify Nodes and relationships from text segments."""
@@ -11,7 +92,7 @@ class SemanticEntityRecognizer:
             api_key=self.api_key,
             base_url="https://api.deepseek.com",
         ) if self.api_key else None
-        
+
     def extract_triplets(self, text_segment):
         """
         Extracts (Subject, Relation, Object) from a text segment using few-shot prompting.
@@ -78,16 +159,14 @@ class SemanticEntityRecognizer:
                     {"role": "system", "content": "You are a specialized triple extraction API matching a predefined schema. Output ONLY valid JSON."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.0
+                temperature=0.0,
+                max_tokens=16384,
             )
             content = response.choices[0].message.content.strip()
-            # Strip markdown formatting if present
-            if content.startswith("```json"):
-                content = content[7:-3]
-            elif content.startswith("```"):
-                content = content[3:-3]
-                
-            return json.loads(content)
+            result = _safe_parse_json_array(content)
+            if not result:
+                print(f"  Warning: no triplets parsed from response ({len(content)} chars)")
+            return result
         except Exception as e:
             print(f"Error extracting triplets: {e}")
             return []
