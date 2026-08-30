@@ -721,6 +721,9 @@ with tab_knowledge:
                                 enriched_groups.setdefault(ntype, set()).add(name)
                             elif ntype in INTEL_TYPES:
                                 intel_groups.setdefault(ntype, set()).add(name)
+                            else:
+                                # Catch-all for all other extracted graph types (e.g. LeadershipTrait, Outcome, Tactic, etc.)
+                                extracted_groups.setdefault(ntype, set()).add(name)
 
                     # ── Extracted pills ──────────────────────────────────
                     if extracted_groups:
