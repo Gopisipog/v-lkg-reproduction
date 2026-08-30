@@ -33,10 +33,39 @@ NEO4J_PASSWORD=password
 
 3. **Run the Pipeline**:
 ```bash
-python main.py
+python main.py --url https://www.youtube.com/watch?v=VozV9KmhPTU
 ```
 
 4. **Launch the UI**:
 ```bash
 streamlit run app.py
+```
+
+## 🧪 Reproducible Testing Instructions
+
+To run and verify the test suites and pipeline deterministically:
+
+### 1. Test MCP Server & Tool Surface (`pytest`)
+Run all 28 automated unit tests covering the Model Context Protocol (MCP) server graph tools and intelligence engines:
+```bash
+python -m pytest mcp_server/tests
+```
+
+### 2. Verify Local Knowledge Graph Store Ingestion
+Populate and test the offline `LocalGraphStore` fallback without requiring a live Neo4j connection:
+```bash
+python populate_graph.py
+```
+
+### 3. Verify Offline Rule-Based Triplet Extractor & Fallbacks
+Test fallback extraction and guard logic:
+```bash
+python test_fallback.py
+python test_guard.py
+```
+
+### 4. Verify Entity & Phrase Counts
+Verify phrase counts and dataset consistency:
+```bash
+python verify_phrases.py
 ```
