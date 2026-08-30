@@ -604,6 +604,8 @@ with tab_knowledge:
             st.warning("Corpus file is corrupted or truncated. Some data may not display.")
             corpus = []
 
+    render_knowledge_layer()
+
     if not registry:
         st.info("No videos ingested yet. Use the sidebar to run the pipeline.")
     else:
@@ -662,7 +664,9 @@ with tab_knowledge:
                     )
                 elif is_local_db:
                     local = db._local_fallback
-                    for t in local.get_triplets(video_id=vid_id):
+                    # Retrieve triplets matching video_id or all triplets if video_id not populated
+                    matched_triplets = local.get_triplets(video_id=vid_id) or local.get_triplets()
+                    for t in matched_triplets:
                         vid_nodes.append({
                             "from_type": t.get("subject_type", "Entity"),
                             "from_name": t["subject"],
