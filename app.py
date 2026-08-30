@@ -9,6 +9,11 @@ from src.database.neo4j_client import Neo4jClient
 from dotenv import load_dotenv
 import shutil
 
+# Top-level application reference for cloud platforms (Vercel/WSGI/ASGI wrappers)
+app = st
+application = st
+handler = st
+
 # Ensure ffmpeg is available for yt-dlp and Whisper
 try:
     import static_ffmpeg
