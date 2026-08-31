@@ -97,21 +97,79 @@ python verify_phrases.py
 
 ## ☁️ Deployment to Google Cloud Run
 
-V-LKG can be easily deployed as a serverless container on **Google Cloud Run** using the provided `Dockerfile`.
+V-LKG can be easily deployed as serverless containers on **Google Cloud Run** using the provided Dockerfiles.
 
-### Option A: Continuous Deployment via GitHub (Recommended)
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Navigate to **Cloud Run** and click **Create Service**.
-3. Select **"Continuously deploy new revisions from a source repository"** and select your repository `Gopisipog/v-lkg-reproduction`.
-4. Select the `main` branch.
-5. In the Build Configuration, choose **Dockerfile** (it will use the root `Dockerfile` to build the image via Cloud Build).
-6. Under **Variables & Secrets**, add your environment variables:
-   - `GEMINI_API_KEY` (from Google AI Studio)
-   - `GOOGLE_CLOUD_PROJECT` (your GCP project ID)
-7. Click **Create** to deploy.
-
-### Option B: Deploy via gcloud CLI
-If you have the Google Cloud SDK installed locally, run:
+### 1. Deploy the Streamlit Web Application (UI)
+The main interactive UI can be deployed directly from the root source:
 ```bash
-gcloud run deploy v-lkg --source . --port 8080 --allow-unauthenticated
+gcloud run deploy v-lkg --source . --port 8080 --allow-unauthenticated --region us-central1
+```
+
+### 2. Deploy the MCP Server (SSE Transport API)
+The MCP server can be deployed as a web service running over Server-Sent Events (SSE). It includes `CORSMiddleware` to allow cross-origin requests from web clients (like the Web MCP Inspector).
+
+To build and deploy the MCP server, run using `Dockerfile.mcp`:
+1. Temporarily replace the root `Dockerfile` with `Dockerfile.mcp`:
+   ```bash
+   cp Dockerfile Dockerfile.bak && cp Dockerfile.mcp Dockerfile
+   ```
+2. Deploy the service under the name `v-lkg-mcp`:
+   ```bash
+   gcloud run deploy v-lkg-mcp --source . --port 8080 --allow-unauthenticated --region us-central1
+   ```
+3. Restore the original Dockerfile:
+   ```bash
+   mv Dockerfile.bak Dockerfile
+   ```
+
+---
+
+## 🤝 Track 2: Collaborative Partner Setup & Usage
+
+Track 2 enables human-in-the-loop interactions via two channels: the **Interactive Streamlit UI** and the **Model Context Protocol (MCP) Server**.
+
+### 1. Streamlit Web App UI
+The Streamlit UI offers visual strategy maps, search filters, and an audio recorder.
+* **Local Run**: 
+  ```bash
+  streamlit run app.py
+  ```
+* **Cloud Run**: Access your deployed `v-lkg` service URL (e.g., `https://v-lkg-cgwpuv3gna-uc.a.run.app`).
+
+### 2. Model Context Protocol (MCP) Server
+The MCP server exposes V-LKG's tools and graph queries directly to AI agents.
+
+#### **A. Local Client Connection (stdio transport)**
+To connect the MCP server locally to desktop clients (like **Claude Desktop**), add the server command configuration pointing to the local package:
+* **Claude Desktop Configuration File** (`%APPDATA%\Claude\claude_desktop_config.json`):
+  ```json
+  {
+    "mcpServers": {
+      "v-lkg": {
+        "command": "python",
+        "args": ["-m", "vlkg_mcp.server"],
+        "env": {
+          "PYTHONPATH": "/absolute/path/to/v-lkg-reproduction;/absolute/path/to/v-lkg-reproduction/mcp_server/src"
+        }
+      }
+    }
+  }
+  ```
+
+#### **B. Cloud Client Connection (SSE transport)**
+If you deployed `v-lkg-mcp` to Cloud Run, it runs as an SSE service. You can connect it directly in **Cursor** or inspect it via the **Web MCP Inspector**:
+
+* **Cursor Setup**:
+  1. Open Cursor Settings > **Models** > **MCP**.
+  2. Click **+ Add New MCP Server**.
+  3. Set Name to `v-lkg`, Type to `SSE`, and URL to:
+     `https://v-lkg-mcp-cgwpuv3gna-uc.a.run.app/sse`
+  4. Save. The connection will verify and turn green.
+
+* **Web MCP Inspector Setup**:
+  1. Open the official web inspector: **[https://inspector.modelcontextprotocol.io](https://inspector.modelcontextprotocol.io)**.
+  2. Choose transport type **SSE**.
+  3. Enter the connection URL:
+     `https://v-lkg-mcp-cgwpuv3gna-uc.a.run.app/sse`
+  4. Click **Connect** to interactively test the knowledge graph tools.
 ```
