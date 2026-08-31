@@ -35,8 +35,18 @@ def build_server() -> FastMCP:
 
 
 def main() -> None:
+    import os
     server = build_server()
-    server.run()
+    port_env = os.environ.get("PORT")
+    if port_env:
+        port = int(port_env)
+        server.settings.host = "0.0.0.0"
+        server.settings.port = port
+        server.settings.transport_security.enable_dns_rebinding_protection = False
+        print(f"Starting MCP server in SSE mode on port {port}...")
+        server.run(transport="sse")
+    else:
+        server.run()
 
 
 if __name__ == "__main__":
