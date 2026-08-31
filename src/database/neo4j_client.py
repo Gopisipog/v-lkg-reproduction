@@ -25,10 +25,10 @@ class Neo4jClient:
         try:
             self.driver = GraphDatabase.driver(uri, auth=(user, password))
             self.driver.verify_connectivity()
-            print("✅ Successfully connected to Neo4j.")
+            print("[INFO] Successfully connected to Neo4j.")
         except Exception as e:
-            print(f"❌ Failed to connect to Neo4j: {e}")
-            print("⚠️  Falling back to LocalGraphStore (JSON-based local knowledge graph).")
+            print(f"[ERROR] Failed to connect to Neo4j: {e}")
+            print("[WARNING] Falling back to LocalGraphStore (JSON-based local knowledge graph).")
             self.driver = None
             from src.database.local_graph import LocalGraphStore
             self._local_fallback = LocalGraphStore()

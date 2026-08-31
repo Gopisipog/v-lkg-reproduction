@@ -94,3 +94,24 @@ Verify phrase counts and dataset consistency:
 ```bash
 python verify_phrases.py
 ```
+
+## ☁️ Deployment to Google Cloud Run
+
+V-LKG can be easily deployed as a serverless container on **Google Cloud Run** using the provided `Dockerfile`.
+
+### Option A: Continuous Deployment via GitHub (Recommended)
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Navigate to **Cloud Run** and click **Create Service**.
+3. Select **"Continuously deploy new revisions from a source repository"** and select your repository `Gopisipog/v-lkg-reproduction`.
+4. Select the `main` branch.
+5. In the Build Configuration, choose **Dockerfile** (it will use the root `Dockerfile` to build the image via Cloud Build).
+6. Under **Variables & Secrets**, add your environment variables:
+   - `GEMINI_API_KEY` (from Google AI Studio)
+   - `GOOGLE_CLOUD_PROJECT` (your GCP project ID)
+7. Click **Create** to deploy.
+
+### Option B: Deploy via gcloud CLI
+If you have the Google Cloud SDK installed locally, run:
+```bash
+gcloud run deploy v-lkg --source . --port 8080 --allow-unauthenticated
+```

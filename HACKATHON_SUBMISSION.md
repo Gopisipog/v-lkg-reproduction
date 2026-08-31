@@ -99,6 +99,12 @@ streamlit run app.py
 ```
 *(Or use `START_APP.bat` on Windows)*
 
+### 4. Deploying to Google Cloud Run
+Deploy containerized to GCP Cloud Run in a single command:
+```bash
+gcloud run deploy v-lkg --source . --port 8080 --allow-unauthenticated
+```
+
 ---
 
 ## 📝 Devpost Submission Checklist & Video Guide
