@@ -1,0 +1,11 @@
+# This file is used by gcloud to ignore files when uploading source code to Google Cloud Run.
+.git
+.gitignore
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.system_generated/
+.pytest_cache/
+mcp_server/tests/.pytest_cache/

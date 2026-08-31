@@ -55,6 +55,47 @@ class Neo4jClient:
             with self.driver.session() as session:
                 result = session.run(query, parameters or {})
                 return result.data()
+        if self._local_fallback:
+            return self._local_execute_write(query, parameters)
+        return None
+
+    def _local_execute_write(self, query, parameters=None):
+        params = parameters or {}
+        q = query.strip()
+        
+        # 1. SET difficulty / applies_when property
+        if "SET t.difficulty" in q or "difficulty" in params or "applies_when" in params:
+            name = params.get("name")
+            if name and name in self._local_fallback.entities:
+                if "difficulty" in params:
+                    self._local_fallback.entities[name]["difficulty"] = params["difficulty"]
+                if "applies_when" in params:
+                    self._local_fallback.entities[name]["applies_when"] = params["applies_when"]
+                self._local_fallback._save()
+                return [{"name": name}]
+        
+        # 2. MERGE IS_PART_OF learning path steps
+        if "IS_PART_OF" in q or "order" in params:
+            name = params.get("name")
+            path = params.get("path")
+            order = params.get("order")
+            if name and path:
+                # Insert the IS_PART_OF triplet
+                self._local_fallback.insert_triplet(
+                    subject=name,
+                    subject_type="Concept",
+                    relation="IS_PART_OF",
+                    obj=path,
+                    obj_type="Path"
+                )
+                # Store order property
+                for t in self._local_fallback.triplets:
+                    if (t["subject"] == name and t["relation"] == "IS_PART_OF" and t["object"] == path):
+                        t["order"] = order
+                        break
+                self._local_fallback._save()
+                return [{"name": name}]
+                
         return None
 
     def execute_read(self, query, parameters=None):
@@ -71,6 +112,100 @@ class Neo4jClient:
 
         params = parameters or {}
         q = query.strip()
+
+        # 1. compute_betweenness_centrality
+        if "MATCH (n)-[r]-()" in q and "degree" in q.lower():
+            degrees = {}
+            for t in self._local_fallback.triplets:
+                s, o = t["subject"], t["object"]
+                degrees[s] = degrees.get(s, 0) + 1
+                degrees[o] = degrees.get(o, 0) + 1
+            for name in self._local_fallback.entities:
+                if name not in degrees:
+                    degrees[name] = 0
+            sorted_deg = sorted(degrees.items(), key=lambda x: x[1])
+            return [{"node": name, "degree": deg} for name, deg in sorted_deg[:10]]
+
+        # 2. _get_competencies_without_strategies
+        if "NOT (n)-[:HAS_STRATEGY]->()" in q:
+            targets = []
+            has_strategy = {t["subject"] for t in self._local_fallback.triplets if t["relation"] == "HAS_STRATEGY"}
+            for name, e in self._local_fallback.entities.items():
+                if e.get("type") in ("Competency", "Concept") and name not in has_strategy:
+                    targets.append({"name": name, "label": e.get("type", "Competency")})
+            return targets[:15]
+
+        # 3. _get_prerequisite_chains
+        if "IS_PREREQUISITE_FOR" in q and "steps" in q.lower():
+            chains = []
+            prereqs = [t for t in self._local_fallback.triplets if t["relation"] == "IS_PREREQUISITE_FOR"]
+            for p1 in prereqs:
+                for p2 in prereqs:
+                    if p1["object"] == p2["subject"]:
+                        chains.append({
+                            "start_node": p1["subject"],
+                            "end_node": p2["object"],
+                            "steps": [p1["subject"], p1["object"], p2["object"]]
+                        })
+            return chains[:10]
+
+        # 4. run_alternative_path_enrichment
+        if "collect(s.name)" in q and "HAS_STRATEGY" in q:
+            groups = {}
+            for t in self._local_fallback.triplets:
+                if t["relation"] == "HAS_STRATEGY":
+                    c = t["subject"]
+                    s = t["object"]
+                    groups.setdefault(c, []).append(s)
+            rows = []
+            for c, strats in groups.items():
+                c_type = self._local_fallback.entities.get(c, {}).get("type", "Competency")
+                rows.append({
+                    "competency": c,
+                    "comp_label": c_type,
+                    "strategies": strats[:3]
+                })
+            return rows[:8]
+
+        # 5. run_prequel_sequel_enrichment
+        if "collect(t.name)" in q and "HAS_TACTIC" in q:
+            strat_tactics = {}
+            for t in self._local_fallback.triplets:
+                if t["relation"] == "HAS_TACTIC":
+                    strat_tactics.setdefault(t["subject"], []).append(t["object"])
+            
+            rows = []
+            for t in self._local_fallback.triplets:
+                if t["relation"] == "HAS_STRATEGY":
+                    c = t["subject"]
+                    s = t["object"]
+                    c_type = self._local_fallback.entities.get(c, {}).get("type", "Competency")
+                    rows.append({
+                        "competency": c,
+                        "comp_label": c_type,
+                        "strategy": s,
+                        "tactics": strat_tactics.get(s, [])[:4]
+                    })
+            return rows[:12]
+
+        # 6. run_tactic_detail_enrichment
+        if "difficulty IS NULL" in q:
+            rows = []
+            for t in self._local_fallback.triplets:
+                if t["relation"] == "HAS_TACTIC":
+                    strat = t["subject"]
+                    tactic = t["object"]
+                    comp = ""
+                    for t2 in self._local_fallback.triplets:
+                        if t2["relation"] == "HAS_STRATEGY" and t2["object"] == strat:
+                            comp = t2["subject"]
+                            break
+                    rows.append({
+                        "tactic": tactic,
+                        "strategy": strat,
+                        "competency": comp
+                    })
+            return rows[:20]
 
         if _re.search(r"\(\s*n\s*\)\s*RETURN\s+count\s*\(\s*n\s*\)", q, _re.I):
             return [{"count": len(self._local_fallback.entities)}]
