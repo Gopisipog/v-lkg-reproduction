@@ -1,0 +1,15 @@
+# Use official lightweight Node.js image
+FROM node:20-slim
+
+# Set environment variables
+ENV NODE_ENV=production \
+    DANGEROUSLY_OMIT_AUTH=true
+
+# Install the inspector globally
+RUN npm install -g @modelcontextprotocol/inspector
+
+# Expose port
+EXPOSE 8080
+
+# Run the inspector directly, bypassing npx to avoid command line argument parsing conflicts
+CMD ["sh", "-c", "CLIENT_PORT=${PORT} SERVER_PORT=8081 mcp-inspector"]
