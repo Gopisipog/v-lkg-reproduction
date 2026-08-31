@@ -27,11 +27,12 @@ if not shutil.which("ffmpeg"):
 # Load environment variables (local .env file OR Streamlit Cloud secrets)
 load_dotenv()
 
-# In Streamlit Cloud, secrets are injected as env vars
-if hasattr(st, 'secrets') and st.secrets:
+try:
     for key in st.secrets:
         if key not in os.environ:
-            os.environ[key] = st.secrets[key]
+            os.environ[key] = str(st.secrets[key])
+except Exception:
+    pass
 
 st.set_page_config(page_title="V-LKG Query Engine", layout="wide")
 

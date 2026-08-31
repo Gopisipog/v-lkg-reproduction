@@ -9,6 +9,6 @@ echo [GCP] Please log in to your active Google Cloud Account in the browser wind
 call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" auth login
 
 echo [GCP] Deploying V-LKG to Google Cloud Run...
-call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" run deploy v-lkg --source . --port 8080 --allow-unauthenticated --region us-central1
+call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" run deploy v-lkg --source . --port 8080 --allow-unauthenticated --region us-central1 --quiet
 
 pause
