@@ -31,6 +31,22 @@ def build_server() -> FastMCP:
         ),
     )
     register_all(mcp)
+
+    # Inject CORSMiddleware to handle CORS preflight OPTIONS requests (fixes 405 errors)
+    orig_sse_app = mcp.sse_app
+    def custom_sse_app(*args, **kwargs):
+        app = orig_sse_app(*args, **kwargs)
+        from starlette.middleware.cors import CORSMiddleware
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["*"],
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+        return app
+    mcp.sse_app = custom_sse_app
+
     return mcp
 
 
