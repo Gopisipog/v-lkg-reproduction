@@ -5,7 +5,6 @@
 venv
 __pycache__
 *.pyc
-data/processed/*
 .system_generated
 .pytest_cache
 mcp_server/tests/.pytest_cache
