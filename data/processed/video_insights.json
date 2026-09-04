@@ -1,0 +1,3192 @@
+{
+    "videos": {
+        "learning": {
+            "video_count": 8,
+            "segment_count": 895,
+            "key_competencies": [
+                "Communication"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 8,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive": {
+            "video_count": 8,
+            "segment_count": 895,
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales": {
+            "video_count": 8,
+            "segment_count": 895,
+            "buyer_signals": [
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Urgency/priority signal",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance": {
+            "video_count": 8,
+            "segment_count": 895,
+            "keyword_findings_count": 4,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 4,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd": {
+            "video_count": 8,
+            "segment_count": 895,
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer": {
+            "video_count": 8,
+            "segment_count": 895,
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive": {
+            "video_count": 8,
+            "segment_count": 895,
+            "executive_summary": "Synthesized insights from 8 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Change",
+                "Communication"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Change",
+                    "implication": "Content provides insights on change",
+                    "urgency": "medium"
+                },
+                {
+                    "topic": "Communication",
+                    "implication": "Content provides insights on communication",
+                    "urgency": "medium"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "8 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge": {
+            "video_count": 8,
+            "segment_count": 895,
+            "core_concepts": [
+                {
+                    "concept": "Communication",
+                    "definition": "Key topic discussed across multiple video segments",
+                    "video_sources": []
+                }
+            ],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership": {
+            "video_count": 8,
+            "segment_count": 895,
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                },
+                {
+                    "narrative": "Change",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "_cross_video_themes": [
+            {
+                "theme": "Leadership fundamentals",
+                "source_engine": "learning",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Leadership development",
+                "source_engine": "sales",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Leadership ethics",
+                "source_engine": "compliance",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Explore emerging leadership models",
+                "source_engine": "rd",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Leadership challenges",
+                "source_engine": "customer",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Skill development",
+                "source_engine": "customer",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Change",
+                "source_engine": "executive",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Communication",
+                "source_engine": "executive",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Ai",
+                "source_engine": "thoughtleadership",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Leadership",
+                "source_engine": "executive_vid_jfW6gL6hKhk",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Strategy",
+                "source_engine": "executive_vid_jfW6gL6hKhk",
+                "frequency": "medium"
+            },
+            {
+                "theme": "Culture",
+                "source_engine": "executive_vid_jfW6gL6hKhk",
+                "frequency": "medium"
+            }
+        ],
+        "learning_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "key_competencies": [
+                "Communication"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 11,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "buyer_signals": [
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Urgency/priority signal",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Budget/pricing discussion",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "keyword_findings_count": 5,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 5,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "executive_summary": "Synthesized insights from 11 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Change",
+                "Communication"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Change",
+                    "implication": "Content provides insights on change",
+                    "urgency": "medium"
+                },
+                {
+                    "topic": "Communication",
+                    "implication": "Content provides insights on communication",
+                    "urgency": "medium"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "11 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "core_concepts": [
+                {
+                    "concept": "Communication",
+                    "definition": "Key topic discussed across multiple video segments",
+                    "video_sources": []
+                }
+            ],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_global": {
+            "video_count": 11,
+            "segment_count": 1502,
+            "scope": "global",
+            "video_id": "all",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                },
+                {
+                    "narrative": "Change",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "key_competencies": [
+                "Communication",
+                "Strategic Thinking",
+                "Team Leadership"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication",
+                "Emotional Intelligence",
+                "Decision Making"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "buyer_signals": [
+                {
+                    "signal": "General leadership interest",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "keyword_findings_count": 1,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 1,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Change"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Change",
+                    "implication": "Content provides insights on change",
+                    "urgency": "medium"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "core_concepts": [],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_NeqEKCrTbL4": {
+            "video_count": 1,
+            "segment_count": 281,
+            "scope": "per-video",
+            "video_id": "NeqEKCrTbL4",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                },
+                {
+                    "narrative": "Change",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "key_competencies": [
+                "Communication"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "buyer_signals": [
+                {
+                    "signal": "General leadership interest",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "keyword_findings_count": 1,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 1,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Change",
+                "Communication"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Change",
+                    "implication": "Content provides insights on change",
+                    "urgency": "medium"
+                },
+                {
+                    "topic": "Communication",
+                    "implication": "Content provides insights on communication",
+                    "urgency": "medium"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "core_concepts": [
+                {
+                    "concept": "Communication",
+                    "definition": "Key topic discussed across multiple video segments",
+                    "video_sources": []
+                }
+            ],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_dF3GFpIKPlE": {
+            "video_count": 1,
+            "segment_count": 167,
+            "scope": "per-video",
+            "video_id": "dF3GFpIKPlE",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                },
+                {
+                    "narrative": "Change",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "key_competencies": [
+                "Communication",
+                "Strategic Thinking",
+                "Team Leadership"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication",
+                "Emotional Intelligence",
+                "Decision Making"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "buyer_signals": [
+                {
+                    "signal": "Budget/pricing discussion",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "keyword_findings_count": 0,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 0,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Change"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Change",
+                    "implication": "Content provides insights on change",
+                    "urgency": "medium"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "core_concepts": [],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_iCvmsMzlF7o": {
+            "video_count": 1,
+            "segment_count": 326,
+            "scope": "per-video",
+            "video_id": "iCvmsMzlF7o",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                },
+                {
+                    "narrative": "Change",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "key_competencies": [
+                "Communication",
+                "Strategic Thinking",
+                "Team Leadership"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication",
+                "Emotional Intelligence",
+                "Decision Making"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "buyer_signals": [
+                {
+                    "signal": "General leadership interest",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "keyword_findings_count": 0,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 0,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Leadership",
+                "Strategy",
+                "Culture"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Leadership",
+                    "implication": "Cross-video themes inform organizational strategy",
+                    "urgency": "high"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "core_concepts": [],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_jfW6gL6hKhk": {
+            "video_count": 1,
+            "segment_count": 4,
+            "scope": "per-video",
+            "video_id": "jfW6gL6hKhk",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Leadership development",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Industry thought leaders"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "key_competencies": [
+                "Communication",
+                "Strategic Thinking",
+                "Team Leadership"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication",
+                "Emotional Intelligence",
+                "Decision Making"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "buyer_signals": [
+                {
+                    "signal": "Urgency/priority signal",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                },
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "keyword_findings_count": 2,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 2,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Leadership",
+                "Strategy",
+                "Culture"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Leadership",
+                    "implication": "Cross-video themes inform organizational strategy",
+                    "urgency": "high"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "core_concepts": [],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_jl3OLK9vP1o": {
+            "video_count": 1,
+            "segment_count": 314,
+            "scope": "per-video",
+            "video_id": "jl3OLK9vP1o",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        },
+        "learning_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "key_competencies": [
+                "Communication",
+                "Strategic Thinking",
+                "Team Leadership"
+            ],
+            "skills_gaps": [
+                {
+                    "gap": "Advanced strategic execution",
+                    "severity": "medium",
+                    "videos_addressing_it": [
+                        "See Strategy Map tab"
+                    ]
+                }
+            ],
+            "learning_paths": [
+                {
+                    "step": 1,
+                    "competency": "Core Leadership",
+                    "source_videos": [],
+                    "rationale": "Foundation for all leadership roles"
+                }
+            ],
+            "priority_areas": [
+                "Communication",
+                "Emotional Intelligence",
+                "Decision Making"
+            ],
+            "cross_video_themes": [
+                {
+                    "theme": "Leadership fundamentals",
+                    "video_count": 1,
+                    "description": "Core concepts appearing across multiple videos"
+                }
+            ],
+            "estimated_proficiency": {
+                "role": "emerging leader",
+                "timeline": "6-12 months"
+            }
+        },
+        "competitive_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "competitive_topics": [
+                {
+                    "topic": "Leadership best practices",
+                    "sentiment": "positive",
+                    "frequency": "high"
+                }
+            ],
+            "competitive_threats": [
+                {
+                    "threat": "Complacency in skill development",
+                    "severity": "medium",
+                    "competitor": "Industry peers"
+                }
+            ],
+            "market_opportunities": [
+                {
+                    "opportunity": "Upskilling programs",
+                    "potential": "high",
+                    "timeframe": "Ongoing"
+                }
+            ],
+            "differentiation_areas": [
+                "Leadership depth",
+                "Practical implementation"
+            ],
+            "strategic_recommendations": [
+                "Invest in continuous learning",
+                "Track industry thought leaders"
+            ],
+            "key_monitoring_signals": [
+                "Emerging leadership frameworks",
+                "New training methodologies"
+            ]
+        },
+        "sales_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "buyer_signals": [
+                {
+                    "signal": "Competitive evaluation",
+                    "strength": "medium",
+                    "count": 1
+                }
+            ],
+            "deal_themes": [
+                {
+                    "theme": "Leadership development",
+                    "relevance": "high",
+                    "source_videos": []
+                }
+            ],
+            "recommended_messaging": [
+                "Focus on actionable leadership insights",
+                "Emphasize practical frameworks"
+            ],
+            "objection_handlers": [
+                {
+                    "objection": "Too busy for training",
+                    "response": "Show ROI and time-efficient methods"
+                }
+            ],
+            "next_actions": [
+                {
+                    "action": "Share relevant video clips with prospects",
+                    "priority": "high"
+                }
+            ],
+            "competitive_positioning": "Deep leadership expertise vs. generic training alternatives"
+        },
+        "compliance_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "keyword_findings_count": 1,
+            "policy_topics_discussed": [
+                {
+                    "topic": "Leadership ethics",
+                    "mentions": 1,
+                    "severity": "medium"
+                }
+            ],
+            "risk_assessment": [
+                {
+                    "risk": "Inconsistent policy application",
+                    "severity": "medium",
+                    "mitigation": "Regular training sessions"
+                }
+            ],
+            "recommended_controls": [
+                "Regular policy reviews",
+                "Staff training on updates"
+            ],
+            "monitoring_plan": {
+                "frequency": "Quarterly",
+                "method": "Content audit"
+            },
+            "related_policies": [
+                "Code of conduct",
+                "Training compliance"
+            ],
+            "update_recommendation": "Review policy framework annually"
+        },
+        "rd_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "emerging_trends": [
+                {
+                    "trend": "Leadership innovation",
+                    "maturity": "growing",
+                    "impact": "high"
+                }
+            ],
+            "innovation_opportunities": [
+                {
+                    "opportunity": "Apply leadership frameworks to R&D",
+                    "effort": "medium",
+                    "potential": "High impact"
+                }
+            ],
+            "convergence_patterns": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Technology"
+                    ],
+                    "description": "Tech-enabled leadership development",
+                    "opportunity": "New learning products"
+                }
+            ],
+            "research_directions": [
+                {
+                    "direction": "Explore emerging leadership models",
+                    "rationale": "Content suggests evolving paradigms",
+                    "timeframe": "3-6 months"
+                }
+            ],
+            "potential_disruptions": [
+                "New collaboration paradigms",
+                "AI-assisted decision making"
+            ],
+            "recommended_partnerships": [
+                "Academic institutions",
+                "Learning technology providers"
+            ]
+        },
+        "customer_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "overall_sentiment": "mixed",
+            "sentiment_breakdown": {
+                "positive": 40,
+                "negative": 20,
+                "neutral": 40
+            },
+            "key_themes": [
+                {
+                    "theme": "Leadership challenges",
+                    "frequency": "high",
+                    "sentiment": "mixed"
+                },
+                {
+                    "theme": "Skill development",
+                    "frequency": "high",
+                    "sentiment": "positive"
+                }
+            ],
+            "pain_points": [
+                {
+                    "pain_point": "Implementing change",
+                    "severity": "high",
+                    "context": "Common challenge discussed in content"
+                }
+            ],
+            "desired_outcomes": [
+                {
+                    "outcome": "Better team engagement",
+                    "priority": "high"
+                }
+            ],
+            "recommendations": [
+                "Focus on practical implementation strategies",
+                "Provide more case studies and examples"
+            ]
+        },
+        "executive_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "executive_summary": "Synthesized insights from 1 videos covering leadership development and organizational effectiveness.",
+            "key_themes": [
+                "Leadership",
+                "Strategy",
+                "Culture"
+            ],
+            "strategic_implications": [
+                {
+                    "topic": "Leadership",
+                    "implication": "Cross-video themes inform organizational strategy",
+                    "urgency": "high"
+                }
+            ],
+            "key_metrics": [
+                {
+                    "metric": "Content coverage",
+                    "current_state": "1 videos",
+                    "trend": "improving"
+                }
+            ],
+            "recommended_decisions": [
+                {
+                    "decision": "Review all video insights for strategic alignment",
+                    "rationale": "Content spans multiple domains",
+                    "timeframe": "This quarter"
+                }
+            ],
+            "risks": [
+                {
+                    "risk": "Knowledge silos",
+                    "probability": "medium",
+                    "mitigation": "Cross-functional review sessions"
+                }
+            ],
+            "cross_domain_connections": [
+                {
+                    "domains": [
+                        "Leadership",
+                        "Strategy",
+                        "Culture"
+                    ],
+                    "insight": "Integrated approach yields better outcomes",
+                    "action": "Align initiatives across domains"
+                }
+            ]
+        },
+        "orgknowledge_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "core_concepts": [],
+            "key_principles": [
+                {
+                    "principle": "Continuous learning",
+                    "explanation": "Regular skill development is essential for leadership"
+                }
+            ],
+            "best_practices": [
+                "Document key takeaways per video",
+                "Cross-reference concepts across videos",
+                "Apply frameworks in practice"
+            ],
+            "common_pitfalls": [
+                {
+                    "pitfall": "Information overload",
+                    "prevention": "Focus on actionable insights"
+                }
+            ],
+            "related_areas": [
+                "Leadership development",
+                "Change management",
+                "Organizational culture"
+            ],
+            "expertise_level": "mixed",
+            "knowledge_gaps": [
+                {
+                    "gap": "Advanced domain-specific knowledge",
+                    "importance": "medium"
+                }
+            ],
+            "cross_references": []
+        },
+        "thoughtleadership_vid_paF4J941uqg": {
+            "video_count": 1,
+            "segment_count": 410,
+            "scope": "per-video",
+            "video_id": "paF4J941uqg",
+            "signal_count": 0,
+            "industry_momentum": "transforming",
+            "key_narratives": [
+                {
+                    "narrative": "Ai",
+                    "strength": "emerging",
+                    "proponents": [
+                        "Content creators"
+                    ]
+                }
+            ],
+            "thought_leaders": [
+                {
+                    "name": "Featured speakers",
+                    "expertise": "Leadership and management",
+                    "influence": "high"
+                }
+            ],
+            "content_gaps": [
+                {
+                    "gap": "Deep-dive industry analysis",
+                    "opportunity": "Expand beyond general leadership",
+                    "audience_demand": "high"
+                }
+            ],
+            "recommended_angles": [
+                {
+                    "angle": "Apply leadership frameworks to emerging trends",
+                    "rationale": "High audience interest",
+                    "format": "article"
+                }
+            ],
+            "contrarian_viewpoints": [
+                {
+                    "viewpoint": "Challenge conventional leadership wisdom",
+                    "evidence": "Emerging research and practice",
+                    "risk_level": "medium"
+                }
+            ]
+        }
+    },
+    "cross_video_themes": [
+        {
+            "theme": "Leadership fundamentals",
+            "source_engine": "learning",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Leadership development",
+            "source_engine": "sales",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Leadership ethics",
+            "source_engine": "compliance",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Explore emerging leadership models",
+            "source_engine": "rd",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Leadership challenges",
+            "source_engine": "customer",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Skill development",
+            "source_engine": "customer",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Change",
+            "source_engine": "executive",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Communication",
+            "source_engine": "executive",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Ai",
+            "source_engine": "thoughtleadership",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Leadership",
+            "source_engine": "executive_vid_jfW6gL6hKhk",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Strategy",
+            "source_engine": "executive_vid_jfW6gL6hKhk",
+            "frequency": "medium"
+        },
+        {
+            "theme": "Culture",
+            "source_engine": "executive_vid_jfW6gL6hKhk",
+            "frequency": "medium"
+        }
+    ],
+    "expert_patterns": [],
+    "last_updated": "2026-07-23T06:07:07.115142Z",
+    "video_count": 11,
+    "segment_count": 1502
+}

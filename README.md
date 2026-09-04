@@ -7,6 +7,30 @@
 
 A multimodal agentic pipeline that transforms unstructured YouTube leadership and educational content into a structured, queryable Neo4j Knowledge Graph.
 
+---
+
+## 📱 V-LKG Mobile & Linear Words Platform
+
+A mobile web application and FastAPI platform providing:
+- **Linear Words & Semantic Pathways**: Replaced complex node graphs with linear prioritized words and semantic knowledge pathways.
+- **Child Apps Hub**: Executive Leadership, Sales Accelerator, Communication Mastery, and GTM AI Engineering.
+- **Transcripts Explorer**: 3,184 time-aligned transcript segments across 16 videos with real-time text highlighting and instant timestamp navigation.
+- **Global Transcript Search**: Cross-video search endpoint `GET /api/transcripts/search?q=...` with instant hit navigation.
+- **Live Production URL**: [https://v-lkg-826803329504.us-central1.run.app](https://v-lkg-826803329504.us-central1.run.app)
+- **Dedicated GitHub Repository**: [https://github.com/Gopisipog/vlkg-mobile](https://github.com/Gopisipog/vlkg-mobile)
+
+### Quick Start (Mobile App)
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Run the full mobile platform (serves API and built UI at http://localhost:8080)
+python -m uvicorn mobile_api.server:app --host 0.0.0.0 --port 8080 --reload
+```
+Or double-click `START_MOBILE_APP.bat` on Windows.
+
+---
+
 ## Architecture
 
 This system consists of four primary technical layers:

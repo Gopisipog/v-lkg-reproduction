@@ -7,7 +7,7 @@ ENV NODE_ENV=production \
     DANGEROUSLY_BIND_ALL_INTERFACES=true \
     DANGEROUSLY_OMIT_AUTH=true \
     MCP_INSPECTOR_SECRET_STORE=memory \
-    ALLOWED_ORIGINS=https://v-lkg-inspector-cgwpuv3gna-uc.a.run.app,http://localhost:8080,http://127.0.0.1:8080,http://localhost:6274,http://127.0.0.1:6274
+    ALLOWED_ORIGINS=https://v-lkg-inspector-826803329504.us-central1.run.app,https://v-lkg-inspector-cgwpuv3gna-uc.a.run.app,http://localhost:8080,http://127.0.0.1:8080,http://localhost:6274,http://127.0.0.1:6274
 
 # Install the modern v2 inspector globally
 RUN npm install -g @modelcontextprotocol/inspector@2.4.0

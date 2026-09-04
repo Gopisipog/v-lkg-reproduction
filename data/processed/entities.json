@@ -1,0 +1,6496 @@
+[
+    {
+        "name": "Strategic Clarity",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "voice_1788431219",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            },
+            {
+                "video_id": "voice_1788431626",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "00:00",
+                "text": "Welcome to this leadership masterclass on strategic clarity, high-leverage habits, and scalable execution."
+            }
+        ]
+    },
+    {
+        "name": "Execution Velocity",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "02:00",
+                "text": "When teams practice continuous feedback loops, trust building and execution velocity increase dramatically."
+            }
+        ]
+    },
+    {
+        "name": "Active Listening",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "test_ingest_789"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "00:45",
+                "text": "The first cornerstone of elite leadership is active listening and setting clear operational boundaries."
+            }
+        ]
+    },
+    {
+        "name": "Trust Building",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "test_ingest_789"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "02:00",
+                "text": "When teams practice continuous feedback loops, trust building and execution velocity increase dramatically."
+            }
+        ]
+    },
+    {
+        "name": "Communication",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:04",
+                "text": "There are seven communication devices that separate people who bore their audiences"
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:34",
+                "text": "the communication around me to be able to get me down"
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "00:47",
+                "text": "This means you already can recognize the key behaviors of great communication, but you've just never applied them to you"
+            }
+        ]
+    },
+    {
+        "name": "Learning & Development",
+        "type": "IntelligenceDomain",
+        "color": "#7C4DFF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:15",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:15",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:15",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:15",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:04",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:15",
+                "text": "Learning & Development - IntelligenceDomain"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:30",
+                "text": "Learning & Development - IntelligenceDomain"
+            }
+        ]
+    },
+    {
+        "name": "Advanced strategic execution",
+        "type": "SkillGap",
+        "color": "#FF3D00",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:30",
+                "text": "Advanced strategic execution - SkillGap"
+            }
+        ]
+    },
+    {
+        "name": "Leadership best practices",
+        "type": "CompetitiveTopic",
+        "color": "#E040FB",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:45",
+                "text": "Leadership best practices - CompetitiveTopic"
+            }
+        ]
+    },
+    {
+        "name": "Market Positioning",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:45",
+                "text": "Market Positioning - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Complacency in skill development",
+        "type": "Threat",
+        "color": "#FF1744",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:20",
+                "text": "Complacency in skill development - Threat"
+            }
+        ]
+    },
+    {
+        "name": "Industry peers",
+        "type": "Competitor",
+        "color": "#C2185B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:20",
+                "text": "Industry peers - Competitor"
+            }
+        ]
+    },
+    {
+        "name": "Upskilling programs",
+        "type": "MarketOpportunity",
+        "color": "#00E676",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "04:57",
+                "text": "Upskilling programs - MarketOpportunity"
+            }
+        ]
+    },
+    {
+        "name": "Competitive Advantage",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "04:57",
+                "text": "you are going to have the ultimate competitive advantage."
+            }
+        ]
+    },
+    {
+        "name": "Competitive evaluation",
+        "type": "BuyerSignal",
+        "color": "#FF9100",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "paF4J941uqg",
+            "jl3OLK9vP1o",
+            "dF3GFpIKPlE"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:20",
+                "text": "Competitive evaluation - BuyerSignal"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:20",
+                "text": "Competitive evaluation - BuyerSignal"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:20",
+                "text": "Competitive evaluation - BuyerSignal"
+            }
+        ]
+    },
+    {
+        "name": "Commercial Opportunity",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:20",
+                "text": "Commercial Opportunity - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Urgency/priority signal",
+        "type": "BuyerSignal",
+        "color": "#FF9100",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "jl3OLK9vP1o",
+            "dF3GFpIKPlE"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:20",
+                "text": "Urgency/priority signal - BuyerSignal"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:20",
+                "text": "Urgency/priority signal - BuyerSignal"
+            }
+        ]
+    },
+    {
+        "name": "Leadership development",
+        "type": "DealTheme",
+        "color": "#FF6D00",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:35",
+                "text": "Leadership development - Narrative"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "04:00",
+                "text": "Leadership development - DealTheme"
+            }
+        ]
+    },
+    {
+        "name": "Revenue Growth",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "04:00",
+                "text": "Sustainable revenue growth requires strong value messaging, deliberate practice, and personal financial runway."
+            }
+        ]
+    },
+    {
+        "name": "Leadership ethics",
+        "type": "PolicyTopic",
+        "color": "#2979FF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:30",
+                "text": "Leadership ethics - PolicyTopic"
+            }
+        ]
+    },
+    {
+        "name": "Risk Mitigation",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:30",
+                "text": "Risk Mitigation - Strategy"
+            }
+        ]
+    },
+    {
+        "name": "Inconsistent policy application",
+        "type": "Risk",
+        "color": "#D50000",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:45",
+                "text": "Inconsistent policy application - Risk"
+            }
+        ]
+    },
+    {
+        "name": "Regular training sessions",
+        "type": "Control",
+        "color": "#5D4037",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:45",
+                "text": "Regular training sessions - Control"
+            }
+        ]
+    },
+    {
+        "name": "Leadership innovation",
+        "type": "EmergingTrend",
+        "color": "#00B8D4",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:40",
+                "text": "Leadership innovation - EmergingTrend"
+            }
+        ]
+    },
+    {
+        "name": "Engineering Velocity",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:40",
+                "text": "Engineering Velocity - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Apply leadership frameworks to R&D",
+        "type": "Innovation",
+        "color": "#00E5FF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:50",
+                "text": "Apply leadership frameworks to R&D - Innovation"
+            }
+        ]
+    },
+    {
+        "name": "Technical Architecture",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:50",
+                "text": "Technical Architecture - Strategy"
+            }
+        ]
+    },
+    {
+        "name": "Leadership challenges",
+        "type": "CustomerTheme",
+        "color": "#FF4081",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:10",
+                "text": "Leadership challenges - CustomerTheme"
+            }
+        ]
+    },
+    {
+        "name": "Customer Retention",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:10",
+                "text": "Customer Retention - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Skill development",
+        "type": "CustomerTheme",
+        "color": "#FF4081",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:10",
+                "text": "Skill development - CustomerTheme"
+            }
+        ]
+    },
+    {
+        "name": "Implementing change",
+        "type": "PainPoint",
+        "color": "#FF1744",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:10",
+                "text": "Implementing change - PainPoint"
+            }
+        ]
+    },
+    {
+        "name": "Active Empathy",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:10",
+                "text": "Active Empathy - Competency"
+            }
+        ]
+    },
+    {
+        "name": "Change",
+        "type": "ExecutiveTheme",
+        "color": "#651FFF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:00",
+                "text": "Give me the next seven minutes and I'm going to change the way you do presentations forever."
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "12:25",
+                "text": "You can see it made that change,"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "09:00",
+                "text": "but it doesn't actually change behavior,"
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "01:13",
+                "text": "But I had to change my approach the moment"
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "11:12",
+                "text": "and that they can't change,"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "00:16",
+                "text": "you can't change people who don't want"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "04:16",
+                "text": "What if I change the gear?"
+            },
+            {
+                "video_id": "VozV9KmhPTU",
+                "time": "10:32",
+                "text": "to work on your company. You don't have to change\u00a0 anything out here. You don't have to grab the wind"
+            }
+        ]
+    },
+    {
+        "name": "Review all video insights for strategic alignment",
+        "type": "Decision",
+        "color": "#1DE9B6",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "test_ingest_789",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:00",
+                "text": "Review all video insights for strategic alignment - Decision"
+            }
+        ]
+    },
+    {
+        "name": "Organizational Memory",
+        "type": "KnowledgeBase",
+        "color": "#37474F",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:04",
+                "text": "Organizational Memory - KnowledgeBase"
+            }
+        ]
+    },
+    {
+        "name": "Document key takeaways per video",
+        "type": "BestPractice",
+        "color": "#64DD17",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:40",
+                "text": "Document key takeaways per video - BestPractice"
+            }
+        ]
+    },
+    {
+        "name": "Operational Excellence",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:40",
+                "text": "Operational Excellence - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Cross-reference concepts across videos",
+        "type": "BestPractice",
+        "color": "#64DD17",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:40",
+                "text": "Cross-reference concepts across videos - BestPractice"
+            }
+        ]
+    },
+    {
+        "name": "Apply frameworks in practice",
+        "type": "BestPractice",
+        "color": "#64DD17",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:40",
+                "text": "Apply frameworks in practice - BestPractice"
+            }
+        ]
+    },
+    {
+        "name": "Ai",
+        "type": "Narrative",
+        "color": "#6200EA",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:42",
+                "text": "that now you can use AI,"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:15",
+                "text": "the AI data analyst for go to market teams,"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "08:54",
+                "text": "We have AI."
+            }
+        ]
+    },
+    {
+        "name": "Market Authority",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:42",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:00",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "04:42",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "00:00",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "04:42",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "00:00",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:35",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "04:42",
+                "text": "Market Authority - Outcome"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "04:42",
+                "text": "Market Authority - Outcome"
+            }
+        ]
+    },
+    {
+        "name": "Featured speakers",
+        "type": "ThoughtLeader",
+        "color": "#C51162",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:05",
+                "text": "Featured speakers - ThoughtLeader"
+            }
+        ]
+    },
+    {
+        "name": "Leadership and management",
+        "type": "Expertise",
+        "color": "#00897B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "jl3OLK9vP1o"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:05",
+                "text": "Leadership and management - Expertise"
+            }
+        ]
+    },
+    {
+        "name": "Budget/pricing discussion",
+        "type": "BuyerSignal",
+        "color": "#FF9100",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "iCvmsMzlF7o",
+            "dF3GFpIKPlE"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:20",
+                "text": "Budget/pricing discussion - BuyerSignal"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:20",
+                "text": "Budget/pricing discussion - BuyerSignal"
+            }
+        ]
+    },
+    {
+        "name": "Strategic Thinking",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:15",
+                "text": "Strategic Thinking - Competency"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:15",
+                "text": "Strategic Thinking - Competency"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:15",
+                "text": "Strategic Thinking - Competency"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:15",
+                "text": "Strategic Thinking - Competency"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:15",
+                "text": "Strategic Thinking - Competency"
+            }
+        ]
+    },
+    {
+        "name": "Team Leadership",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:15",
+                "text": "Team Leadership - Competency"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:15",
+                "text": "Team Leadership - Competency"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:15",
+                "text": "Team Leadership - Competency"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "01:15",
+                "text": "Team Leadership - Competency"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:15",
+                "text": "Team Leadership - Competency"
+            }
+        ]
+    },
+    {
+        "name": "General leadership interest",
+        "type": "BuyerSignal",
+        "color": "#FF9100",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "NeqEKCrTbL4",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE"
+        ],
+        "timestamps": [
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:20",
+                "text": "General leadership interest - BuyerSignal"
+            },
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:20",
+                "text": "General leadership interest - BuyerSignal"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "01:20",
+                "text": "General leadership interest - BuyerSignal"
+            }
+        ]
+    },
+    {
+        "name": "Leadership",
+        "type": "ExecutiveTheme",
+        "color": "#651FFF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "01:29",
+                "text": "is actually one of the biggest leadership traps."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "00:00",
+                "text": "Welcome to this leadership masterclass on strategic clarity, high-leverage habits, and scalable execution."
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "17:02",
+                "text": "You've seen it in leadership."
+            },
+            {
+                "video_id": "VozV9KmhPTU",
+                "time": "12:37",
+                "text": "to becoming an entrepreneur. In leadership,\u00a0 we teach to attract attractive people,"
+            }
+        ]
+    },
+    {
+        "name": "Strategy",
+        "type": "ExecutiveTheme",
+        "color": "#651FFF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "09:06",
+                "text": "the same strategy,"
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "02:39",
+                "text": "set up their strategy at the start of the week."
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "17:04",
+                "text": "The director who can quote the strategy"
+            }
+        ]
+    },
+    {
+        "name": "Culture",
+        "type": "ExecutiveTheme",
+        "color": "#651FFF",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "paF4J941uqg",
+            "jfW6gL6hKhk",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "00:00",
+                "text": "Culture - ExecutiveTheme"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "00:00",
+                "text": "Culture - ExecutiveTheme"
+            },
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:00",
+                "text": "Culture - ExecutiveTheme"
+            }
+        ]
+    },
+    {
+        "name": "Presentation",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:56",
+                "text": "So now in the middle of your presentation,"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "06:18",
+                "text": "PowerPoint presentation on why they need"
+            }
+        ]
+    },
+    {
+        "name": "Storytelling",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "05:36",
+                "text": "There's also storytelling."
+            }
+        ]
+    },
+    {
+        "name": "Storyteller",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "04:33",
+                "text": "So there's a wonderful book I shared with a storyteller this morning,"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "00:45",
+                "text": "is you're a storyteller."
+            }
+        ]
+    },
+    {
+        "name": "Engagement",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:58",
+                "text": "Usually you'd look for some kind of engagement,"
+            }
+        ]
+    },
+    {
+        "name": "Love",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "02:33",
+                "text": "love him or hate him, after recent events,"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:16",
+                "text": "they're just hurt or lost and if we love"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:45",
+                "text": "and really actually changed the way that I live and love"
+            }
+        ]
+    },
+    {
+        "name": "Teaching",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "03:51",
+                "text": "If you start to apply all the things I'm teaching you in this video,"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "09:23",
+                "text": "If you cannot translate it or the person who's teaching you,"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "05:19",
+                "text": ">> without teaching me a single useful"
+            }
+        ]
+    },
+    {
+        "name": "Digital Marketing",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "01:35",
+                "text": "Digital marketing."
+            }
+        ]
+    },
+    {
+        "name": "Audience",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "dF3GFpIKPlE",
+                "time": "00:18",
+                "text": "My question was to a certain extent to do with how you engage with the audience."
+            }
+        ]
+    },
+    {
+        "name": "Growth",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "03:06",
+                "text": "So I work out of this folder called graph growth agents."
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "09:34",
+                "text": "to create the growth you want."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "04:00",
+                "text": "Sustainable revenue growth requires strong value messaging, deliberate practice, and personal financial runway."
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "15:12",
+                "text": "Growth threatens people who benefit from"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "03:54",
+                "text": "and one \"opportunity for growth?\""
+            }
+        ]
+    },
+    {
+        "name": "Research",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:25",
+                "text": "I'm talking about doing keyword research for you,"
+            },
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "07:29",
+                "text": "Three, which is research a skill"
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "01:31",
+                "text": "Harvard research shows that professionals who guard their time"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "00:11",
+                "text": "mud because they know something research"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:40",
+                "text": "about a piece of my research that fundamentally expanded my perception"
+            }
+        ]
+    },
+    {
+        "name": "Writing",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:27",
+                "text": "then writing the blog post,"
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:43",
+                "text": "and I can actually spend more time writing LinkedIn posts,"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "08:38",
+                "text": "where I'm just writing and in my researcher mode."
+            }
+        ]
+    },
+    {
+        "name": "Connection",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "10:50",
+                "text": "I want you to use the Google Search Console data connection"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "13:19",
+                "text": "connection nobody else saw, and people"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "03:12",
+                "text": "So where I started was with connection."
+            }
+        ]
+    },
+    {
+        "name": "SEO",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "02:03",
+                "text": "this could be paid ads, this could be SEO,"
+            }
+        ]
+    },
+    {
+        "name": "Customer Experience",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:04",
+                "text": "your sales, your customer experience, your product work,"
+            }
+        ]
+    },
+    {
+        "name": "Go-To-Market",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "12:24",
+                "text": "that you're doing on the go-to-market side."
+            }
+        ]
+    },
+    {
+        "name": "Gtm Engineering",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:12",
+                "text": "This is often called GTM engineering"
+            }
+        ]
+    },
+    {
+        "name": "Keyword Research",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:25",
+                "text": "I'm talking about doing keyword research for you,"
+            }
+        ]
+    },
+    {
+        "name": "Blog Post",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:27",
+                "text": "then writing the blog post,"
+            }
+        ]
+    },
+    {
+        "name": "Blog",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:27",
+                "text": "then writing the blog post,"
+            }
+        ]
+    },
+    {
+        "name": "Newsletter",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "12:44",
+                "text": "and join the newsletter."
+            }
+        ]
+    },
+    {
+        "name": "Youtube",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "07:10",
+                "text": "go and subscribe to my YouTube channel."
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "00:34",
+                "text": "Let me explain, let me prove it to you. Whenever you watch a YouTube video or you're sitting in a meeting or listening t"
+            }
+        ]
+    },
+    {
+        "name": "Facebook Ads",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:33",
+                "text": "talking about within your Facebook ads,"
+            }
+        ]
+    },
+    {
+        "name": "Linkedin",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "13:01",
+                "text": "go follow me on Twitter or follow me on LinkedIn."
+            },
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:43",
+                "text": "and I can actually spend more time writing LinkedIn posts,"
+            }
+        ]
+    },
+    {
+        "name": "Twitter",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "13:01",
+                "text": "go follow me on Twitter or follow me on LinkedIn."
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "14:46",
+                "text": "It was funny, I sent something out on Twitter and on Facebook"
+            }
+        ]
+    },
+    {
+        "name": "Google Search Console",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "10:14",
+                "text": "that we're getting back from Google Search Console"
+            }
+        ]
+    },
+    {
+        "name": "Looker Studio",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "05:54",
+                "text": "that you can for Looker Studio versus Y."
+            }
+        ]
+    },
+    {
+        "name": "API",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "03:28",
+                "text": "where all of my API keys from my entire stack"
+            }
+        ]
+    },
+    {
+        "name": "Claude Code",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "00:01",
+                "text": "Claude code so that you can do your marketing,"
+            }
+        ]
+    },
+    {
+        "name": "MCP",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "paF4J941uqg",
+                "time": "01:26",
+                "text": "You can also connect it via MCP"
+            }
+        ]
+    },
+    {
+        "name": "Feedback",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "09:43",
+                "text": "It is that 10,000 iterations is a proxy for feedback loops,"
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "02:00",
+                "text": "When teams practice continuous feedback loops, trust building and execution velocity increase dramatically."
+            }
+        ]
+    },
+    {
+        "name": "Learning",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "08:50",
+                "text": "Spend time learning."
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "08:21",
+                "text": "She is learning from one of the best though,"
+            }
+        ]
+    },
+    {
+        "name": "Meaning",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "09:09",
+                "text": "meaning you're in the same bedroom,"
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "03:23",
+                "text": "It's what gives purpose and meaning to our lives."
+            }
+        ]
+    },
+    {
+        "name": "Podcast",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:46",
+                "text": "creating more content, working on my new podcast."
+            }
+        ]
+    },
+    {
+        "name": "Productivity",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "06:57",
+                "text": "because the biggest killer of productivity is task switching."
+            }
+        ]
+    },
+    {
+        "name": "Distributions",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "00:00",
+                "text": "42 million dollars in distributions, a 46.2 million dollar exit,"
+            }
+        ]
+    },
+    {
+        "name": "Exit",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "00:00",
+                "text": "42 million dollars in distributions, a 46.2 million dollar exit,"
+            }
+        ]
+    },
+    {
+        "name": "Revenue",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "13:44",
+                "text": "not 100K in revenue."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "04:00",
+                "text": "Sustainable revenue growth requires strong value messaging, deliberate practice, and personal financial runway."
+            }
+        ]
+    },
+    {
+        "name": "First 100K",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jfW6gL6hKhk",
+                "time": "02:45",
+                "text": "to your first 100K, I want to make it faster"
+            }
+        ]
+    },
+    {
+        "name": "Courage",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "01:07",
+                "text": "I tried to call deep on my courage."
+            }
+        ]
+    },
+    {
+        "name": "Confidence",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "03:15",
+                "text": "and that you need to move into having confidence"
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "06:31",
+                "text": "robbing you of clarity and confidence."
+            }
+        ]
+    },
+    {
+        "name": "Boundaries",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "01:42",
+                "text": "If you have boundaries, you are a leader."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "00:45",
+                "text": "The first cornerstone of elite leadership is active listening and setting clear operational boundaries."
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "01:06",
+                "text": "Empathy without boundaries is"
+            }
+        ]
+    },
+    {
+        "name": "Decision Making",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "06:27",
+                "text": "your decision making and high pressure moments."
+            }
+        ]
+    },
+    {
+        "name": "Reading",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "12:10",
+                "text": "And this Deep Work looks like spending time reading,"
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "00:32",
+                "text": "commission who's reading them."
+            }
+        ]
+    },
+    {
+        "name": "Networking",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:17",
+                "text": "and not able to do more networking events"
+            },
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "02:49",
+                "text": "Imagine you're at a networking function and you meet a group of people for the first time"
+            }
+        ]
+    },
+    {
+        "name": "Shame",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "04:39",
+                "text": "And it turned out to be shame."
+            }
+        ]
+    },
+    {
+        "name": "Purpose",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "03:02",
+                "text": "Every single day has a very specific purpose."
+            },
+            {
+                "video_id": "iCvmsMzlF7o",
+                "time": "03:23",
+                "text": "It's what gives purpose and meaning to our lives."
+            }
+        ]
+    },
+    {
+        "name": "Mindset",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "07:01",
+                "text": "and my mindset around this that was so broken"
+            }
+        ]
+    },
+    {
+        "name": "Leads",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "jzzTomTwltQ",
+                "time": "05:32",
+                "text": "leads to bad decisions."
+            }
+        ]
+    },
+    {
+        "name": "Self-Awareness",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "04:33",
+                "text": "This is you developing more self-awareness,"
+            }
+        ]
+    },
+    {
+        "name": "Trust",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "02:29",
+                "text": "Please trust me on this one."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "02:00",
+                "text": "When teams practice continuous feedback loops, trust building and execution velocity increase dramatically."
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "03:16",
+                "text": "trust that feeling. They don't gaslight"
+            }
+        ]
+    },
+    {
+        "name": "Values",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "05:40",
+                "text": "do you visually communicate those values?"
+            },
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "08:40",
+                "text": "someone who values fairness, [music] who"
+            }
+        ]
+    },
+    {
+        "name": "Knowledge",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "11:03",
+                "text": "to consumption of knowledge and the acquisition of knowledge."
+            },
+            {
+                "video_id": "jl3OLK9vP1o",
+                "time": "04:52",
+                "text": "knowledge. The system chose the word"
+            }
+        ]
+    },
+    {
+        "name": "Reflection",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "NeqEKCrTbL4",
+                "time": "14:23",
+                "text": "yourself, it's not a reflection of your"
+            }
+        ]
+    },
+    {
+        "name": "Strategic Clarity & Audience Adaptation",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Audience Mapping: Identify stakeholders' values, knowledge level, and communication preferences to tailor language and channel",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Active Listening & Feedback Loops",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Paraphrase & Confirm: Restate the speaker's message in your own words and ask for confirmation to ensure mutual understanding",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Rehearsed Adaptive Delivery",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Run two full dry runs with a timer, recording yourself to eliminate filler words and refine pacing",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Prepare a 'live pivot' toolkit with three alternative examples or analogies to deploy if you sense confusion or disengagement",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Craft Narrative Structure",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Use the 'Hero's Journey' arc (challenge, struggle, transformation) for key messages",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Open with a concrete, emotionally resonant hook (a specific moment, not a summary)",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Anchor Stories to Audience Values",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Map each story's moral to a specific audience pain point or aspiration before telling it",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Include a 'so what' line that explicitly links the story's lesson to a decision or action the audience must take",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Persuasive Influence and Shared Vision Alignment",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Craft Narratives with Emotional Resonance",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Use the 'Hero's Journey' framework to frame a team challenge as a personal growth arc",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Open with a vivid sensory detail or a moment of vulnerability to hook listeners",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Adapt Stories to Audience and Context",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Organizational Alignment and Shared Purpose",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Foster Psychological Safety and Open Dialogue",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Conduct weekly 'listening circles' where team members share concerns without interruption or judgment",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Publicly acknowledge and reward constructive dissent and questions that challenge the status quo",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Create Meaningful Work and Ownership",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Hold quarterly 'impact mapping' sessions where each team member links their tasks to organizational mission and defines personal success metrics",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Delegate decision rights for specific projects to team members, with clear boundaries and accountability checkpoints",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Team Cohesion and Sustained Performance",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Radical Empathy",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Map the emotional drivers of each team member's work style and reference those drivers when assigning tasks or giving feedback",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Cultivate Unconditional Regard",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Separate performance evaluation from personal worth by giving feedback that targets behavior, not character, and explicitly affirming the person's value",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Create a 'no shame' norm in meetings where mistakes are publicly reframed as learning data and the person who made the mistake is thanked for their courage",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Socratic Questioning and Guided Discovery",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Pause after each learner response to ask 'How did you arrive at that conclusion?' before offering your own input",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Structured Modeling and Deliberate Practice",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Driven Audience Segmentation",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Implement predictive analytics to cluster prospects by behavioral intent",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Omnichannel Content Amplification",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Measurable Customer Acquisition and Brand Growth",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Segment and Prioritize Stakeholders",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Create tailored communication plans for each segment (e",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Empathetic Listening and Adaptation",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Conduct active listening sessions (e",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Trust and Alignment Across Diverse Groups",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Cultivate a Deliberate Learning Cycle",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Set a quarterly 'stretch goal' that requires learning a new skill outside your current expertise, and track progress against it",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Embed Feedback and Reflection into Daily Work",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Ask one targeted question (e",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Maintain a 'growth journal' where you capture one insight from a mistake or challenge each day, and review it monthly to spot patterns",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Adaptive Resilience and Continuous Innovation",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Systematic Inquiry & Evidence Synthesis",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Conduct a structured literature review using Boolean operators and citation chaining to map the landscape of a problem before proposing solutions",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Create a living evidence matrix (e",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Applied Experimentation & Iterative Validation",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "First Drafting",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Use the 'one idea per paragraph' rule and delete any sentence that doesn't serve that idea",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Adaptive Revision",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Create a reader persona (role, knowledge level, decision pressure) and rewrite jargon into their language",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Influence Without Authority",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Cultivate Relational Depth",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Active Listening with Reflective Summaries",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Build Shared Purpose and Trust",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Publicly Acknowledge Individual Contributions",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Psychological Safety and Team Cohesion",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Technical Foundation Optimization",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Conduct a Core Web Vitals audit and fix Largest Contentful Paint (LCP) above 2",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Authority and Content Ecosystem Building",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Sustainable Organic Growth and Market Visibility",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "End Journey",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Create a feedback loop with frontline staff to update journey maps quarterly",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Empower Employee Ownership of Experience",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Give frontline teams budget authority to resolve customer issues without escalation",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Increased Customer Loyalty and Sustainable Revenue Growth",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Narrative Framing & Persuasive Storytelling",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Reframe the 'Why' in 3 Lenses: For each key message, leaders practice delivering it through three distinct narrative frames\u2014(1) the 'Challenge/Stakes' frame (urgency, risk, what\u2019s lost), (2) the 'Opportunity/Vision' frame (future state, aspiration, what\u2019s gained), and (3) the 'Shared Identity' frame (values, common enemy, collective 'we')",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Use Story as a Shared Inquiry Tool",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Deliberately tell a story with an unresolved ethical dilemma, then facilitate a structured dialogue where participants must argue for different protagonist choices based on their own values and experiences",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Creation Tool",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Run 'Story Autopsies' on Past Decisions: Instead of telling a polished story, leaders bring a real, unresolved or failed decision to the group",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Loving Accountability",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Active Listening & Empathetic Inquiry",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Message Framing & Channel Selection",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Persuasive Storytelling & Narrative Craft",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "2. \"Paraphrase & Confirm: Restate the speaker's message in your own words and ask for confirmation to ensure mutual understanding",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Probing Clarifying Questions",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "3. \"Communication",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Persuasive Storytelling & Narrative Framing",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Judgmental Presence",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Structured Message Architecture",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Peer Feedback Calibration Session",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Audience Response Pattern Analysis",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Improvisational Storytelling",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Understanding Audience Psychology",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Map Audience Emotional Beats to Arc Stages",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Audience Empathy Mapping",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Craft the Narrative Arc Around the Mapped Value",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Reinforce the Call to Action with a Concrete Example",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "1. \"Craft Narratives with Emotional Resonance",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Understanding Audience Psychology and Core Human Motivations",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "2. \"Use the 'Hero's Journey' framework to frame a team challenge as a personal growth arc",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Map Team Milestones to the Hero's Journey Stages",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "4. \"Understanding Audience Psychology and Core Human Motivations",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "1. \"Adapt Stories to Audience and Context",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Audience Analysis and Empathy Mapping",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "2. \"Tactic A",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Tailor Narrative Arc and Emotional Beats",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "3. \"Storyteller",
+        "type": "Competency",
+        "color": "#2196F3",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Craft Universal Archetypal Narratives",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "4. \"Audience Analysis and Empathy Mapping",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Trust and Mutual Respect",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Gamify Contribution and Recognition",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Adapt Communication Styles to Individual Emotional Cues",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Unconditional Positive Regard",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Awareness",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "04:33",
+                "text": "This is you developing more self-awareness,"
+            }
+        ]
+    },
+    {
+        "name": "Distinguish Person from Behavior",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Restorative Conversations After Feedback",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Institute Structured Vulnerability Sharing Rituals",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Practice Radical Empathetic Listening",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "1. \"Socratic Questioning and Guided Discovery",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Active Listening and Probing Fundamentals",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "3. \"Teaching",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "Direct Instruction with Worked Examples",
+        "type": "Strategy",
+        "color": "#FF5722",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [],
+        "timestamps": []
+    },
+    {
+        "name": "4. \"Active Listening and Probing Fundamentals",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Cognitive Load Theory and Task Analysis",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Fading and Transfer of Scaffolded Practice",
+        "type": "Tactic",
+        "color": "#E91E63",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "test_ingest_789",
+            "NeqEKCrTbL4",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "To create a searchable, shareable artifact that attracts targeted attention, builds credibility, and generates feedback for further content development",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders need to establish thought leadership but lack a scalable, searchable platform to share insights and attract organic attention",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders struggle to maintain consistent, meaningful communication with a dispersed team or audience, leading to misalignment and low engagement",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Builds a regular cadence of curated insights and updates, reinforcing key priorities and fostering a sense of connection and shared direction",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders need to quickly understand what language, questions, and pain points their audience actually uses, rather than guessing",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders need to validate audience interest or test messaging quickly but lack organic reach or direct customer feedback channels",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders lack visibility into how their organization's content is actually discovered and which search queries drive real engagement",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Teams get stuck in vague, circular debates about what to do next without a concrete way to test assumptions or prioritize actions",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Teams stall when members passively wait for direction or permission before acting",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "To shift ownership to the team by having them propose solutions, not just present problems",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Leaders often miscommunicate by using jargon, wrong channels, or assumptions about what stakeholders already know or care about",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Ensures the message resonates, is understood, and prompts the desired action by aligning content and delivery with each audience's reality",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Misunderstandings, assumptions, and vague or emotionally charged messages that derail clarity and trust",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Verifies accurate comprehension, builds psychological safety, and prevents costly misalignment before action",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Presentations that feel rambling, rushed, or unpolished due to verbal tics and uneven tempo",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "A crisp, confident delivery with natural rhythm and minimal verbal clutter, ensuring the message lands clearly",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Regains attention and clarifies the concept instantly, keeping the presentation on track and impactful",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Messages that feel flat or abstract fail to engage listeners because they lack emotional stakes or a clear point of change",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "To make the message memorable and inspiring by framing the audience or team as the protagonist who overcomes a real obstacle and emerges changed",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Audiences tune out when leaders start with abstract overviews or chronological recaps that lack human stakes",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Instantly captures attention and creates an emotional anchor that makes the rest of the narrative feel urgent and personal",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Stories feel generic or irrelevant, failing to connect with listeners' real concerns or goals",
+        "type": "Context",
+        "color": "#607D8B",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "The story lands as personally meaningful, increasing emotional engagement and persuasive impact",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Transforms narrative insight into a clear, actionable mandate, ensuring the story drives a specific behavioral or strategic change",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "VozV9KmhPTU",
+            "iCvmsMzlF7o",
+            "NeqEKCrTbL4",
+            "test_ingest_789",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "paF4J941uqg",
+            "dF3GFpIKPlE",
+            "voice_1788431626",
+            "jzzTomTwltQ",
+            "jl3OLK9vP1o",
+            "U40qvUiefQo"
+        ],
+        "timestamps": []
+    },
+    {
+        "name": "Clarity",
+        "type": "Outcome",
+        "color": "#FF9800",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "voice_1788431626",
+            "voice_1788431219",
+            "U40qvUiefQo",
+            "test_ingest_789"
+        ],
+        "timestamps": [
+            {
+                "video_id": "U40qvUiefQo",
+                "time": "06:31",
+                "text": "robbing you of clarity and confidence."
+            },
+            {
+                "video_id": "voice_1788431219",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            },
+            {
+                "video_id": "voice_1788431626",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            },
+            {
+                "video_id": "test_ingest_789",
+                "time": "00:00",
+                "text": "Welcome to this leadership masterclass on strategic clarity, high-leverage habits, and scalable execution."
+            }
+        ]
+    },
+    {
+        "name": "Extreme Ownership",
+        "type": "Concept",
+        "color": "#4CAF50",
+        "first_seen": "2026-09-03T15:03:03.670713",
+        "video_ids": [
+            "voice_1788431626",
+            "voice_1788431219",
+            "U40qvUiefQo",
+            "test_ingest_789"
+        ],
+        "timestamps": [
+            {
+                "video_id": "voice_1788431219",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            },
+            {
+                "video_id": "voice_1788431626",
+                "time": "00:00",
+                "text": "Strategic clarity and extreme ownership drive organizational velocity."
+            }
+        ]
+    }
+]

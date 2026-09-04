@@ -8,7 +8,7 @@ set CLOUDSDK_CONFIG=D:\temp\gcloud_config
 echo [GCP] Please log in to your active Google Cloud Account in the browser window that opens...
 call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" auth login
 
-echo [GCP] Deploying V-LKG to Google Cloud Run...
-call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" run deploy v-lkg --source . --port 8080 --allow-unauthenticated --region us-central1 --quiet
+echo [GCP] Deploying V-LKG Mobile & Linear Words Platform to Google Cloud Run...
+call "C:\Users\gopic\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd" run deploy v-lkg --source . --port 8080 --memory 2Gi --cpu 1 --timeout 300 --allow-unauthenticated --region us-central1 --quiet
 
 pause

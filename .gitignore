@@ -3,8 +3,8 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.egg-info/
-dist/
-build/
+/dist/
+/build/
 *.egg
 
 # Virtual environments
@@ -18,9 +18,10 @@ env/
 
 # Data files (large, generated)
 data/raw/*
-data/processed/*
 !data/raw/.gitkeep
+data/processed/*
 !data/processed/.gitkeep
+!data/processed/*.json
 
 # Streamlit
 .streamlit/secrets.toml
@@ -42,3 +43,13 @@ Thumbs.db
 
 # Ruff cache
 .ruff_cache/
+
+# Node / Frontend
+node_modules/
+*/node_modules/
+mobile-ui/node_modules/
+!mobile-ui/dist/**
+.expo/
+.next/
+*.log
+

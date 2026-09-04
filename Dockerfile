@@ -26,8 +26,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application source code
 COPY . /app/
 
-# Expose Streamlit port
+# Expose application port
 EXPOSE 8080
 
-# Run Streamlit, dynamically using the PORT env var provided by Cloud Run
-CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT} --server.address=0.0.0.0"]
+# Run V-LKG Mobile & Linear Words Platform via Uvicorn, using PORT provided by Cloud Run
+CMD ["sh", "-c", "python -m uvicorn mobile_api.server:app --host 0.0.0.0 --port ${PORT:-8080}"]

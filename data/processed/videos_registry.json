@@ -1,0 +1,180 @@
+[
+  {
+    "video_id": "test_ingest_789",
+    "title": "YouTube Leadership Video [test_ingest_789]",
+    "url": "https://www.youtube.com/watch?v=test_ingest_789",
+    "thumbnail_url": "https://i.ytimg.com/vi/test_ingest_789/maxresdefault.jpg",
+    "channel": "YouTube Leadership Series",
+    "duration_sec": 540,
+    "summary": "Ingested YouTube educational video covering strategic principles, execution habits, and leadership frameworks.",
+    "segment_count": 4,
+    "ingested_at": "2026-03-25T12:00:00Z"
+  },
+  {
+    "video_id": "voice_1788431626",
+    "title": "Automated Test Voice Note",
+    "url": "",
+    "thumbnail_url": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&auto=format&fit=crop&q=80",
+    "channel": "Live Voice Studio",
+    "duration_sec": 30,
+    "summary": "Live voice recording focused on Automated Test Voice Note. Discusses strategic concepts, action principles, and leadership frameworks captured in real-time.",
+    "segment_count": 1,
+    "ingested_at": "2026-09-03T10:33:46.941305Z",
+    "is_voice_recording": true
+  },
+  {
+    "video_id": "voice_1788431219",
+    "title": "Automated Test Voice Note",
+    "url": "",
+    "thumbnail_url": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&auto=format&fit=crop&q=80",
+    "channel": "Live Voice Studio",
+    "duration_sec": 30,
+    "summary": "Live voice recording focused on Automated Test Voice Note. Discusses strategic concepts, action principles, and leadership frameworks captured in real-time.",
+    "segment_count": 1,
+    "ingested_at": "2026-09-03T10:26:59.326646Z",
+    "is_voice_recording": true
+  },
+  {
+    "video_id": "dF3GFpIKPlE",
+    "title": "7 Communication Devices That Separate Great Presenters",
+    "url": "https://www.youtube.com/watch?v=dF3GFpIKPlE",
+    "thumbnail_url": "https://i.ytimg.com/vi/dF3GFpIKPlE/maxresdefault.jpg",
+    "channel": "Leadership & Communication",
+    "duration_sec": 378,
+    "summary": "This video teaches seven powerful communication techniques used by elite presenters to captivate audiences. It covers strategies such as storytelling, contrast, and the use of rhetorical questions to maintain engagement. By applying these devices, speakers can dramatically improve how their message lands and inspire action.",
+    "segment_count": 167,
+    "ingested_at": "2026-03-15T10:05:43.418165Z"
+  },
+  {
+    "video_id": "paF4J941uqg",
+    "title": "GTM Engineering with Claude Code Crash Course",
+    "url": "https://www.youtube.com/watch?v=paF4J941uqg",
+    "thumbnail_url": "https://i.ytimg.com/vi/paF4J941uqg/maxresdefault.jpg",
+    "channel": "Cody Schneider",
+    "duration_sec": 800,
+    "summary": "In the video, Cody Schneider emphasizes the importance of leveraging AI tools like Claude code for effective go-to-market (GTM) engineering, illustrating how it can streamline marketing, sales, and customer experience tasks. He encourages leaders to shift their focus from routine execution to harnessing technology that automates and enhances productivity, allowing them to concentrate on strategic ideas. By doing so, leaders can foster a more innovative environment where the workflow is optimized, enabling teams to collaborate effectively and improve overall performance.",
+    "segment_count": 410,
+    "ingested_at": "2026-03-15T12:48:40.878361Z"
+  },
+  {
+    "video_id": "jfW6gL6hKhk",
+    "title": "If I Wanted to Make My First $100K in 2026, I\u2019d Do This",
+    "url": "https://www.youtube.com/watch?v=jfW6gL6hKhk",
+    "thumbnail_url": "https://i.ytimg.com/vi/jfW6gL6hKhk/maxresdefault.jpg",
+    "channel": "Alex Hormozi",
+    "duration_sec": 945,
+    "summary": "This video teaches that effective leadership and communication begin with personal financial stability, as it frees mental capacity for long-term strategic thinking. It communicates the principle of leading by example through extreme personal sacrifice and cost-cutting to build a foundation for future risk-taking. The speaker uses vivid, relatable storytelling from his own experience to authentically convey the discipline and mindset required to achieve a foundational goal.",
+    "segment_count": 493,
+    "ingested_at": "2026-03-15T14:14:42.085964Z"
+  },
+  {
+    "video_id": "jzzTomTwltQ",
+    "title": "How To Manage Your Time Like The Top 1%",
+    "url": "https://www.youtube.com/watch?v=jzzTomTwltQ",
+    "thumbnail_url": "https://i.ytimg.com/vi/jzzTomTwltQ/maxresdefault.jpg",
+    "channel": "Natalie Dawson",
+    "duration_sec": 833,
+    "summary": "This video teaches that effective leadership requires setting clear boundaries on your availability, as constant accessibility diminishes your perceived value and traps you in a reactive role. It emphasizes that being less available, such as by batching communications, forces others to develop problem-solving skills and positions you as a strategic leader rather than just a responder. Ultimately, protecting your time creates scarcity that increases your effectiveness and allows you to focus on high-impact work.",
+    "segment_count": 367,
+    "ingested_at": "2026-03-15T15:12:36.246118Z"
+  },
+  {
+    "video_id": "U40qvUiefQo",
+    "title": "30 Day Plan to Master Your Communication [Complete Beginner\u2019s Guide] + FREE Workbook PDF",
+    "url": "https://www.youtube.com/watch?v=U40qvUiefQo",
+    "thumbnail_url": "https://i.ytimg.com/vi/U40qvUiefQo/maxresdefault.jpg",
+    "channel": "Vinh Giang",
+    "duration_sec": 711,
+    "summary": "This video teaches that effective communication begins with self-awareness, specifically through recording and reviewing oneself to objectively identify strengths and weaknesses. It emphasizes that the principles of great communication are already intuitively understood but must be deliberately applied to one's own behavior. The method promotes a structured, self-reflective practice to bridge the gap between recognizing good communication in others and embodying it personally.",
+    "segment_count": 265,
+    "ingested_at": "2026-03-25T11:08:01.907527Z"
+  },
+  {
+    "video_id": "live_1778475275",
+    "title": "Live Audio (record)",
+    "url": "",
+    "channel": "Live Mic",
+    "thumbnail_url": "",
+    "summary": "Live microphone capture \u2014 2 segments",
+    "duration_sec": 0,
+    "segment_count": 2,
+    "ingested_at": "2026-05-11T04:54:35.370846Z"
+  },
+  {
+    "video_id": "NeqEKCrTbL4",
+    "title": "This Is How Smart People Handle Toxic People | Bren\u00e9 Brown\u2019s Most Transformative Lesson",
+    "channel": "Unapologetically Human",
+    "duration_sec": 1023,
+    "summary": "Bren\u00e9 Brown explores emotional boundaries, empathy, navigating toxic workplace dynamics, and organizational trust.",
+    "url": "https://www.youtube.com/watch?v=NeqEKCrTbL4",
+    "thumbnail_url": "https://i.ytimg.com/vi/NeqEKCrTbL4/hqdefault.jpg",
+    "ingested_at": "2026-09-03T15:02:52.991828Z",
+    "segment_count": 455
+  },
+  {
+    "video_id": "jl3OLK9vP1o",
+    "title": "The Problem-Solving Method They Removed From Every Textbook | Feynman Archives",
+    "channel": "Feynman Archives",
+    "duration_sec": 1092,
+    "summary": "Richard Feynman's principles of first-principles thinking, rigorous problem decomposition, and hypothesis testing.",
+    "url": "https://www.youtube.com/watch?v=jl3OLK9vP1o",
+    "thumbnail_url": "https://i.ytimg.com/vi/jl3OLK9vP1o/hqdefault.jpg",
+    "ingested_at": "2026-09-03T15:02:54.564070Z",
+    "segment_count": 471
+  },
+  {
+    "video_id": "iCvmsMzlF7o",
+    "title": "The Power of Vulnerability | Bren\u00e9 Brown | TED",
+    "channel": "TED",
+    "duration_sec": 1250,
+    "summary": "Bren\u00e9 Brown's world-famous study on human connection, courage, authentic leadership, and communicative presence.",
+    "url": "https://www.youtube.com/watch?v=iCvmsMzlF7o",
+    "thumbnail_url": "https://i.ytimg.com/vi/iCvmsMzlF7o/hqdefault.jpg",
+    "ingested_at": "2026-09-03T15:02:56.464410Z",
+    "segment_count": 391
+  },
+  {
+    "video_id": "VozV9KmhPTU",
+    "title": "STOP WORKING SO HARD ON YOUR JOB | Jim Rohn Seminar",
+    "channel": "Victorix",
+    "duration_sec": 929,
+    "summary": "Jim Rohn's legendary masterclass on compounding personal value, market attractiveness, and strategic career growth.",
+    "url": "https://www.youtube.com/watch?v=VozV9KmhPTU",
+    "thumbnail_url": "https://i.ytimg.com/vi/VozV9KmhPTU/hqdefault.jpg",
+    "ingested_at": "2026-09-03T15:03:00.561623Z",
+    "segment_count": 143
+  },
+  {
+    "video_id": "live_1778424632",
+    "title": "Live Voice Session [424632]",
+    "channel": "Live Voice Capture",
+    "duration_sec": 48,
+    "summary": "Captured voice transcript containing 6 spoken segments and real-time concepts.",
+    "url": "",
+    "is_voice_recording": true,
+    "ingested_at": "2026-09-03T15:03:00.562622Z",
+    "segment_count": 6
+  },
+  {
+    "video_id": "live_1778427429",
+    "title": "Live Voice Session [427429]",
+    "channel": "Live Voice Capture",
+    "duration_sec": 32,
+    "summary": "Captured voice transcript containing 4 spoken segments and real-time concepts.",
+    "url": "",
+    "is_voice_recording": true,
+    "ingested_at": "2026-09-03T15:03:00.562622Z",
+    "segment_count": 4
+  },
+  {
+    "video_id": "live_1778473960",
+    "title": "Live Voice Session [473960]",
+    "channel": "Live Voice Capture",
+    "duration_sec": 32,
+    "summary": "Captured voice transcript containing 4 spoken segments and real-time concepts.",
+    "url": "",
+    "is_voice_recording": true,
+    "ingested_at": "2026-09-03T15:03:00.562622Z",
+    "segment_count": 4
+  }
+]

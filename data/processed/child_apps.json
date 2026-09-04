@@ -1,0 +1,107 @@
+[
+  {
+    "id": "app_executive",
+    "name": "Executive Leadership & Strategy",
+    "slug": "executive-leadership",
+    "description": "C-suite strategic frameworks, time management, personal discipline, and leadership alignment.",
+    "icon": "Briefcase",
+    "theme_color": "#6366f1",
+    "focus_domains": [
+      "executive",
+      "learning",
+      "thought_leadership"
+    ],
+    "video_ids": [
+      "voice_1788431626",
+      "test_ingest_789",
+      "jzzTomTwltQ",
+      "voice_1788431219",
+      "jfW6gL6hKhk",
+      "test_ingest",
+      "NeqEKCrTbL4",
+      "jl3OLK9vP1o",
+      "iCvmsMzlF7o",
+      "VozV9KmhPTU",
+      "live_1778424632",
+      "live_1778427429",
+      "live_1778473960"
+    ],
+    "created_at": "2026-03-01T10:00:00Z",
+    "prioritized_entities": [
+      "Communication"
+    ]
+  },
+  {
+    "id": "app_gtm_ai",
+    "name": "GTM & AI Engineering Lab",
+    "slug": "gtm-ai-engineering",
+    "description": "Go-to-market workflows, Claude Code automation, developer marketing, and scalable system design.",
+    "icon": "Cpu",
+    "theme_color": "#3b82f6",
+    "focus_domains": [
+      "engineering",
+      "sales",
+      "executive"
+    ],
+    "video_ids": [
+      "paF4J941uqg",
+      "jl3OLK9vP1o"
+    ],
+    "created_at": "2026-03-05T12:00:00Z"
+  },
+  {
+    "id": "app_comm_mastery",
+    "name": "Communication & Public Speaking",
+    "slug": "communication-mastery",
+    "description": "Mastery of rhetorical devices, vocal delivery, self-reflection drills, and audience captivation.",
+    "icon": "Sparkles",
+    "theme_color": "#14b8a6",
+    "focus_domains": [
+      "thought_leadership",
+      "learning",
+      "customer"
+    ],
+    "video_ids": [
+      "dF3GFpIKPlE",
+      "U40qvUiefQo",
+      "iCvmsMzlF7o"
+    ],
+    "created_at": "2026-03-10T14:00:00Z",
+    "prioritized_entities": []
+  },
+  {
+    "id": "app_sales_growth",
+    "name": "Sales & Revenue Accelerator",
+    "slug": "sales-revenue",
+    "description": "Direct response, value messaging, personal financial runway, and closing high-stakes deals.",
+    "icon": "TrendingUp",
+    "theme_color": "#10b981",
+    "focus_domains": [
+      "sales",
+      "competitive",
+      "executive"
+    ],
+    "video_ids": [
+      "jfW6gL6hKhk",
+      "dF3GFpIKPlE",
+      "VozV9KmhPTU"
+    ],
+    "created_at": "2026-03-15T16:00:00Z"
+  },
+  {
+    "id": "app_b8f73a79",
+    "name": "no 1",
+    "slug": "no-1",
+    "description": "one number",
+    "icon": "Layers",
+    "theme_color": "#6366f1",
+    "focus_domains": [
+      "executive",
+      "learning"
+    ],
+    "video_ids": [
+      "U40qvUiefQo"
+    ],
+    "created_at": "2026-09-03T10:41:34.894068Z"
+  }
+]
