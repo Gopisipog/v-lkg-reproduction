@@ -138,6 +138,65 @@ data class ApiScopedGraphResponse(
 )
 
 @Serializable
+data class SemanticPillGroup(
+    val type: String,
+    val color: String,
+    val entities: List<String> = emptyList()
+)
+
+@Serializable
+data class VideoSemanticsResponse(
+    val video_id: String,
+    val metadata: VideoMetadata? = null,
+    val relationship_count: Int = 0,
+    val relationships: List<RawTriplet> = emptyList(),
+    val extracted_pills: List<SemanticPillGroup> = emptyList(),
+    val enriched_pills: List<SemanticPillGroup> = emptyList(),
+    val intel_pills: List<SemanticPillGroup> = emptyList(),
+    val segment_count: Int = 0,
+    val segments: List<TranscriptSegment> = emptyList()
+)
+
+@Serializable
+data class RawTriplet(
+    val subject: String = "",
+    val subject_type: String = "Concept",
+    val relation: String = "RELATES_TO",
+    val `object`: String = "",
+    val object_type: String = "Concept",
+    val video_id: String = "",
+    val video_ids: List<String> = emptyList(),
+    val source_time: String = "00:00",
+    val weight: Int = 1,
+    val intelligences: List<String> = emptyList()
+)
+
+@Serializable
+data class MultiAppQueryResponse(
+    val question: String = "",
+    val consolidated_answer: String = "",
+    val app_comparisons: List<AppQueryResult> = emptyList()
+)
+
+@Serializable
+data class TranscriptSearchResultItem(
+    val video_id: String = "",
+    val video_title: String = "",
+    val channel: String = "",
+    val timestamp: String = "00:00",
+    val start_sec: Float = 0f,
+    val text: String = "",
+    val detected_entities: List<String> = emptyList()
+)
+
+@Serializable
+data class TranscriptSearchResponse(
+    val query: String = "",
+    val total_matches: Int = 0,
+    val results: List<TranscriptSearchResultItem> = emptyList()
+)
+
+@Serializable
 data class DatabaseRepoStats(
     val entities_count: Int = 0,
     val triplets_count: Int = 0,

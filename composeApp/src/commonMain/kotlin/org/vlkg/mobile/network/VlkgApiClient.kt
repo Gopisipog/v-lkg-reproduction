@@ -127,6 +127,47 @@ class VlkgApiClient(
         }
     }
 
+    suspend fun getVideoSemantics(videoId: String): VideoSemanticsResponse? = withContext(Dispatchers.Default) {
+        try {
+            client.get("$baseUrl/api/videos/$videoId/semantics").body<VideoSemanticsResponse>()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun searchTranscripts(query: String, videoId: String? = null): List<TranscriptSearchResultItem> = withContext(Dispatchers.Default) {
+        try {
+            val vidParam = if (!videoId.isNullOrBlank()) "&video_id=$videoId" else ""
+            val resp = client.get("$baseUrl/api/transcripts/search?q=$query$vidParam").body<TranscriptSearchResponse>()
+            resp.results
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun queryMultiApps(appIds: List<String>, question: String): MultiAppQueryResponse? = withContext(Dispatchers.Default) {
+        try {
+            client.post("$baseUrl/api/query/multi-app") {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf("app_ids" to appIds, "question" to question))
+            }.body<MultiAppQueryResponse>()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun ingestVideo(url: String, appId: String? = null, lenses: List<String> = listOf("executive", "thought_leadership")): Boolean = withContext(Dispatchers.Default) {
+        try {
+            client.post("$baseUrl/api/videos/ingest") {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf("url" to url, "app_id" to (appId ?: ""), "intelligence_lenses" to lenses))
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun createApp(payload: CreateAppPayload): ChildApp? = withContext(Dispatchers.Default) {
         try {
             client.post("$baseUrl/api/apps") {
@@ -149,6 +190,29 @@ class VlkgApiClient(
                 keywords = text.split(" ").filter { it.length > 5 }.take(4),
                 suggested_entities = listOf("Strategic Thinking", "Execution Habit", "Leadership Agency")
             )
+        }
+    }
+
+    suspend fun processVoiceRecording(
+        title: String,
+        transcriptText: String,
+        appId: String,
+        lenses: List<String> = listOf("executive", "thought_leadership")
+    ): Boolean = withContext(Dispatchers.Default) {
+        try {
+            val segs = listOf(TranscriptSegment(video_id = "voice_${System.currentTimeMillis()}", timestamp = "00:00", text = transcriptText))
+            client.post("$baseUrl/api/voice/process") {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf(
+                    "title" to title,
+                    "transcript_segments" to segs,
+                    "app_id" to appId,
+                    "intelligence_lenses" to lenses
+                ))
+            }
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 

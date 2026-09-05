@@ -92,6 +92,7 @@ fun App(
                     AppNavigationTab.ASK -> {
                         AppQueryScreen(
                             activeApp = uiState.activeApp,
+                            apps = uiState.apps,
                             selectedLens = uiState.selectedLens,
                             onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) }
                         )

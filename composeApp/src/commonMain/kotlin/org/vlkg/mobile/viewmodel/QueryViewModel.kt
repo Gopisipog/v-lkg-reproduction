@@ -15,6 +15,7 @@ data class ChatMessage(
     val sender: String, // "user" | "ai"
     val text: String,
     val result: AppQueryResult? = null,
+    val multiResult: org.vlkg.mobile.model.MultiAppQueryResponse? = null,
     val timestamp: String = ""
 )
 
@@ -28,6 +29,8 @@ data class QueryUiState(
         )
     ),
     val currentQuestion: String = "",
+    val queryMode: String = "single", // "single" | "multi"
+    val selectedAppIds: List<String> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null
 )
@@ -41,6 +44,61 @@ class QueryViewModel(
 
     fun updateQuestion(q: String) {
         _uiState.update { it.copy(currentQuestion = q) }
+    }
+
+    fun setQueryMode(mode: String) {
+        _uiState.update { it.copy(queryMode = mode) }
+    }
+
+    fun toggleAppSelection(appId: String) {
+        _uiState.update { state ->
+            val current = state.selectedAppIds
+            val updated = if (current.contains(appId)) {
+                if (current.size > 1) current - appId else current
+            } else {
+                current + appId
+            }
+            state.copy(selectedAppIds = updated)
+        }
+    }
+
+    fun askMultiAppQuestion(appIds: List<String>, question: String) {
+        if (question.isBlank() || appIds.isEmpty()) return
+
+        val userMsg = ChatMessage(
+            id = "user_${System.currentTimeMillis()}",
+            sender = "user",
+            text = question
+        )
+
+        _uiState.update {
+            it.copy(
+                messages = it.messages + userMsg,
+                currentQuestion = "",
+                isLoading = true,
+                error = null
+            )
+        }
+
+        viewModelScope.launch {
+            try {
+                val res = apiClient.queryMultiApps(appIds, question)
+                val aiMsg = ChatMessage(
+                    id = "ai_${System.currentTimeMillis()}",
+                    sender = "ai",
+                    text = res?.consolidated_answer ?: "No comparison generated.",
+                    multiResult = res
+                )
+                _uiState.update {
+                    it.copy(
+                        messages = it.messages + aiMsg,
+                        isLoading = false
+                    )
+                }
+            } catch (e: Exception) {
+                _uiState.update { it.copy(isLoading = false, error = e.message) }
+            }
+        }
     }
 
     fun askQuestion(appId: String, question: String, lens: String? = null) {

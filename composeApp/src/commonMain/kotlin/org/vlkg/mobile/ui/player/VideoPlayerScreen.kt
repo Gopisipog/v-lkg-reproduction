@@ -50,11 +50,17 @@ fun VideoPlayerScreen(
     }
 
     var transcriptSegments by remember { mutableStateOf<List<TranscriptSegment>>(emptyList()) }
+    var semanticsData by remember { mutableStateOf<org.vlkg.mobile.model.VideoSemanticsResponse?>(null) }
+    var selectedTab by remember { mutableStateOf("transcript") } // "transcript" | "semantics" | "triplets"
     var searchQuery by remember { mutableStateOf("") }
+    var isLoadingSemantics by remember { mutableStateOf(false) }
 
     LaunchedEffect(selectedVideo) {
         selectedVideo?.let { v ->
+            isLoadingSemantics = true
             transcriptSegments = apiClient.getVideoTranscript(v.video_id)
+            semanticsData = apiClient.getVideoSemantics(v.video_id)
+            isLoadingSemantics = false
         }
     }
 
@@ -178,22 +184,182 @@ fun VideoPlayerScreen(
             }
         }
 
-        // Search Transcripts Field
+        // View Mode Selector Tabs
         item {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Search video transcripts...", color = Color.Gray) },
-                singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedTextColor = DarkOnBackground,
-                    unfocusedTextColor = DarkOnBackground,
-                    focusedBorderColor = VlkgPrimary,
-                    unfocusedBorderColor = DarkOutline
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                listOf(
+                    "transcript" to "📜 Transcript",
+                    "semantics" to "🏷️ Semantic Pills (${semanticsData?.extracted_pills?.sumOf { it.entities.size } ?: 0})",
+                    "triplets" to "🕸️ Triplets (${semanticsData?.relationship_count ?: 0})"
+                ).forEach { (tabId, tabLabel) ->
+                    val isSelected = selectedTab == tabId
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = {
+                            haptic.triggerClick()
+                            selectedTab = tabId
+                        },
+                        label = { Text(tabLabel, fontSize = 11.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = VlkgPrimary,
+                            selectedLabelColor = Color.White,
+                            containerColor = DarkSurfaceVariant,
+                            labelColor = Color.LightGray
+                        )
+                    )
+                }
+            }
         }
+
+        if (selectedTab == "semantics") {
+            // Semantic Pills Display (Extracted, Enriched, Intelligences)
+            val allPills = (semanticsData?.extracted_pills ?: emptyList()) + 
+                           (semanticsData?.enriched_pills ?: emptyList()) + 
+                           (semanticsData?.intel_pills ?: emptyList())
+
+            if (allPills.isEmpty()) {
+                item {
+                    Text("No semantic pills found for this video.", color = Color.Gray, fontSize = 12.sp)
+                }
+            } else {
+                items(allPills) { pillGroup ->
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = DarkSurface),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = pillGroup.type,
+                                    color = VlkgPrimary,
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "${pillGroup.entities.size} concepts",
+                                    color = Color.Gray,
+                                    fontSize = 10.sp
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                pillGroup.entities.take(8).forEach { ent ->
+                                    Surface(
+                                        color = DarkSurfaceVariant,
+                                        shape = RoundedCornerShape(6.dp)
+                                    ) {
+                                        Text(
+                                            text = ent,
+                                            color = Color.LightGray,
+                                            fontSize = 11.sp,
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else if (selectedTab == "triplets") {
+            // Relationships / Triplets Display
+            val rels = semanticsData?.relationships ?: emptyList()
+            if (rels.isEmpty()) {
+                item {
+                    Text("No knowledge triplets found for this video.", color = Color.Gray, fontSize = 12.sp)
+                }
+            } else {
+                items(rels) { rel ->
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = DarkSurface),
+                        shape = RoundedCornerShape(10.dp),
+                        modifier = Modifier.fillMaxWidth().clickable {
+                            if (rel.source_time.isNotBlank()) {
+                                haptic.triggerClick()
+                                activeTimestamp = rel.source_time
+                            }
+                        }
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(rel.subject, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Surface(
+                                        color = VlkgPrimary.copy(alpha = 0.2f),
+                                        shape = RoundedCornerShape(4.dp)
+                                    ) {
+                                        Text(
+                                            text = rel.relation,
+                                            color = VlkgPrimary,
+                                            fontSize = 9.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(rel.`object`, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                                }
+                                if (rel.intelligences.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = rel.intelligences.joinToString(", "),
+                                        color = Color.Gray,
+                                        fontSize = 10.sp
+                                    )
+                                }
+                            }
+
+                            if (rel.source_time.isNotBlank()) {
+                                Surface(
+                                    color = VlkgAccent.copy(alpha = 0.2f),
+                                    shape = RoundedCornerShape(6.dp)
+                                ) {
+                                    Text(
+                                        text = "[${rel.source_time}]",
+                                        color = VlkgAccent,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            // Search Transcripts Field
+            item {
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    label = { Text("Search video transcripts...", color = Color.Gray) },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = DarkOnBackground,
+                        unfocusedTextColor = DarkOnBackground,
+                        focusedBorderColor = VlkgPrimary,
+                        unfocusedBorderColor = DarkOutline
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
         // Transcript Segments Timeline
         val filteredSegments = transcriptSegments.filter {
@@ -244,6 +410,7 @@ fun VideoPlayerScreen(
                     )
                 }
             }
+        }
         }
     }
 }

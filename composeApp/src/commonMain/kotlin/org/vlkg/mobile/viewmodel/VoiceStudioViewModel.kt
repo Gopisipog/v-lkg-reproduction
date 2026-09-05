@@ -98,10 +98,16 @@ class VoiceStudioViewModel(
         }
     }
 
-    fun saveRecording(title: String, onSuccess: () -> Unit) {
+    fun saveRecording(title: String, appId: String? = null, onSuccess: () -> Unit) {
         viewModelScope.launch {
             _uiState.update { it.copy(isProcessing = true) }
-            delay(800)
+            val currentText = _uiState.value.liveTranscript.ifBlank { "Recorded leadership note on strategic execution." }
+            val targetApp = appId ?: "app_executive"
+            apiClient.processVoiceRecording(
+                title = title,
+                transcriptText = currentText,
+                appId = targetApp
+            )
             _uiState.update {
                 it.copy(
                     isProcessing = false,

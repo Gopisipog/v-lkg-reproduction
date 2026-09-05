@@ -225,7 +225,7 @@ fun VoiceStudioScreen(
                 Button(
                     onClick = {
                         haptic.triggerSuccess()
-                        voiceViewModel.saveRecording(noteTitle) {
+                        voiceViewModel.saveRecording(noteTitle, activeApp?.id) {
                             onRecordingSaved()
                         }
                     },

@@ -21,6 +21,7 @@ import org.vlkg.mobile.viewmodel.QueryViewModel
 @Composable
 fun AppQueryScreen(
     activeApp: ChildApp?,
+    apps: List<ChildApp> = emptyList(),
     selectedLens: String,
     onJumpToVideo: (videoId: String, timestamp: String) -> Unit,
     queryViewModel: QueryViewModel = remember { QueryViewModel() },
@@ -29,11 +30,17 @@ fun AppQueryScreen(
     val queryState by queryViewModel.uiState.collectAsState()
     val haptic = remember { HapticFeedbackHelper() }
 
+    LaunchedEffect(apps) {
+        if (queryState.selectedAppIds.isEmpty() && apps.isNotEmpty()) {
+            apps.take(2).forEach { queryViewModel.toggleAppSelection(it.id) }
+        }
+    }
+
     val suggestedQuestions = listOf(
-        "What are the core leadership habits?",
-        "Explain First-Principles Thinking in AI.",
-        "How do high-agency teams handle feedback?",
-        "What is the role of psychological safety?"
+        "How do leaders set boundaries and protect high-leverage time?",
+        "What are the core engineering workflows using AI?",
+        "What is the foundational discipline required to scale execution?",
+        "Explain First-Principles Thinking in leadership."
     )
 
     Column(
@@ -42,35 +49,98 @@ fun AppQueryScreen(
             .background(DarkBackground)
             .padding(16.dp)
     ) {
-        // App Context Header
-        Surface(
-            color = DarkSurface,
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth()
+        // Query Mode Toggle (Single App vs Multi-App "Twice Answered")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Row(
-                modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Surface(
+                color = DarkSurface,
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Text(text = "✨", fontSize = 16.sp)
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(
-                        text = "Querying: ${activeApp?.name ?: "All Knowledge"}",
-                        color = DarkOnBackground,
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
+                Row(modifier = Modifier.padding(4.dp)) {
+                    FilterChip(
+                        selected = queryState.queryMode == "single",
+                        onClick = { queryViewModel.setQueryMode("single") },
+                        label = { Text("Single: ${activeApp?.name?.take(10) ?: "Active"}...", fontSize = 11.sp) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = VlkgPrimary,
+                            selectedLabelColor = Color.White
+                        )
                     )
-                    Text(
-                        text = "Grounded in ${activeApp?.video_ids?.size ?: 0} videos • Lens: ${selectedLens.uppercase()}",
-                        color = Color.Gray,
-                        fontSize = 10.sp
+                    Spacer(modifier = Modifier.width(6.dp))
+                    FilterChip(
+                        selected = queryState.queryMode == "multi",
+                        onClick = { queryViewModel.setQueryMode("multi") },
+                        label = { Text("⚡ Compare Apps (\"Twice Answered\")", fontSize = 11.sp, fontWeight = FontWeight.Bold) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = VlkgAccent,
+                            selectedLabelColor = Color.Black
+                        )
                     )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+
+        if (queryState.queryMode == "multi") {
+            // App Selector Chips for Multi-App comparison
+            Text("Select Workspaces to Compare:", color = Color.Gray, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+            Spacer(modifier = Modifier.height(4.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                apps.forEach { app ->
+                    val isChecked = queryState.selectedAppIds.contains(app.id)
+                    FilterChip(
+                        selected = isChecked,
+                        onClick = {
+                            haptic.triggerClick()
+                            queryViewModel.toggleAppSelection(app.id)
+                        },
+                        label = { Text(app.name.take(14) + "...", fontSize = 10.sp) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = VlkgSecondary,
+                            selectedLabelColor = Color.White,
+                            containerColor = DarkSurfaceVariant,
+                            labelColor = Color.LightGray
+                        )
+                    )
+                }
+            }
+        } else {
+            // Single App Context Header
+            Surface(
+                color = DarkSurface,
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "✨", fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column {
+                        Text(
+                            text = "Querying: ${activeApp?.name ?: "All Knowledge"}",
+                            color = DarkOnBackground,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "Grounded in ${activeApp?.video_ids?.size ?: 0} videos • Lens: ${selectedLens.uppercase()}",
+                            color = Color.Gray,
+                            fontSize = 10.sp
+                        )
+                    }
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         // Suggested Questions Row
         Row(
@@ -168,6 +238,44 @@ fun AppQueryScreen(
                                     }
                                 }
                             }
+
+                            // Multi-App Comparison Results
+                            msg.multiResult?.let { multi ->
+                                if (multi.app_comparisons.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Text(
+                                        text = "⚖️ App Comparison Breakdown:",
+                                        color = VlkgAccent,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+
+                                    multi.app_comparisons.forEach { comp ->
+                                        Surface(
+                                            color = DarkSurfaceVariant,
+                                            shape = RoundedCornerShape(8.dp),
+                                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
+                                        ) {
+                                            Column(modifier = Modifier.padding(10.dp)) {
+                                                Text(
+                                                    text = comp.app_name.ifBlank { comp.app_id },
+                                                    color = Color.White,
+                                                    fontSize = 11.sp,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Text(
+                                                    text = comp.answer,
+                                                    color = Color.LightGray,
+                                                    fontSize = 11.sp,
+                                                    lineHeight = 15.sp
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -212,18 +320,23 @@ fun AppQueryScreen(
             Button(
                 onClick = {
                     haptic.triggerClick()
-                    queryViewModel.askQuestion(
-                        activeApp?.id ?: "app_executive",
-                        queryState.currentQuestion,
-                        selectedLens
-                    )
+                    if (queryState.queryMode == "multi") {
+                        val ids = if (queryState.selectedAppIds.isNotEmpty()) queryState.selectedAppIds else apps.take(2).map { it.id }
+                        queryViewModel.askMultiAppQuestion(ids, queryState.currentQuestion)
+                    } else {
+                        queryViewModel.askQuestion(
+                            activeApp?.id ?: "app_executive",
+                            queryState.currentQuestion,
+                            selectedLens
+                        )
+                    }
                 },
                 enabled = queryState.currentQuestion.isNotBlank() && !queryState.isLoading,
-                colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary),
+                colors = ButtonDefaults.buttonColors(containerColor = if (queryState.queryMode == "multi") VlkgAccent else VlkgPrimary),
                 shape = RoundedCornerShape(14.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp)
             ) {
-                Text("Ask", fontWeight = FontWeight.Bold)
+                Text(if (queryState.queryMode == "multi") "Compare" else "Ask", color = if (queryState.queryMode == "multi") Color.Black else Color.White, fontWeight = FontWeight.Bold)
             }
         }
     }
