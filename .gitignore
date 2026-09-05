@@ -53,3 +53,14 @@ mobile-ui/node_modules/
 .next/
 *.log
 
+# Kotlin Multiplatform & Gradle
+.gradle/
+.kotlin/
+/.jdk/
+build/
+composeApp/build/
+local.properties
+iosApp/DerivedData/
+iosApp/iosApp.xcodeproj/project.xcworkspace/xcuserdata
+iosApp/iosApp.xcodeproj/xcuserdata
+*.hprof
