@@ -48,7 +48,8 @@ class VlkgApiClient(
 
     suspend fun getVideoTranscript(videoId: String): List<TranscriptSegment> = withContext(Dispatchers.Default) {
         try {
-            client.get("$baseUrl/api/videos/$videoId/transcript").body<List<TranscriptSegment>>()
+            val resp = client.get("$baseUrl/api/videos/$videoId/transcript").body<VideoTranscriptResponse>()
+            if (resp.segments.isNotEmpty()) resp.segments else getOfflineMockTranscript(videoId)
         } catch (e: Exception) {
             getOfflineMockTranscript(videoId)
         }
@@ -57,9 +58,50 @@ class VlkgApiClient(
     suspend fun getAppGraph(appId: String, lens: String? = null): GraphDataResponse = withContext(Dispatchers.Default) {
         try {
             val query = if (!lens.isNullOrBlank() && lens != "all") "?intelligence_lens=$lens" else ""
-            client.get("$baseUrl/api/apps/$appId/graph$query").body<GraphDataResponse>()
+            val raw = client.get("$baseUrl/api/apps/$appId/graph$query").body<ApiScopedGraphResponse>()
+            val nodes = raw.nodes.map { it.toConceptNode() }
+            val edges = raw.links.map { it.toEdgeRelationship() }
+            if (nodes.isNotEmpty()) {
+                GraphDataResponse(nodes = nodes, edges = edges, timestamp = "")
+            } else {
+                getOfflineMockGraphData(appId)
+            }
         } catch (e: Exception) {
             getOfflineMockGraphData(appId)
+        }
+    }
+
+    suspend fun getAllEntities(): List<ConceptNode> = withContext(Dispatchers.Default) {
+        try {
+            val raw = client.get("$baseUrl/api/entities?limit=500").body<List<RawEntity>>()
+            if (raw.isNotEmpty()) {
+                raw.map { it.toConceptNode() }
+            } else {
+                getOfflineMockEntities()
+            }
+        } catch (e: Exception) {
+            getOfflineMockEntities()
+        }
+    }
+
+    suspend fun getScopedEntities(appId: String): List<ConceptNode> = withContext(Dispatchers.Default) {
+        try {
+            val raw = client.get("$baseUrl/api/apps/$appId/entities").body<List<ApiGraphNode>>()
+            if (raw.isNotEmpty()) {
+                raw.map { it.toConceptNode() }
+            } else {
+                getAllEntities()
+            }
+        } catch (e: Exception) {
+            getAllEntities()
+        }
+    }
+
+    suspend fun getDatabaseStatus(): DatabaseStatusResponse? = withContext(Dispatchers.Default) {
+        try {
+            client.get("$baseUrl/api/database/status").body<DatabaseStatusResponse>()
+        } catch (e: Exception) {
+            null
         }
     }
 
@@ -233,6 +275,10 @@ class VlkgApiClient(
             TranscriptSegment(videoId, "Video Lecture", "04:10", 250f, "Radical candor means caring personally while challenging directly in fast feedback loops.", 1),
             TranscriptSegment(videoId, "Video Lecture", "06:30", 390f, "High-output execution is driven by clear OKRs, transparent dependencies, and aligned metrics.", 1)
         )
+    }
+
+    fun getOfflineMockEntities(): List<ConceptNode> {
+        return getOfflineMockGraphData("app_executive").nodes
     }
 
     fun getOfflineMockGraphData(appId: String): GraphDataResponse {

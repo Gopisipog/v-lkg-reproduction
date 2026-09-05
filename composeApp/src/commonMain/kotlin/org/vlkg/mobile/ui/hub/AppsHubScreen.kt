@@ -33,6 +33,7 @@ fun AppsHubScreen(
     onDeleteApp: (String) -> Unit = {},
     onOpenVideoManager: () -> Unit = {},
     onOpenEnrichments: () -> Unit = {},
+    databaseStatus: org.vlkg.mobile.model.DatabaseStatusResponse? = null,
     modifier: Modifier = Modifier
 ) {
     val haptic = remember { HapticFeedbackHelper() }
@@ -98,6 +99,31 @@ fun AppsHubScreen(
                         fontSize = 12.sp,
                         lineHeight = 16.sp
                     )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Surface(
+                        color = if (databaseStatus?.is_connected_to_aura == true) Color(0xFF10B981).copy(alpha = 0.2f) else DarkSurfaceVariant,
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = if (databaseStatus?.is_connected_to_aura == true) "⚡ Neo4j Aura" else "🟢 LocalGraphStore",
+                                color = if (databaseStatus?.is_connected_to_aura == true) Color(0xFF10B981) else Color(0xFF6366F1),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "• ${databaseStatus?.repository_stats?.entities_count ?: 252} Entities • ${databaseStatus?.repository_stats?.triplets_count ?: 770} Triplets",
+                                color = Color.Gray,
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
                 }
             }
         }

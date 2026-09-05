@@ -34,11 +34,26 @@ class GraphViewModel(
         loadGraph()
     }
 
-    fun loadGraph() {
+    fun loadGraph(appId: String? = null, lens: String? = null) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             try {
-                val data = apiClient.getGraphData()
+                val targetAppId = appId ?: "app_executive"
+                val data = apiClient.getAppGraph(targetAppId, lens)
+
+                val count = data.nodes.size
+                val radius = 220f
+                val centerX = 400f
+                val centerY = 350f
+                data.nodes.forEachIndexed { i, node ->
+                    if (node.x == 0f && node.y == 0f) {
+                        val angle = (2.0 * kotlin.math.PI * i / count.coerceAtLeast(1)).toFloat()
+                        val r = radius * (0.6f + 0.4f * (i % 2))
+                        node.x = centerX + r * kotlin.math.cos(angle)
+                        node.y = centerY + r * kotlin.math.sin(angle)
+                    }
+                }
+
                 _uiState.update {
                     it.copy(
                         nodes = data.nodes,

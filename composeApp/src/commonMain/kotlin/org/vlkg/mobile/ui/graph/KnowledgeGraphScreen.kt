@@ -27,6 +27,10 @@ fun KnowledgeGraphScreen(
 ) {
     val graphState by graphViewModel.uiState.collectAsState()
 
+    LaunchedEffect(activeApp?.id, selectedLens) {
+        graphViewModel.loadGraph(activeApp?.id, selectedLens)
+    }
+
     val lenses = listOf(
         "all" to "All Lenses",
         "executive" to "Executive",

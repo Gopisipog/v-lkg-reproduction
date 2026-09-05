@@ -24,6 +24,8 @@ data class VlkgMainUiState(
     val apps: List<ChildApp> = emptyList(),
     val activeApp: ChildApp? = null,
     val allVideos: List<VideoMetadata> = emptyList(),
+    val entities: List<ConceptNode> = emptyList(),
+    val databaseStatus: DatabaseStatusResponse? = null,
     val activeTab: AppNavigationTab = AppNavigationTab.HUB,
     val targetVideoId: String? = null,
     val targetTimestamp: String? = null,
@@ -55,11 +57,17 @@ class VlkgMainViewModel(
             try {
                 val apps = apiClient.getApps()
                 val videos = apiClient.getVideos()
+                val status = apiClient.getDatabaseStatus()
+                val active = apps.firstOrNull()
+                val ents = if (active != null) apiClient.getScopedEntities(active.id) else apiClient.getAllEntities()
+                
                 _uiState.update {
                     it.copy(
                         apps = apps,
-                        activeApp = apps.firstOrNull(),
+                        activeApp = active,
                         allVideos = videos,
+                        entities = ents,
+                        databaseStatus = status,
                         isLoading = false
                     )
                 }
@@ -71,6 +79,10 @@ class VlkgMainViewModel(
 
     fun selectApp(app: ChildApp) {
         _uiState.update { it.copy(activeApp = app) }
+        viewModelScope.launch {
+            val scopedEnts = apiClient.getScopedEntities(app.id)
+            _uiState.update { it.copy(entities = scopedEnts) }
+        }
     }
 
     fun switchTab(tab: AppNavigationTab) {

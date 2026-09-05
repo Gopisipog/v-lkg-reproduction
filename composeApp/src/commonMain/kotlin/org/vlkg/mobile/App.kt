@@ -63,7 +63,8 @@ fun App(
                             onEditAppClick = { viewModel.setCreateAppDialogVisible(true, it) },
                             onDeleteApp = { viewModel.deleteApp(it) },
                             onOpenVideoManager = { viewModel.setVideoManagerDialogVisible(true) },
-                            onOpenEnrichments = { viewModel.setEnrichmentsDialogVisible(true) }
+                            onOpenEnrichments = { viewModel.setEnrichmentsDialogVisible(true) },
+                            databaseStatus = uiState.databaseStatus
                         )
                     }
 
@@ -75,7 +76,8 @@ fun App(
                             selectedLens = uiState.selectedLens,
                             onSelectLens = { viewModel.selectLens(it) },
                             onTogglePriority = { viewModel.toggleEntityPriority(it) },
-                            onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) }
+                            onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) },
+                            entities = uiState.entities
                         )
                     }
 

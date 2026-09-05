@@ -30,6 +30,7 @@ fun LinearWordsScreen(
     onSelectLens: (String) -> Unit,
     onTogglePriority: (String) -> Unit,
     onJumpToVideo: (videoId: String, timestamp: String) -> Unit,
+    entities: List<ConceptNode> = emptyList(),
     modifier: Modifier = Modifier
 ) {
     val haptic = remember { HapticFeedbackHelper() }
@@ -45,16 +46,20 @@ fun LinearWordsScreen(
         "thought_leadership" to "Leadership"
     )
 
-    // Master list of concepts for the child app
-    val baseNodes = remember(activeApp) {
-        listOf(
-            ConceptNode("1", "First-Principles Thinking", ConceptCategory.DECISION_MAKING, 0.95, "Boiling problems down to fundamentals.", 4, listOf("Mental Models", "Strategy")),
-            ConceptNode("2", "Transformational Leadership", ConceptCategory.CORE_LEADERSHIP, 0.90, "Inspiring teams to achieve extraordinary outcomes.", 6, listOf("Inspiration", "Vision")),
-            ConceptNode("3", "Autonomous AI Agents", ConceptCategory.AI_INNOVATION, 0.88, "Self-directed AI architectures with planning.", 5, listOf("Automation", "Agentic")),
-            ConceptNode("4", "Radical Candor", ConceptCategory.COMMUNICATION, 0.78, "Caring personally while challenging directly.", 3, listOf("Feedback", "Trust")),
-            ConceptNode("5", "Systems Dynamics", ConceptCategory.SYSTEMS_THINKING, 0.85, "Understanding non-linear causal loops.", 4, listOf("Causal Loops", "Leverage")),
-            ConceptNode("6", "High-Output Execution", ConceptCategory.EXECUTION, 0.82, "Aligning teams with ambitious Objectives.", 5, listOf("OKRs", "Focus"))
-        )
+    // Master list of concepts: use real entities loaded from repository or fallback to base defaults
+    val baseNodes = remember(entities, activeApp) {
+        if (entities.isNotEmpty()) {
+            entities
+        } else {
+            listOf(
+                ConceptNode("1", "First-Principles Thinking", ConceptCategory.DECISION_MAKING, 0.95, "Boiling problems down to fundamentals.", 4, listOf("Mental Models", "Strategy")),
+                ConceptNode("2", "Transformational Leadership", ConceptCategory.CORE_LEADERSHIP, 0.90, "Inspiring teams to achieve extraordinary outcomes.", 6, listOf("Inspiration", "Vision")),
+                ConceptNode("3", "Autonomous AI Agents", ConceptCategory.AI_INNOVATION, 0.88, "Self-directed AI architectures with planning.", 5, listOf("Automation", "Agentic")),
+                ConceptNode("4", "Radical Candor", ConceptCategory.COMMUNICATION, 0.78, "Caring personally while challenging directly.", 3, listOf("Feedback", "Trust")),
+                ConceptNode("5", "Systems Dynamics", ConceptCategory.SYSTEMS_THINKING, 0.85, "Understanding non-linear causal loops.", 4, listOf("Causal Loops", "Leverage")),
+                ConceptNode("6", "High-Output Execution", ConceptCategory.EXECUTION, 0.82, "Aligning teams with ambitious Objectives.", 5, listOf("OKRs", "Focus"))
+            )
+        }
     }
 
     val prioritizedSet = (activeApp?.prioritized_entities ?: emptyList()).toSet()

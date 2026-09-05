@@ -99,11 +99,246 @@ class VideoIngestRequest(BaseModel):
     intelligence_lenses: Optional[List[str]] = ["thought_leadership", "executive", "learning"]
 
 
+class DatabaseConnectRequest(BaseModel):
+    uri: Optional[str] = None
+    username: Optional[str] = None
+    password: Optional[str] = None
+    database: Optional[str] = None
+
+
+class CypherQueryRequest(BaseModel):
+    query: str
+    parameters: Optional[Dict[str, Any]] = None
+
+
 # ── API Endpoints ───────────────────────────────────────────────────
+
+# Neo4j Aura / Database state
+_neo4j_driver = None
+_neo4j_uri = os.environ.get("NEO4J_URI", "neo4j+s://60634b9c.databases.neo4j.io")
+_neo4j_user = os.environ.get("NEO4J_USER", "60634b9c")
+_neo4j_last_error = None
+
+
+def get_active_neo4j_driver():
+    global _neo4j_driver, _neo4j_last_error
+    if _neo4j_driver:
+        return _neo4j_driver
+    from neo4j import GraphDatabase
+    pwd = os.environ.get("NEO4J_PASSWORD", "")
+    if _neo4j_uri and pwd:
+        try:
+            drv = GraphDatabase.driver(_neo4j_uri, auth=(_neo4j_user, pwd))
+            drv.verify_connectivity()
+            _neo4j_driver = drv
+            _neo4j_last_error = None
+            return _neo4j_driver
+        except Exception as e:
+            _neo4j_last_error = str(e)
+            _neo4j_driver = None
+    return None
+
 
 @app.get("/api/health")
 def health_check():
     return {"status": "ok", "app_count": len(app_store.child_apps), "video_count": len(app_store.videos_registry)}
+
+
+@app.get("/api/database/status", tags=["Database & Aura"])
+def get_database_status():
+    driver = get_active_neo4j_driver()
+    is_connected = driver is not None
+    
+    aura_nodes = None
+    aura_rels = None
+    aura_labels = []
+    
+    if is_connected:
+        try:
+            with driver.session() as session:
+                res_n = session.run("MATCH (n) RETURN count(n) as cnt").single()
+                aura_nodes = res_n["cnt"] if res_n else 0
+                res_r = session.run("MATCH ()-[r]->() RETURN count(r) as cnt").single()
+                aura_rels = res_r["cnt"] if res_r else 0
+                lbls = session.run("CALL db.labels() YIELD label RETURN label").data()
+                aura_labels = [l["label"] for l in lbls]
+        except Exception:
+            pass
+
+    return {
+        "status": "connected" if is_connected else "fallback_local",
+        "is_connected_to_aura": is_connected,
+        "active_store": "Neo4j AuraDB" if is_connected else "LocalGraphStore (JSON Storage)",
+        "uri": _neo4j_uri,
+        "user": _neo4j_user,
+        "last_error": _neo4j_last_error,
+        "aura_stats": {
+            "nodes": aura_nodes,
+            "relationships": aura_rels,
+            "labels": aura_labels
+        },
+        "repository_stats": {
+            "entities_count": len(app_store.entities),
+            "triplets_count": len(app_store.triplets),
+            "videos_count": len(app_store.videos_registry),
+            "child_apps_count": len(app_store.child_apps),
+            "corpus_segments_count": len(app_store.corpus),
+            "insights_count": len(app_store.insights)
+        },
+        "notice": "If Neo4j Aura is paused in console.neo4j.io, the API automatically falls back to LocalGraphStore."
+    }
+
+
+@app.post("/api/database/connect", tags=["Database & Aura"])
+def connect_database(req: DatabaseConnectRequest):
+    global _neo4j_driver, _neo4j_uri, _neo4j_user, _neo4j_last_error
+    from neo4j import GraphDatabase
+    
+    uri = (req.uri or _neo4j_uri).strip()
+    user = (req.username or _neo4j_user).strip()
+    pwd = req.password or os.environ.get("NEO4J_PASSWORD", "")
+    
+    if not (uri.startswith("neo4j://") or uri.startswith("neo4j+s://") or 
+            uri.startswith("bolt://") or uri.startswith("bolt+s://")):
+        uri = f"neo4j+s://{uri}"
+        
+    try:
+        drv = GraphDatabase.driver(uri, auth=(user, pwd))
+        drv.verify_connectivity()
+        if _neo4j_driver:
+            try:
+                _neo4j_driver.close()
+            except Exception:
+                pass
+        _neo4j_driver = drv
+        _neo4j_uri = uri
+        _neo4j_user = user
+        _neo4j_last_error = None
+        return {
+            "success": True,
+            "connected": True,
+            "uri": uri,
+            "user": user,
+            "message": f"Successfully connected to Neo4j at {uri}"
+        }
+    except Exception as e:
+        err_msg = str(e)
+        if "11001" in err_msg or "DNS" in err_msg or "getaddrinfo" in err_msg:
+            _neo4j_last_error = f"DNS resolution failed for '{uri}'. The Aura instance may be paused or stopped in console.neo4j.io. Please resume it."
+        else:
+            _neo4j_last_error = f"Connection failed: {err_msg}"
+        return {
+            "success": False,
+            "connected": False,
+            "uri": uri,
+            "user": user,
+            "error": _neo4j_last_error,
+            "fallback": "LocalGraphStore remains active"
+        }
+
+
+@app.get("/api/database/all-data", tags=["Database & Aura"])
+def retrieve_all_vlkg_data():
+    app_store.reload()
+    return {
+        "retrieved_at": datetime.utcnow().isoformat() + "Z",
+        "active_store": "Neo4j AuraDB" if _neo4j_driver else "LocalGraphStore",
+        "summary": {
+            "total_entities": len(app_store.entities),
+            "total_triplets": len(app_store.triplets),
+            "total_videos": len(app_store.videos_registry),
+            "total_child_apps": len(app_store.child_apps),
+            "total_corpus_segments": len(app_store.corpus),
+            "total_insights": len(app_store.insights)
+        },
+        "child_apps": app_store.child_apps,
+        "videos": app_store.videos_registry,
+        "video_intelligences": app_store.video_intelligences,
+        "entities": app_store.entities,
+        "triplets": app_store.triplets,
+        "video_insights": app_store.insights,
+        "corpus_sample": app_store.corpus[:30]
+    }
+
+
+@app.post("/api/database/sync-to-aura", tags=["Database & Aura"])
+def sync_data_to_aura(batch_size: int = 50):
+    driver = get_active_neo4j_driver()
+    if not driver:
+        raise HTTPException(
+            status_code=503, 
+            detail=f"Neo4j Aura is not connected ({_neo4j_last_error or 'Instance unreachable'}). Please connect first."
+        )
+    
+    entities = app_store.entities
+    triplets = app_store.triplets
+    synced_ents = 0
+    synced_trips = 0
+    
+    with driver.session() as session:
+        # Entities
+        for i in range(0, len(entities), batch_size):
+            batch = entities[i:i + batch_size]
+            session.run("""
+                UNWIND $batch AS e
+                MERGE (n:Entity {name: e.name})
+                SET n.type = e.type, n.color = e.color, n.centrality = e.centrality
+            """, {"batch": batch})
+            synced_ents += len(batch)
+            
+        # Triplets
+        for i in range(0, len(triplets), batch_size):
+            batch = triplets[i:i + batch_size]
+            session.run("""
+                UNWIND $batch AS t
+                MERGE (s:Entity {name: t.subject})
+                MERGE (o:Entity {name: t.object})
+                MERGE (s)-[r:RELATION {type: t.relation}]->(o)
+                SET r.source_time = t.source_time, r.video_id = t.video_id
+            """, {"batch": batch})
+            synced_trips += len(batch)
+            
+    return {
+        "success": True,
+        "synced_entities": synced_ents,
+        "synced_triplets": synced_trips,
+        "message": f"Successfully synced {synced_ents} entities and {synced_trips} triplets into Neo4j Aura."
+    }
+
+
+@app.post("/api/database/cypher", tags=["Database & Aura"])
+def execute_cypher_query(req: CypherQueryRequest):
+    driver = get_active_neo4j_driver()
+    if driver:
+        try:
+            with driver.session() as session:
+                records = [r.data() for r in session.run(req.query, req.parameters or {})]
+                return {"source": "neo4j_aura", "query": req.query, "count": len(records), "data": records}
+        except Exception as e:
+            return {"source": "neo4j_aura", "query": req.query, "error": str(e), "data": []}
+    else:
+        from src.database.neo4j_client import Neo4jClient
+        nc = Neo4jClient()
+        data = nc.execute_read(req.query, req.parameters)
+        return {
+            "source": "local_fallback",
+            "query": req.query,
+            "count": len(data) if data else 0,
+            "data": data or [],
+            "notice": "Executed on LocalGraphStore fallback."
+        }
+
+
+@app.get("/api/entities", tags=["Entities & Words"])
+def get_all_entities(limit: int = 500):
+    app_store.reload()
+    return app_store.entities[:limit]
+
+
+@app.get("/api/triplets", tags=["Graph & Triplets"])
+def get_all_triplets(limit: int = 1000):
+    app_store.reload()
+    return app_store.triplets[:limit]
 
 
 @app.get("/api/intelligences")
