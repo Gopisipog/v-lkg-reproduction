@@ -11,7 +11,6 @@ import org.vlkg.mobile.ui.components.EnrichmentsDialog
 import org.vlkg.mobile.ui.components.VideoManagerDialog
 import org.vlkg.mobile.ui.components.VlkgBottomNav
 import org.vlkg.mobile.ui.components.VlkgTopHeader
-import org.vlkg.mobile.ui.graph.KnowledgeGraphScreen
 import org.vlkg.mobile.ui.hub.AppsHubScreen
 import org.vlkg.mobile.ui.library.MediaLibraryScreen
 import org.vlkg.mobile.ui.player.VideoPlayerScreen
@@ -78,15 +77,6 @@ fun App(
                             onTogglePriority = { viewModel.toggleEntityPriority(it) },
                             onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) },
                             entities = uiState.entities
-                        )
-                    }
-
-                    AppNavigationTab.GRAPH -> {
-                        KnowledgeGraphScreen(
-                            activeApp = uiState.activeApp,
-                            selectedLens = uiState.selectedLens,
-                            onSelectLens = { viewModel.selectLens(it) },
-                            onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) }
                         )
                     }
 

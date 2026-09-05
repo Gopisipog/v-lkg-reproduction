@@ -13,7 +13,6 @@ import org.vlkg.mobile.network.VlkgApiClient
 enum class AppNavigationTab(val label: String, val icon: String) {
     HUB("Hub", "📱"),
     WORDS("Words", "🏷️"),
-    GRAPH("Graph", "🕸️"),
     PLAYER("Player", "▶️"),
     ASK("Ask AI", "✨"),
     VOICE("Voice", "🎙️"),
