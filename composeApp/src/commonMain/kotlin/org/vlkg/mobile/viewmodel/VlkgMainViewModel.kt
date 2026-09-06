@@ -181,16 +181,32 @@ class VlkgMainViewModel(
         }
     }
 
-    fun createOrUpdateApp(name: String, description: String, themeColor: String, domains: List<String>) {
+    fun createOrUpdateApp(
+        name: String,
+        description: String,
+        colorScheme: String = "cyber-cyan",
+        pattern: String = "gradient-bi",
+        patternColors: List<String> = listOf("#0EA5E9", "#10B981"),
+        domains: List<String> = listOf("executive", "learning"),
+        saveToAura: Boolean = true
+    ) {
         viewModelScope.launch {
             val editing = _uiState.value.editingApp
+            val primaryColor = patternColors.firstOrNull() ?: "#0EA5E9"
             if (editing != null) {
                 val updated = editing.copy(
                     name = name,
                     description = description,
-                    theme_color = themeColor,
-                    focus_domains = domains
+                    theme_color = primaryColor,
+                    color_scheme = colorScheme,
+                    pattern = pattern,
+                    pattern_colors = patternColors,
+                    focus_domains = domains,
+                    saved_to_aura = saveToAura
                 )
+                if (saveToAura) {
+                    apiClient.saveChildAppToAura(editing.id)
+                }
                 _uiState.update { state ->
                     state.copy(
                         apps = state.apps.map { if (it.id == editing.id) updated else it },
@@ -203,16 +219,27 @@ class VlkgMainViewModel(
                 val payload = CreateAppPayload(
                     name = name,
                     description = description,
-                    theme_color = themeColor,
-                    focus_domains = domains
+                    theme_color = primaryColor,
+                    color_scheme = colorScheme,
+                    pattern = pattern,
+                    pattern_colors = patternColors,
+                    focus_domains = domains,
+                    save_to_aura = saveToAura
                 )
                 val created = apiClient.createApp(payload) ?: ChildApp(
                     id = "app_${System.currentTimeMillis()}",
                     name = name,
                     description = description,
-                    theme_color = themeColor,
-                    focus_domains = domains
+                    theme_color = primaryColor,
+                    color_scheme = colorScheme,
+                    pattern = pattern,
+                    pattern_colors = patternColors,
+                    focus_domains = domains,
+                    saved_to_aura = saveToAura
                 )
+                if (saveToAura) {
+                    apiClient.saveChildAppToAura(created.id)
+                }
                 _uiState.update {
                     it.copy(
                         apps = it.apps + created,
@@ -220,6 +247,22 @@ class VlkgMainViewModel(
                         isCreateAppOpen = false
                     )
                 }
+            }
+        }
+    }
+
+    fun saveAppToAura(appId: String) {
+        viewModelScope.launch {
+            val ok = apiClient.saveChildAppToAura(appId)
+            _uiState.update { state ->
+                state.copy(
+                    apps = state.apps.map { 
+                        if (it.id == appId) it.copy(saved_to_aura = true, aura_message = if (ok) "Synced to Aura DB" else "Queued in LocalStore") else it 
+                    },
+                    activeApp = if (state.activeApp?.id == appId) {
+                        state.activeApp.copy(saved_to_aura = true, aura_message = if (ok) "Synced to Aura DB" else "Queued in LocalStore")
+                    } else state.activeApp
+                )
             }
         }
     }

@@ -26,9 +26,11 @@ fun VlkgTopHeader(
     apps: List<ChildApp>,
     onSelectApp: (ChildApp) -> Unit,
     onCreateAppClick: () -> Unit,
+    onSelectScheme: ((SchemePreset) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     var dropdownExpanded by remember { mutableStateOf(false) }
+    var schemeMenuExpanded by remember { mutableStateOf(false) }
 
     Surface(
         color = DarkBackground,
@@ -135,6 +137,127 @@ fun VlkgTopHeader(
                         color = Color(0xFF94A3B8),
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                     )
+                }
+                // Color Scheme Chooser Button
+                Box {
+                    OutlinedButton(
+                        onClick = { schemeMenuExpanded = true },
+                        shape = RoundedCornerShape(6.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF334155)),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            containerColor = DarkSurfaceVariant,
+                            contentColor = Color.White
+                        ),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(getPatternBrush("gradient-bi", getColorsForApp(activeApp)))
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "SCHEMES",
+                                fontSize = 10.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                    DropdownMenu(
+                        expanded = schemeMenuExpanded,
+                        onDismissRequest = { schemeMenuExpanded = false },
+                        modifier = Modifier
+                            .background(DarkSurface)
+                            .border(1.dp, DarkOutline, RoundedCornerShape(8.dp))
+                    ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    "BI-COLOR SCHEMES (DUAL)",
+                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontWeight = FontWeight.Bold,
+                                    color = VlkgPrimary
+                                )
+                            },
+                            onClick = {}
+                        )
+                        BI_COLOR_PRESETS.forEach { preset ->
+                            DropdownMenuItem(
+                                text = {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Row(
+                                            modifier = Modifier
+                                                .width(28.dp)
+                                                .height(12.dp)
+                                                .clip(RoundedCornerShape(2.dp))
+                                        ) {
+                                            preset.colors.forEach { c ->
+                                                Box(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .fillMaxHeight()
+                                                        .background(parseHexColor(c))
+                                                )
+                                            }
+                                        }
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(preset.name, fontSize = 11.sp, color = DarkOnBackground)
+                                    }
+                                },
+                                onClick = {
+                                    onSelectScheme?.invoke(preset)
+                                    schemeMenuExpanded = false
+                                }
+                            )
+                        }
+                        HorizontalDivider(color = DarkOutline)
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    "TRI-COLOR SCHEMES (TRIPLE)",
+                                    fontSize = 10.sp,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontWeight = FontWeight.Bold,
+                                    color = VlkgSecondary
+                                )
+                            },
+                            onClick = {}
+                        )
+                        TRI_COLOR_PRESETS.forEach { preset ->
+                            DropdownMenuItem(
+                                text = {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Row(
+                                            modifier = Modifier
+                                                .width(28.dp)
+                                                .height(12.dp)
+                                                .clip(RoundedCornerShape(2.dp))
+                                        ) {
+                                            preset.colors.forEach { c ->
+                                                Box(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .fillMaxHeight()
+                                                        .background(parseHexColor(c))
+                                                )
+                                            }
+                                        }
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(preset.name, fontSize = 11.sp, color = DarkOnBackground)
+                                    }
+                                },
+                                onClick = {
+                                    onSelectScheme?.invoke(preset)
+                                    schemeMenuExpanded = false
+                                }
+                            )
+                        }
+                    }
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 OutlinedButton(

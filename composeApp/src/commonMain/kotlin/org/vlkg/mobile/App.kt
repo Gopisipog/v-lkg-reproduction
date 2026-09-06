@@ -34,7 +34,20 @@ fun App(
                     activeApp = uiState.activeApp,
                     apps = uiState.apps,
                     onSelectApp = { viewModel.selectApp(it) },
-                    onCreateAppClick = { viewModel.setCreateAppDialogVisible(true) }
+                    onCreateAppClick = { viewModel.setCreateAppDialogVisible(true) },
+                    onSelectScheme = { preset ->
+                        uiState.activeApp?.let { app ->
+                            viewModel.createOrUpdateApp(
+                                name = app.name,
+                                description = app.description,
+                                colorScheme = preset.id,
+                                pattern = app.pattern ?: "gradient-bi",
+                                patternColors = preset.colors,
+                                domains = app.focus_domains,
+                                saveToAura = app.saved_to_aura
+                            )
+                        }
+                    }
                 )
             },
             bottomBar = {
@@ -63,6 +76,31 @@ fun App(
                             onDeleteApp = { viewModel.deleteApp(it) },
                             onOpenVideoManager = { viewModel.setVideoManagerDialogVisible(true) },
                             onOpenEnrichments = { viewModel.setEnrichmentsDialogVisible(true) },
+                            onApplySchemeToApp = { app, preset ->
+                                viewModel.createOrUpdateApp(
+                                    name = app.name,
+                                    description = app.description,
+                                    colorScheme = preset.id,
+                                    pattern = app.pattern ?: "gradient-bi",
+                                    patternColors = preset.colors,
+                                    domains = app.focus_domains,
+                                    saveToAura = app.saved_to_aura
+                                )
+                            },
+                            onApplyPatternToApp = { app, patternId ->
+                                viewModel.createOrUpdateApp(
+                                    name = app.name,
+                                    description = app.description,
+                                    colorScheme = app.color_scheme ?: "cyber-cyan",
+                                    pattern = patternId,
+                                    patternColors = app.pattern_colors.ifEmpty { listOf("#0EA5E9", "#10B981") },
+                                    domains = app.focus_domains,
+                                    saveToAura = app.saved_to_aura
+                                )
+                            },
+                            onSyncAppToAura = { appId ->
+                                viewModel.saveAppToAura(appId)
+                            },
                             databaseStatus = uiState.databaseStatus
                         )
                     }
@@ -122,8 +160,8 @@ fun App(
             isOpen = uiState.isCreateAppOpen,
             editingApp = uiState.editingApp,
             onClose = { viewModel.setCreateAppDialogVisible(false) },
-            onCreate = { name, desc, color, domains ->
-                viewModel.createOrUpdateApp(name, desc, color, domains)
+            onCreate = { name, desc, colorScheme, pattern, patternColors, domains, saveToAura ->
+                viewModel.createOrUpdateApp(name, desc, colorScheme, pattern, patternColors, domains, saveToAura)
             }
         )
 

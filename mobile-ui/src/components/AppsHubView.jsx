@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Plus, Video, Sparkles, Tag,
-  Trash2, Edit3, ArrowRight, Star, ChevronDown, ChevronUp, Workflow, Radio, Database, CheckCircle2
+  Trash2, Edit3, ArrowRight, Star, ChevronDown, ChevronUp, Workflow, Radio, Database, CheckCircle2, Palette, Check
 } from "lucide-react";
 import { ICON_MAP } from "./TopHeader";
-import { resolveAppTheme } from "../utils/colorSchemes";
-import { saveAppToAura } from "../services/api";
+import { 
+  BI_COLOR_PRESETS, 
+  TRI_COLOR_PRESETS, 
+  PATTERN_MODES, 
+  getPatternBackground, 
+  resolveAppTheme 
+} from "../utils/colorSchemes";
+import { saveAppToAura, updateApp } from "../services/api";
 
 export default function AppsHubView({
   apps,
@@ -23,6 +29,13 @@ export default function AppsHubView({
   const [expandedCards, setExpandedCards] = useState({});
   const [auraSyncStatus, setAuraSyncStatus] = useState({});
   const [auraMessage, setAuraMessage] = useState(null);
+
+  // Cockpit Color Schemes & Bi/Tri Patterns State
+  const [activeSchemeTab, setActiveSchemeTab] = useState("bi"); // "bi" | "tri"
+  const [selectedScheme, setSelectedScheme] = useState(BI_COLOR_PRESETS[0]);
+  const [selectedPattern, setSelectedPattern] = useState("gradient-bi");
+  const [schemeFeedback, setSchemeFeedback] = useState(null);
+  const [savingScheme, setSavingScheme] = useState(false);
 
   const toggleExpand = (appId) => {
     setExpandedCards((prev) => ({
@@ -48,6 +61,46 @@ export default function AppsHubView({
       setAuraSyncStatus(prev => ({ ...prev, [appId]: "queued" }));
       setAuraMessage("Child app saved locally; Aura DB sync queued.");
       setTimeout(() => setAuraMessage(null), 5000);
+    }
+  };
+
+  const handleApplySchemeToWorkspace = async (targetApp, scheme, pattern) => {
+    if (!targetApp) return;
+    setSavingScheme(true);
+    try {
+      const updated = await updateApp(targetApp.id, {
+        ...targetApp,
+        color_scheme: scheme.id,
+        pattern: pattern,
+        pattern_colors: scheme.colors,
+        theme_color: scheme.colors[0]
+      });
+      await saveAppToAura(targetApp.id);
+      setSchemeFeedback(`Saved '${scheme.name}' (${pattern}) to workspace '${targetApp.name}' & synced Aura DB.`);
+      if (onSelectApp) onSelectApp(updated);
+      setTimeout(() => setSchemeFeedback(null), 5000);
+    } catch (err) {
+      setSchemeFeedback(`Updated locally: ${err.message}`);
+      setTimeout(() => setSchemeFeedback(null), 5000);
+    } finally {
+      setSavingScheme(false);
+    }
+  };
+
+  const handleSaveCockpitTheme = (scheme, pattern) => {
+    const payload = {
+      id: scheme.id,
+      name: scheme.name,
+      type: scheme.type,
+      pattern: pattern,
+      colors: scheme.colors
+    };
+    try {
+      localStorage.setItem("vlkg_cockpit_scheme", JSON.stringify(payload));
+      setSchemeFeedback(`Cockpit global theme set to '${scheme.name}'.`);
+      setTimeout(() => setSchemeFeedback(null), 5000);
+    } catch (e) {
+      console.warn("Failed to set localStorage", e);
     }
   };
 
@@ -149,6 +202,194 @@ export default function AppsHubView({
             <span>Launch Dual Query</span>
             <ArrowRight className="w-3.5 h-3.5 text-cyan-400" />
           </button>
+        </div>
+      </div>
+
+      {/* ── Cockpit Mixed Color Schemes & Bi/Tri Patterns Section ── */}
+      <div className="rounded-xl bg-slate-900 border border-slate-800 p-4 space-y-3.5 shadow-md">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center space-x-2">
+            <div className="w-6 h-6 rounded-md bg-cyan-950/80 border border-cyan-800/60 flex items-center justify-center text-cyan-400">
+              <Palette className="w-3.5 h-3.5" />
+            </div>
+            <div>
+              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-white flex items-center space-x-2">
+                <span>Cockpit Color Schemes & Patterns</span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/40">
+                  BI & TRI MIXED
+                </span>
+              </h3>
+              <p className="text-[11px] text-slate-400">
+                Mixed colorways & geometric patterns. Select below to customize & persist to Neo4j Aura DB.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-1.5">
+            <button
+              onClick={() => {
+                setActiveSchemeTab("bi");
+                setSelectedScheme(BI_COLOR_PRESETS[0]);
+              }}
+              className={`px-2.5 py-1 rounded-md text-xs font-mono font-medium transition-all ${
+                activeSchemeTab === "bi"
+                  ? "bg-cyan-600 text-slate-950 font-bold shadow-sm"
+                  : "bg-slate-800 text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              Bi-Color (Dual)
+            </button>
+            <button
+              onClick={() => {
+                setActiveSchemeTab("tri");
+                setSelectedScheme(TRI_COLOR_PRESETS[0]);
+                if (selectedPattern === "gradient-bi") setSelectedPattern("gradient-tri");
+              }}
+              className={`px-2.5 py-1 rounded-md text-xs font-mono font-medium transition-all ${
+                activeSchemeTab === "tri"
+                  ? "bg-cyan-600 text-slate-950 font-bold shadow-sm"
+                  : "bg-slate-800 text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              Tri-Color (Triple)
+            </button>
+          </div>
+        </div>
+
+        {/* Scheme Feedback Notification */}
+        <AnimatePresence>
+          {schemeFeedback && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="px-3 py-1.5 rounded-lg bg-cyan-950/80 border border-cyan-700/60 text-cyan-300 text-xs font-mono flex items-center justify-between"
+            >
+              <span>{schemeFeedback}</span>
+              <button onClick={() => setSchemeFeedback(null)} className="text-cyan-400 text-xs font-bold">[X]</button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Preset Tiles Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {(activeSchemeTab === "bi" ? BI_COLOR_PRESETS : TRI_COLOR_PRESETS).map((preset) => {
+            const isSelected = selectedScheme.id === preset.id;
+            return (
+              <button
+                key={preset.id}
+                onClick={() => setSelectedScheme(preset)}
+                className={`tactile-btn p-2 rounded-lg border text-left flex flex-col justify-between space-y-1.5 transition-all ${
+                  isSelected
+                    ? "bg-slate-850 border-cyan-500 ring-1 ring-cyan-500/50"
+                    : "bg-slate-950/60 border-slate-800/80 hover:border-slate-700 text-slate-400"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-white tracking-tight truncate">
+                    {preset.name}
+                  </span>
+                  {isSelected && <Check className="w-3 h-3 text-cyan-400 shrink-0" />}
+                </div>
+
+                {/* Color Swatch Bar */}
+                <div className="w-full h-3 rounded overflow-hidden flex border border-slate-700/50">
+                  {preset.colors.map((c, i) => (
+                    <div key={i} className="h-full flex-1" style={{ backgroundColor: c }} />
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
+                  <span>{preset.colors.join(" · ")}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Geometric Pattern Selector */}
+        <div className="space-y-1.5 pt-1 border-t border-slate-800/60">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+              Geometric Pattern Geometry
+            </span>
+            <span className="text-[9px] font-mono text-slate-500">Selected: {selectedPattern}</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
+            {PATTERN_MODES.map((mode) => {
+              const isPatternActive = selectedPattern === mode.id;
+              const previewBg = getPatternBackground(mode.id, selectedScheme.colors);
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => setSelectedPattern(mode.id)}
+                  className={`px-2 py-1.5 rounded-lg border text-left flex items-center space-x-2 transition-all ${
+                    isPatternActive
+                      ? "bg-slate-800 border-cyan-500 text-white ring-1 ring-cyan-500/40"
+                      : "bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  <div
+                    className="w-4 h-4 rounded-full border border-slate-700 shrink-0 shadow-sm"
+                    style={{ background: previewBg }}
+                  />
+                  <span className="text-[10px] font-mono truncate">{mode.name.split(" ")[0]}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Live Preview & Apply / Save Bar */}
+        <div 
+          className="p-3 rounded-lg border border-slate-700/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative overflow-hidden"
+        >
+          {/* Subtle atmosphere background */}
+          <div 
+            className="absolute inset-0 opacity-20 pointer-events-none transition-all duration-500" 
+            style={{ background: getPatternBackground(selectedPattern, selectedScheme.colors) }}
+          />
+          <div className="relative z-10 flex items-center space-x-3">
+            <div 
+              className="w-9 h-9 rounded-lg border border-slate-700 flex items-center justify-center shrink-0 shadow-md"
+              style={{ background: getPatternBackground(selectedPattern, selectedScheme.colors) }}
+            >
+              <Palette className="w-4 h-4 text-white drop-shadow" />
+            </div>
+            <div>
+              <div className="flex items-center space-x-1.5">
+                <p className="text-xs font-bold text-white font-mono">{selectedScheme.name}</p>
+                <span className="text-[9px] font-mono uppercase px-1 py-0.2 rounded bg-slate-800 text-cyan-300 border border-slate-700">
+                  {selectedPattern}
+                </span>
+              </div>
+              <p className="text-[10px] font-mono text-slate-400">
+                {selectedScheme.colors.length}-Color Mix · {selectedScheme.description}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex items-center space-x-2 w-full sm:w-auto">
+            {activeApp && (
+              <button
+                onClick={() => handleApplySchemeToWorkspace(activeApp, selectedScheme, selectedPattern)}
+                disabled={savingScheme}
+                className="tactile-btn flex-1 sm:flex-initial flex items-center justify-center space-x-1 px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 text-xs font-mono font-bold transition-all shadow-sm"
+              >
+                <Check className="w-3.5 h-3.5" />
+                <span>Save to '{activeApp.name.substring(0, 14)}...'</span>
+              </button>
+            )}
+
+            <button
+              onClick={() => handleSaveCockpitTheme(selectedScheme, selectedPattern)}
+              className="tactile-btn px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700 text-xs font-mono transition-all"
+              title="Save as Global Cockpit Theme"
+            >
+              Set Default
+            </button>
+          </div>
         </div>
       </div>
 

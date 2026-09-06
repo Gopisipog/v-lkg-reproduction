@@ -211,14 +211,17 @@ export default function TopHeader({
         <div className="relative">
           <button
             onClick={() => setThemeModalOpen(!themeModalOpen)}
-            className="tactile-btn flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 text-xs font-mono py-1 px-2.5 rounded-lg transition-colors shadow-sm"
+            className="tactile-btn flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-700/80 text-xs font-mono py-1 px-2 rounded-lg transition-colors shadow-sm"
             title="Cockpit Color Schemes & Bi/Tri Patterns"
           >
             <div 
-              className="w-3 h-3 rounded-full border border-slate-700 shadow-sm"
+              className="w-3.5 h-3.5 rounded-full border border-slate-600 shadow-sm"
               style={{ background: globalPatternBg }}
             />
-            <span className="hidden sm:inline text-slate-300 font-bold">SCHEME</span>
+            <span className="text-slate-200 font-bold text-[11px] font-mono">SCHEMES</span>
+            <span className="text-[8px] font-mono uppercase px-1 py-0.2 bg-cyan-950/80 text-cyan-300 rounded border border-cyan-800/40">
+              BI/TRI
+            </span>
           </button>
 
           {themeModalOpen && (

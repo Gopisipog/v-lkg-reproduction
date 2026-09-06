@@ -36,6 +36,9 @@ fun AppsHubScreen(
     onDeleteApp: (String) -> Unit = {},
     onOpenVideoManager: () -> Unit = {},
     onOpenEnrichments: () -> Unit = {},
+    onApplySchemeToApp: ((ChildApp, SchemePreset) -> Unit)? = null,
+    onApplyPatternToApp: ((ChildApp, String) -> Unit)? = null,
+    onSyncAppToAura: ((String) -> Unit)? = null,
     databaseStatus: org.vlkg.mobile.model.DatabaseStatusResponse? = null,
     modifier: Modifier = Modifier
 ) {
@@ -144,6 +147,204 @@ fun AppsHubScreen(
                                 fontFamily = FontFamily.Monospace,
                                 fontSize = 10.sp
                             )
+                        }
+                    }
+                }
+            }
+        }
+
+        // ── Cockpit Mixed Color Schemes & Patterns Section ──
+        item {
+            var selectedSchemeTab by remember { mutableStateOf(0) } // 0 = Bi-Color, 1 = Tri-Color
+            Surface(
+                color = DarkSurface,
+                shape = RoundedCornerShape(10.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(14.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(VlkgPrimary)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "COLOR SCHEMES & BI/TRI PATTERNS",
+                                color = DarkOnBackground,
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Surface(
+                            color = VlkgPrimary.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(4.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, VlkgPrimary.copy(alpha = 0.3f))
+                        ) {
+                            Text(
+                                text = "SAVABLE IN COCKPIT",
+                                color = VlkgPrimary,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Tab Row
+                    TabRow(
+                        selectedTabIndex = selectedSchemeTab,
+                        containerColor = DarkBackground,
+                        contentColor = VlkgPrimary,
+                        divider = {}
+                    ) {
+                        Tab(
+                            selected = selectedSchemeTab == 0,
+                            onClick = { selectedSchemeTab = 0 },
+                            text = { Text("Bi-Color Schemes (Dual)", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                        )
+                        Tab(
+                            selected = selectedSchemeTab == 1,
+                            onClick = { selectedSchemeTab = 1 },
+                            text = { Text("Tri-Color Schemes (Triple)", fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    val presets = if (selectedSchemeTab == 0) BI_COLOR_PRESETS else TRI_COLOR_PRESETS
+                    @OptIn(ExperimentalLayoutApi::class)
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        presets.forEach { preset ->
+                            val isCurrent = activeApp?.color_scheme == preset.id
+                            Surface(
+                                color = if (isCurrent) DarkSurfaceVariant else DarkBackground,
+                                shape = RoundedCornerShape(8.dp),
+                                border = androidx.compose.foundation.BorderStroke(
+                                    1.dp,
+                                    if (isCurrent) VlkgPrimary else DarkOutline
+                                ),
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        activeApp?.let { app ->
+                                            onApplySchemeToApp?.invoke(app, preset)
+                                        }
+                                    }
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    // Dual/Tri gradient preview pill
+                                    Row(
+                                        modifier = Modifier
+                                            .width(28.dp)
+                                            .height(14.dp)
+                                            .clip(RoundedCornerShape(3.dp))
+                                            .border(1.dp, Color(0xFF334155), RoundedCornerShape(3.dp))
+                                    ) {
+                                        preset.colors.forEach { hex ->
+                                            Box(
+                                                modifier = Modifier
+                                                    .weight(1f)
+                                                    .fillMaxHeight()
+                                                    .background(parseHexColor(hex))
+                                            )
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = preset.name,
+                                        color = if (isCurrent) Color.White else Color(0xFF94A3B8),
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                    if (isCurrent) {
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = "ACTIVE",
+                                            color = VlkgSecondary,
+                                            fontFamily = FontFamily.Monospace,
+                                            fontSize = 8.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Geometric Patterns Strip
+                    Text(
+                        text = "GEOMETRIC PATTERNS",
+                        color = Color(0xFF64748B),
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        PATTERN_MODES.forEach { mode ->
+                            val isPatternActive = activeApp?.pattern == mode.id
+                            Surface(
+                                color = if (isPatternActive) VlkgPrimary.copy(alpha = 0.15f) else DarkBackground,
+                                shape = RoundedCornerShape(6.dp),
+                                border = androidx.compose.foundation.BorderStroke(
+                                    1.dp,
+                                    if (isPatternActive) VlkgPrimary else DarkOutline
+                                ),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(6.dp))
+                                    .clickable {
+                                        activeApp?.let { app ->
+                                            onApplyPatternToApp?.invoke(app, mode.id)
+                                        }
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(14.dp)
+                                            .clip(CircleShape)
+                                            .background(getPatternBrush(mode.id, getColorsForApp(activeApp)))
+                                    )
+                                    Spacer(modifier = Modifier.height(3.dp))
+                                    Text(
+                                        text = mode.name.substringBefore(" "),
+                                        color = if (isPatternActive) Color.White else Color(0xFF94A3B8),
+                                        fontSize = 8.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontFamily = FontFamily.Monospace
+                                    )
+                                }
+                            }
                         }
                     }
                 }
@@ -283,8 +484,29 @@ fun AppsHubScreen(
                             }
                         }
 
-                        // Edit / Delete Actions
-                        Row {
+                        // Actions: Aura DB sync, Edit, Delete
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            OutlinedButton(
+                                onClick = { onSyncAppToAura?.invoke(app.id) },
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(
+                                    1.dp, 
+                                    if (app.saved_to_aura) Color(0xFF059669) else Color(0xFF334155)
+                                ),
+                                colors = ButtonDefaults.outlinedButtonColors(
+                                    containerColor = if (app.saved_to_aura) Color(0xFF064E3B).copy(alpha = 0.4f) else Color.Transparent,
+                                    contentColor = if (app.saved_to_aura) Color(0xFF34D399) else Color(0xFF94A3B8)
+                                ),
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text(
+                                    if (app.saved_to_aura) "AURA [OK]" else "SYNC AURA", 
+                                    fontFamily = FontFamily.Monospace, 
+                                    fontSize = 8.sp, 
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(4.dp))
                             TextButton(
                                 onClick = { onEditAppClick(app) },
                                 contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)

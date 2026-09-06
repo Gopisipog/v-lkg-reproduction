@@ -179,6 +179,15 @@ class VlkgApiClient(
         }
     }
 
+    suspend fun saveChildAppToAura(appId: String): Boolean = withContext(Dispatchers.Default) {
+        try {
+            client.post("$baseUrl/api/apps/$appId/save-to-aura")
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     suspend fun liveExtract(text: String): VoiceExtractionResult = withContext(Dispatchers.Default) {
         try {
             client.post("$baseUrl/api/voice/live-extract") {
