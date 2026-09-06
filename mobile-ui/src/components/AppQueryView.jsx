@@ -159,19 +159,20 @@ export default function AppQueryView({
         </div>
       )}
 
-      {/* Suggested Prompts */}
-      <div className="space-y-1">
-        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-500 block">
+      {/* Suggested Prompts - One Question per Row */}
+      <div className="space-y-1.5">
+        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block font-semibold">
           Suggested Question Prompts
         </span>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-col space-y-1.5 w-full">
           {SUGGESTED_PROMPTS.map((prompt, i) => (
             <button
               key={i}
               onClick={() => setQuestion(prompt)}
-              className="tactile-btn text-left text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 transition-colors line-clamp-1"
+              className="tactile-btn w-full text-left text-xs font-mono px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between group shadow-sm"
             >
-              {prompt}
+              <span className="truncate pr-2">{prompt}</span>
+              <ArrowRight className="w-3 h-3 text-slate-600 group-hover:text-cyan-400 shrink-0 transition-colors" />
             </button>
           ))}
         </div>

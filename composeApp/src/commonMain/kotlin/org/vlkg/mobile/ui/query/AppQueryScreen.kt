@@ -10,7 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.vlkg.mobile.model.ChildApp
@@ -56,13 +58,14 @@ fun AppQueryScreen(
         ) {
             Surface(
                 color = DarkSurface,
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(8.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline)
             ) {
                 Row(modifier = Modifier.padding(4.dp)) {
                     FilterChip(
                         selected = queryState.queryMode == "single",
                         onClick = { queryViewModel.setQueryMode("single") },
-                        label = { Text("Single: ${activeApp?.name?.take(10) ?: "Active"}...", fontSize = 11.sp) },
+                        label = { Text("SINGLE: ${activeApp?.name?.take(10)?.uppercase() ?: "ACTIVE"}...", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold) },
                         colors = FilterChipDefaults.filterChipColors(
                             selectedContainerColor = VlkgPrimary,
                             selectedLabelColor = Color.White
@@ -72,7 +75,7 @@ fun AppQueryScreen(
                     FilterChip(
                         selected = queryState.queryMode == "multi",
                         onClick = { queryViewModel.setQueryMode("multi") },
-                        label = { Text("⚡ Compare Apps (\"Twice Answered\")", fontSize = 11.sp, fontWeight = FontWeight.Bold) },
+                        label = { Text("COMPARE WORKSPACES", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold) },
                         colors = FilterChipDefaults.filterChipColors(
                             selectedContainerColor = VlkgAccent,
                             selectedLabelColor = Color.Black
@@ -86,7 +89,7 @@ fun AppQueryScreen(
 
         if (queryState.queryMode == "multi") {
             // App Selector Chips for Multi-App comparison
-            Text("Select Workspaces to Compare:", color = Color.Gray, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+            Text("Select Workspaces to Compare:", color = Color(0xFF64748B), fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(4.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -100,7 +103,7 @@ fun AppQueryScreen(
                             haptic.triggerClick()
                             queryViewModel.toggleAppSelection(app.id)
                         },
-                        label = { Text(app.name.take(14) + "...", fontSize = 10.sp) },
+                        label = { Text(app.name.take(14) + "...", fontFamily = FontFamily.Monospace, fontSize = 10.sp) },
                         colors = FilterChipDefaults.filterChipColors(
                             selectedContainerColor = VlkgSecondary,
                             selectedLabelColor = Color.White,
@@ -114,51 +117,92 @@ fun AppQueryScreen(
             // Single App Context Header
             Surface(
                 color = DarkSurface,
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(8.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "✨", fontSize = 16.sp)
+                    Box(
+                        modifier = Modifier
+                            .size(6.dp)
+                            .background(VlkgPrimary, RoundedCornerShape(2.dp))
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
                     Column {
                         Text(
-                            text = "Querying: ${activeApp?.name ?: "All Knowledge"}",
+                            text = "SCOPE: ${activeApp?.name?.uppercase() ?: "ALL KNOWLEDGE"}",
                             color = DarkOnBackground,
-                            fontSize = 13.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "Grounded in ${activeApp?.video_ids?.size ?: 0} videos • Lens: ${selectedLens.uppercase()}",
-                            color = Color.Gray,
-                            fontSize = 10.sp
+                            text = "${activeApp?.video_ids?.size ?: 0} STREAMS / LENS: ${selectedLens.uppercase()}",
+                            color = Color(0xFF64748B),
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 9.sp
                         )
                     }
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
-        // Suggested Questions Row
-        Row(
+        // Suggested Questions - ONE QUESTION PER ROW
+        Text(
+            text = "SUGGESTED QUESTIONS",
+            color = Color(0xFF64748B),
+            fontFamily = FontFamily.Monospace,
+            fontSize = 9.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
+            verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            suggestedQuestions.take(2).forEach { q ->
-                AssistChip(
+            suggestedQuestions.forEach { q ->
+                Surface(
                     onClick = {
                         haptic.triggerClick()
                         queryViewModel.askQuestion(activeApp?.id ?: "app_executive", q, selectedLens)
                     },
-                    label = { Text(q, fontSize = 10.sp) },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = DarkSurfaceVariant,
-                        labelColor = Color.LightGray
-                    )
-                )
+                    shape = RoundedCornerShape(6.dp),
+                    color = DarkSurface,
+                    border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = q,
+                            color = Color(0xFFCBD5E1),
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 10.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Text(
+                            text = "[->]",
+                            color = VlkgPrimary,
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
             }
         }
 
