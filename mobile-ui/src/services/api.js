@@ -92,6 +92,14 @@ export const assignVideosToApp = (appId, videoIds) =>
   fetchJson(`/apps/${appId}/videos/assign`, { method: "POST", body: JSON.stringify({ video_ids: videoIds }) });
 export const prioritizeAppEntities = (appId, prioritizedEntities) =>
   fetchJson(`/apps/${appId}/prioritize`, { method: "PUT", body: JSON.stringify({ prioritized_entities: prioritizedEntities }) });
+export const saveAppToAura = (appId) => 
+  fetchJson(`/apps/${appId}/save-to-aura`, { method: "POST" });
+export const getDatabaseStatus = () => 
+  fetchJson("/database/status");
+export const connectDatabase = (creds) => 
+  fetchJson("/database/connect", { method: "POST", body: JSON.stringify(creds) });
+export const syncDataToAura = () => 
+  fetchJson("/database/sync-to-aura", { method: "POST" });
 
 // ── Videos & Intelligences API ──────────────────────────────────────
 export const getVideos = () => fetchJson("/videos");

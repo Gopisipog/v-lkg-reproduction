@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -179,6 +180,13 @@ fun AppsHubScreen(
             val appColor = parseHexColor(app.theme_color)
             val isExpanded = expandedApps.contains(app.id)
 
+            val patternColors = if (app.pattern_colors.size >= 2) {
+                app.pattern_colors.map { parseHexColor(it) }
+            } else {
+                listOf(appColor, appColor.copy(alpha = 0.7f))
+            }
+            val patternBrush = Brush.linearGradient(patternColors)
+
             val defaultWords = listOf(
                 "First-Principles Thinking",
                 "Transformational Leadership",
@@ -201,6 +209,14 @@ fun AppsHubScreen(
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
+                // Top pattern accent bar
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.dp)
+                        .background(patternBrush)
+                )
+
                 Column(modifier = Modifier.padding(14.dp)) {
                     // Header
                     Row(
@@ -218,7 +234,7 @@ fun AppsHubScreen(
                                 modifier = Modifier
                                     .size(32.dp)
                                     .clip(RoundedCornerShape(8.dp))
-                                    .background(appColor),
+                                    .background(patternBrush),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(

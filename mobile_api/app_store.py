@@ -254,7 +254,10 @@ class MobileAppStore:
             "slug": slug,
             "description": data.get("description", "Custom knowledge app with linear entities."),
             "icon": data.get("icon", "Layers"),
-            "theme_color": data.get("theme_color", "#6366f1"),
+            "theme_color": data.get("theme_color", "#0ea5e9"),
+            "color_scheme": data.get("color_scheme", "cyber-cyan"),
+            "pattern": data.get("pattern", "gradient-bi"),
+            "pattern_colors": data.get("pattern_colors", [data.get("theme_color", "#0ea5e9"), "#10b981"]),
             "focus_domains": data.get("focus_domains", ["executive", "learning"]),
             "video_ids": data.get("video_ids", []),
             "prioritized_entities": data.get("prioritized_entities", []),
@@ -268,7 +271,7 @@ class MobileAppStore:
         self.reload()
         for idx, a in enumerate(self.child_apps):
             if a["id"] == app_id:
-                for k in ["name", "description", "icon", "theme_color", "focus_domains", "video_ids", "prioritized_entities"]:
+                for k in ["name", "description", "icon", "theme_color", "color_scheme", "pattern", "pattern_colors", "focus_domains", "video_ids", "prioritized_entities"]:
                     if k in data:
                         self.child_apps[idx][k] = data[k]
                 self._save_child_apps()

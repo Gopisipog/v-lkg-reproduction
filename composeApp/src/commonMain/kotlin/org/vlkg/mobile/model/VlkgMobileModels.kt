@@ -9,11 +9,16 @@ data class ChildApp(
     val slug: String = "",
     val description: String = "",
     val icon: String = "Briefcase",
-    val theme_color: String = "#6366f1",
+    val theme_color: String = "#0ea5e9",
+    val color_scheme: String? = null,
+    val pattern: String? = null,
+    val pattern_colors: List<String> = emptyList(),
     val focus_domains: List<String> = listOf("executive", "learning"),
     val video_ids: List<String> = emptyList(),
     val created_at: String = "",
-    val prioritized_entities: List<String> = emptyList()
+    val prioritized_entities: List<String> = emptyList(),
+    val saved_to_aura: Boolean = false,
+    val aura_message: String? = null
 )
 
 @Serializable
@@ -70,10 +75,14 @@ data class CreateAppPayload(
     val name: String,
     val description: String = "",
     val icon: String = "Briefcase",
-    val theme_color: String = "#6366f1",
+    val theme_color: String = "#0ea5e9",
+    val color_scheme: String? = "cyber-cyan",
+    val pattern: String? = "gradient-bi",
+    val pattern_colors: List<String> = listOf("#0ea5e9", "#10b981"),
     val focus_domains: List<String> = listOf("executive", "learning"),
     val video_ids: List<String> = emptyList(),
-    val prioritized_entities: List<String> = emptyList()
+    val prioritized_entities: List<String> = emptyList(),
+    val save_to_aura: Boolean = true
 )
 
 @Serializable

@@ -43,10 +43,14 @@ class CreateAppRequest(BaseModel):
     name: str
     description: Optional[str] = ""
     icon: Optional[str] = "Layers"
-    theme_color: Optional[str] = "#6366f1"
+    theme_color: Optional[str] = "#0ea5e9"
+    color_scheme: Optional[str] = "cyber-cyan"
+    pattern: Optional[str] = "gradient-bi"
+    pattern_colors: Optional[List[str]] = ["#0ea5e9", "#10b981"]
     focus_domains: Optional[List[str]] = ["executive", "learning"]
     video_ids: Optional[List[str]] = []
     prioritized_entities: Optional[List[str]] = []
+    save_to_aura: Optional[bool] = True
 
 
 class UpdateAppRequest(BaseModel):
@@ -54,9 +58,13 @@ class UpdateAppRequest(BaseModel):
     description: Optional[str] = None
     icon: Optional[str] = None
     theme_color: Optional[str] = None
+    color_scheme: Optional[str] = None
+    pattern: Optional[str] = None
+    pattern_colors: Optional[List[str]] = None
     focus_domains: Optional[List[str]] = None
     video_ids: Optional[List[str]] = None
     prioritized_entities: Optional[List[str]] = None
+    save_to_aura: Optional[bool] = True
 
 
 class PrioritizeEntitiesRequest(BaseModel):
@@ -297,12 +305,20 @@ def sync_data_to_aura(batch_size: int = 50):
                 SET r.source_time = t.source_time, r.video_id = t.video_id
             """, {"batch": batch})
             synced_trips += len(batch)
+
+        # Child Apps
+        synced_apps = 0
+        for app in app_store.child_apps:
+            ok, _ = save_child_app_to_aura(app)
+            if ok:
+                synced_apps += 1
             
     return {
         "success": True,
         "synced_entities": synced_ents,
         "synced_triplets": synced_trips,
-        "message": f"Successfully synced {synced_ents} entities and {synced_trips} triplets into Neo4j Aura."
+        "synced_child_apps": synced_apps,
+        "message": f"Successfully synced {synced_ents} entities, {synced_trips} triplets, and {synced_apps} child apps into Neo4j Aura."
     }
 
 
@@ -346,6 +362,74 @@ def get_intelligences():
     return list(INTELLIGENCE_DOMAINS.values())
 
 
+def save_child_app_to_aura(app_dict: Dict[str, Any]) -> tuple:
+    """Persists or synchronizes a ChildApp node and relations in Neo4j Aura DB."""
+    driver = get_active_neo4j_driver()
+    if not driver:
+        err = _neo4j_last_error or "Neo4j Aura instance unreachable or paused"
+        return False, f"Aura offline ({err}). App saved to LocalGraphStore."
+    
+    app_id = app_dict.get("id")
+    if not app_id:
+        return False, "Missing app id"
+        
+    try:
+        with driver.session() as session:
+            # 1. Merge ChildApp node
+            session.run("""
+                MERGE (a:ChildApp {id: $id})
+                SET a.name = $name,
+                    a.slug = $slug,
+                    a.description = $description,
+                    a.icon = $icon,
+                    a.theme_color = $theme_color,
+                    a.color_scheme = $color_scheme,
+                    a.pattern = $pattern,
+                    a.pattern_colors = $pattern_colors,
+                    a.focus_domains = $focus_domains,
+                    a.prioritized_entities = $prioritized_entities,
+                    a.created_at = $created_at,
+                    a.updated_at = datetime()
+            """, {
+                "id": app_id,
+                "name": app_dict.get("name", "Child App"),
+                "slug": app_dict.get("slug", ""),
+                "description": app_dict.get("description", ""),
+                "icon": app_dict.get("icon", "Layers"),
+                "theme_color": app_dict.get("theme_color", "#0ea5e9"),
+                "color_scheme": app_dict.get("color_scheme", "cyber-cyan"),
+                "pattern": app_dict.get("pattern", "gradient-bi"),
+                "pattern_colors": app_dict.get("pattern_colors", []),
+                "focus_domains": app_dict.get("focus_domains", []),
+                "prioritized_entities": app_dict.get("prioritized_entities", []),
+                "created_at": app_dict.get("created_at", datetime.utcnow().isoformat() + "Z")
+            })
+            
+            # 2. Link videos if any
+            video_ids = app_dict.get("video_ids", [])
+            if video_ids:
+                session.run("""
+                    MATCH (a:ChildApp {id: $id})
+                    UNWIND $video_ids AS vid
+                    MERGE (v:Video {video_id: vid})
+                    MERGE (a)-[:INCLUDES_VIDEO]->(v)
+                """, {"id": app_id, "video_ids": video_ids})
+
+            # 3. Link prioritized entities if any
+            prioritized = app_dict.get("prioritized_entities", [])
+            if prioritized:
+                session.run("""
+                    MATCH (a:ChildApp {id: $id})
+                    UNWIND $entities AS ename
+                    MERGE (e:Entity {name: ename})
+                    MERGE (a)-[:PRIORITIZES_ENTITY]->(e)
+                """, {"id": app_id, "entities": prioritized})
+
+        return True, "Successfully persisted child app to Neo4j Aura DB."
+    except Exception as e:
+        return False, f"Neo4j Aura write failed: {str(e)}"
+
+
 # ── Child Apps ──────────────────────────────────────────────────────
 
 @app.get("/api/apps")
@@ -355,7 +439,16 @@ def list_apps():
 
 @app.post("/api/apps")
 def create_app(req: CreateAppRequest):
-    return app_store.create_app(req.dict())
+    req_dict = req.dict()
+    save_to_aura = req_dict.pop("save_to_aura", True)
+    created = app_store.create_app(req_dict)
+    saved_to_aura = False
+    aura_message = "Local store active"
+    if save_to_aura:
+        saved_to_aura, aura_message = save_child_app_to_aura(created)
+    created["saved_to_aura"] = saved_to_aura
+    created["aura_message"] = aura_message
+    return created
 
 
 @app.get("/api/apps/{app_id}")
@@ -368,10 +461,32 @@ def get_app(app_id: str):
 
 @app.put("/api/apps/{app_id}")
 def update_app(app_id: str, req: UpdateAppRequest):
-    updated = app_store.update_app(app_id, req.dict(exclude_unset=True))
+    req_dict = req.dict(exclude_unset=True)
+    save_to_aura = req_dict.pop("save_to_aura", True)
+    updated = app_store.update_app(app_id, req_dict)
     if not updated:
         raise HTTPException(status_code=404, detail="Child app not found")
+    saved_to_aura = False
+    aura_message = "Local store active"
+    if save_to_aura:
+        saved_to_aura, aura_message = save_child_app_to_aura(updated)
+    updated["saved_to_aura"] = saved_to_aura
+    updated["aura_message"] = aura_message
     return updated
+
+
+@app.post("/api/apps/{app_id}/save-to-aura", tags=["Database & Aura"])
+def save_app_to_aura_endpoint(app_id: str):
+    app_data = app_store.get_app(app_id)
+    if not app_data:
+        raise HTTPException(status_code=404, detail="Child app not found")
+    saved_to_aura, aura_message = save_child_app_to_aura(app_data)
+    return {
+        "success": saved_to_aura,
+        "app_id": app_id,
+        "saved_to_aura": saved_to_aura,
+        "message": aura_message
+    }
 
 
 @app.put("/api/apps/{app_id}/prioritize")

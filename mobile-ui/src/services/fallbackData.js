@@ -6,7 +6,7 @@ export const FALLBACK_APPS = [
     "slug": "executive-leadership",
     "description": "C-suite strategic frameworks, time management, personal discipline, and leadership alignment.",
     "icon": "Briefcase",
-    "theme_color": "#6366f1",
+    "theme_color": "#0EA5E9",
     "focus_domains": [
       "executive",
       "learning",
@@ -34,11 +34,13 @@ export const FALLBACK_APPS = [
       "Transformational Leadership",
       "Radical Candor"
     ],
-    "stats": {
-      "video_count": 13,
-      "node_count": 246,
-      "link_count": 746
-    }
+    "color_scheme": "aurora-tri",
+    "pattern": "gradient-tri",
+    "pattern_colors": [
+      "#0EA5E9",
+      "#8B5CF6",
+      "#10B981"
+    ]
   },
   {
     "id": "app_gtm_ai",
@@ -46,7 +48,7 @@ export const FALLBACK_APPS = [
     "slug": "gtm-ai-engineering",
     "description": "Go-to-market workflows, Claude Code automation, developer marketing, and scalable system design.",
     "icon": "Cpu",
-    "theme_color": "#3b82f6",
+    "theme_color": "#0EA5E9",
     "focus_domains": [
       "engineering",
       "sales",
@@ -57,11 +59,12 @@ export const FALLBACK_APPS = [
       "jl3OLK9vP1o"
     ],
     "created_at": "2026-03-05T12:00:00Z",
-    "stats": {
-      "video_count": 2,
-      "node_count": 219,
-      "link_count": 678
-    }
+    "color_scheme": "cyber-cyan",
+    "pattern": "gradient-bi",
+    "pattern_colors": [
+      "#0EA5E9",
+      "#10B981"
+    ]
   },
   {
     "id": "app_comm_mastery",
@@ -69,7 +72,7 @@ export const FALLBACK_APPS = [
     "slug": "communication-mastery",
     "description": "Mastery of rhetorical devices, vocal delivery, self-reflection drills, and audience captivation.",
     "icon": "Sparkles",
-    "theme_color": "#14b8a6",
+    "theme_color": "#EC4899",
     "focus_domains": [
       "thought_leadership",
       "learning",
@@ -82,11 +85,13 @@ export const FALLBACK_APPS = [
     ],
     "created_at": "2026-03-10T14:00:00Z",
     "prioritized_entities": [],
-    "stats": {
-      "video_count": 3,
-      "node_count": 243,
-      "link_count": 677
-    }
+    "color_scheme": "synthwave-tri",
+    "pattern": "stripe-tri",
+    "pattern_colors": [
+      "#EC4899",
+      "#3B82F6",
+      "#34D399"
+    ]
   },
   {
     "id": "app_sales_growth",
@@ -94,7 +99,7 @@ export const FALLBACK_APPS = [
     "slug": "sales-revenue",
     "description": "Direct response, value messaging, personal financial runway, and closing high-stakes deals.",
     "icon": "TrendingUp",
-    "theme_color": "#10b981",
+    "theme_color": "#10B981",
     "focus_domains": [
       "sales",
       "competitive",
@@ -106,11 +111,13 @@ export const FALLBACK_APPS = [
       "VozV9KmhPTU"
     ],
     "created_at": "2026-03-15T16:00:00Z",
-    "stats": {
-      "video_count": 3,
-      "node_count": 248,
-      "link_count": 679
-    }
+    "color_scheme": "deep-matrix-tri",
+    "pattern": "radial-mesh",
+    "pattern_colors": [
+      "#10B981",
+      "#14B8A6",
+      "#0284C7"
+    ]
   },
   {
     "id": "app_b8f73a79",
@@ -118,7 +125,7 @@ export const FALLBACK_APPS = [
     "slug": "no-1",
     "description": "one number",
     "icon": "Layers",
-    "theme_color": "#6366f1",
+    "theme_color": "#F59E0B",
     "focus_domains": [
       "executive",
       "learning"
@@ -127,11 +134,12 @@ export const FALLBACK_APPS = [
       "U40qvUiefQo"
     ],
     "created_at": "2026-09-03T10:41:34.894068Z",
-    "stats": {
-      "video_count": 1,
-      "node_count": 190,
-      "link_count": 624
-    }
+    "color_scheme": "neon-sunset",
+    "pattern": "split-bi",
+    "pattern_colors": [
+      "#F59E0B",
+      "#F43F5E"
+    ]
   },
   {
     "id": "app_1342be6f",
@@ -139,7 +147,7 @@ export const FALLBACK_APPS = [
     "slug": "no-1",
     "description": "one number",
     "icon": "Layers",
-    "theme_color": "#6366f1",
+    "theme_color": "#6366F1",
     "focus_domains": [
       "executive",
       "learning"
@@ -147,11 +155,12 @@ export const FALLBACK_APPS = [
     "video_ids": [],
     "prioritized_entities": [],
     "created_at": "2026-09-05T05:24:35.942126Z",
-    "stats": {
-      "video_count": 0,
-      "node_count": 12,
-      "link_count": 28
-    }
+    "color_scheme": "ultraviolet",
+    "pattern": "gradient-bi",
+    "pattern_colors": [
+      "#6366F1",
+      "#D946EF"
+    ]
   },
   {
     "id": "app_585c3bc9",
@@ -159,7 +168,7 @@ export const FALLBACK_APPS = [
     "slug": "no-1",
     "description": "one number",
     "icon": "Layers",
-    "theme_color": "#6366f1",
+    "theme_color": "#94A3B8",
     "focus_domains": [
       "executive",
       "learning"
@@ -167,11 +176,13 @@ export const FALLBACK_APPS = [
     "video_ids": [],
     "prioritized_entities": [],
     "created_at": "2026-09-05T06:39:27.890147Z",
-    "stats": {
-      "video_count": 0,
-      "node_count": 12,
-      "link_count": 28
-    }
+    "color_scheme": "titanium-tri",
+    "pattern": "gradient-tri",
+    "pattern_colors": [
+      "#94A3B8",
+      "#38BDF8",
+      "#FBBF24"
+    ]
   }
 ];
 
