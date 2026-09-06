@@ -1,6 +1,7 @@
 package org.vlkg.mobile.ui.hub
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,83 +45,102 @@ fun AppsHubScreen(
         modifier = modifier
             .fillMaxSize()
             .background(DarkBackground)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(14.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Gradient Banner
+        // Cockpit Bento Hero Card (2fr / 1fr feel)
         item {
             Card(
                 colors = CardDefaults.cardColors(containerColor = DarkSurface),
-                shape = RoundedCornerShape(22.dp),
+                shape = RoundedCornerShape(12.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(modifier = Modifier.padding(18.dp)) {
+                Column(modifier = Modifier.padding(16.dp)) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Surface(
-                            color = VlkgPrimary.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(12.dp)
+                            color = VlkgPrimary.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(6.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, VlkgPrimary.copy(alpha = 0.35f))
                         ) {
                             Text(
-                                text = "✨ MULTI-CHILD-APP KNOWLEDGE HUB",
+                                text = "KNOWLEDGE WORKSPACE COCKPIT",
                                 color = VlkgPrimary,
-                                fontSize = 10.sp,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                             )
                         }
 
-                        Button(
+                        OutlinedButton(
                             onClick = onCreateAppClick,
-                            colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary),
-                            shape = RoundedCornerShape(10.dp),
-                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
+                            border = androidx.compose.foundation.BorderStroke(1.dp, VlkgPrimary.copy(alpha = 0.6f)),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = VlkgPrimary.copy(alpha = 0.1f),
+                                contentColor = VlkgPrimary
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                         ) {
-                            Text("+ New App", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                            Text("+ NEW WORKSPACE", fontSize = 10.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
                         }
                     }
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Leadership & Linear Words Platform",
+                        text = "V-LKG Leadership & Semantic Streams",
                         color = DarkOnBackground,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Black
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = (-0.3).sp
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
 
                     Text(
-                        text = "Create isolated knowledge apps, assign YouTube videos, configure intelligence lenses, and explore linear word streams.",
-                        color = Color.LightGray,
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp
+                        text = "Modular multimodal knowledge spaces. Spoken video intelligence parsed into sequential linear words and causal pathways.",
+                        color = Color(0xFF94A3B8),
+                        fontSize = 11.sp,
+                        lineHeight = 15.sp
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
+                    // Telemetry Status Bar
                     Surface(
-                        color = if (databaseStatus?.is_connected_to_aura == true) Color(0xFF10B981).copy(alpha = 0.2f) else DarkSurfaceVariant,
-                        shape = RoundedCornerShape(8.dp)
+                        color = DarkBackground,
+                        shape = RoundedCornerShape(6.dp),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline)
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                text = if (databaseStatus?.is_connected_to_aura == true) "⚡ Neo4j Aura" else "🟢 LocalGraphStore",
-                                color = if (databaseStatus?.is_connected_to_aura == true) Color(0xFF10B981) else Color(0xFF6366F1),
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold
+                            Box(
+                                modifier = Modifier
+                                    .size(6.dp)
+                                    .clip(CircleShape)
+                                    .background(VlkgSecondary)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "• ${databaseStatus?.repository_stats?.entities_count ?: 252} Entities • ${databaseStatus?.repository_stats?.triplets_count ?: 770} Triplets",
-                                color = Color.Gray,
+                                text = if (databaseStatus?.is_connected_to_aura == true) "AURA DB" else "LOCAL STORE",
+                                color = VlkgSecondary,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "/ ${databaseStatus?.repository_stats?.entities_count ?: 252} ENTITIES / ${databaseStatus?.repository_stats?.triplets_count ?: 770} TRIPLETS",
+                                color = Color(0xFF64748B),
+                                fontFamily = FontFamily.Monospace,
                                 fontSize = 10.sp
                             )
                         }
@@ -136,16 +157,18 @@ fun AppsHubScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Active Child Workspaces (${apps.size})",
-                    color = Color.Gray,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
+                    text = "ACTIVE WORKSPACES (${apps.size})",
+                    color = Color(0xFF64748B),
+                    fontFamily = FontFamily.Monospace,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 0.5.sp
                 )
 
                 TextButton(
                     onClick = { onNavigateTab(AppNavigationTab.ASK) }
                 ) {
-                    Text("Compare Apps (\"Twice Answered\") ➔", color = VlkgPrimary, fontSize = 11.sp, fontWeight = FontWeight.SemiBold)
+                    Text("CROSS-QUERY WORKSPACES [->]", color = VlkgPrimary, fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold)
                 }
             }
         }
@@ -169,13 +192,16 @@ fun AppsHubScreen(
 
             Card(
                 colors = CardDefaults.cardColors(
-                    containerColor = if (isSelected) DarkSurfaceVariant else DarkSurface
+                    containerColor = if (isSelected) DarkSurfaceVariant.copy(alpha = 0.6f) else DarkSurface
                 ),
-                shape = RoundedCornerShape(16.dp),
-                border = if (isSelected) androidx.compose.foundation.BorderStroke(1.5.dp, VlkgPrimary) else null,
+                shape = RoundedCornerShape(10.dp),
+                border = androidx.compose.foundation.BorderStroke(
+                    width = 1.dp,
+                    color = if (isSelected) VlkgPrimary.copy(alpha = 0.8f) else DarkOutline
+                ),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column(modifier = Modifier.padding(14.dp)) {
                     // Header
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -184,111 +210,132 @@ fun AppsHubScreen(
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.clickable { onSelectApp(app) }
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable { onSelectApp(app) }
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .size(38.dp)
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .size(32.dp)
+                                    .clip(RoundedCornerShape(8.dp))
                                     .background(appColor),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text("📱", fontSize = 18.sp)
+                                Text(
+                                    text = app.name.take(1).uppercase(),
+                                    fontFamily = FontFamily.Monospace,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 14.sp,
+                                    color = Color.White
+                                )
                             }
 
-                            Spacer(modifier = Modifier.width(12.dp))
+                            Spacer(modifier = Modifier.width(10.dp))
 
                             Column {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         text = app.name,
                                         color = DarkOnBackground,
-                                        fontSize = 15.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.SemiBold
                                     )
                                     if (isSelected) {
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Surface(
-                                            color = VlkgPrimary.copy(alpha = 0.2f),
-                                            shape = RoundedCornerShape(4.dp)
+                                            color = VlkgPrimary.copy(alpha = 0.15f),
+                                            shape = RoundedCornerShape(4.dp),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, VlkgPrimary.copy(alpha = 0.4f))
                                         ) {
                                             Text(
                                                 text = "ACTIVE",
                                                 color = VlkgPrimary,
-                                                fontSize = 9.sp,
+                                                fontFamily = FontFamily.Monospace,
+                                                fontSize = 8.sp,
                                                 fontWeight = FontWeight.Bold,
-                                                modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
+                                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
                                             )
                                         }
                                     }
                                 }
                                 Text(
-                                    text = "${app.video_ids.size} Videos · ${defaultWords.size} Linear Words",
-                                    color = Color.Gray,
-                                    fontSize = 11.sp
+                                    text = "${app.video_ids.size} STREAMS / ${defaultWords.size} WORDS",
+                                    color = Color(0xFF64748B),
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 10.sp
                                 )
                             }
                         }
 
                         // Edit / Delete Actions
                         Row {
-                            IconButton(onClick = { onEditAppClick(app) }) {
-                                Text("✏️", fontSize = 13.sp)
+                            TextButton(
+                                onClick = { onEditAppClick(app) },
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text("EDIT", color = Color(0xFF94A3B8), fontFamily = FontFamily.Monospace, fontSize = 10.sp)
                             }
-                            IconButton(onClick = { onDeleteApp(app.id) }) {
-                                Text("🗑️", fontSize = 13.sp)
+                            TextButton(
+                                onClick = { onDeleteApp(app.id) },
+                                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 2.dp)
+                            ) {
+                                Text("DEL", color = Color(0xFFEF4444), fontFamily = FontFamily.Monospace, fontSize = 10.sp)
                             }
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(6.dp))
 
                     Text(
                         text = app.description,
-                        color = Color.LightGray,
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp
+                        color = Color(0xFF94A3B8),
+                        fontSize = 11.sp,
+                        lineHeight = 15.sp
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     @OptIn(ExperimentalLayoutApi::class)
                     FlowRow(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         app.focus_domains.forEach { dom ->
                             Surface(
                                 color = DarkBackground,
-                                shape = RoundedCornerShape(6.dp)
+                                shape = RoundedCornerShape(4.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline)
                             ) {
                                 Text(
-                                    text = dom,
-                                    color = Color.Gray,
-                                    fontSize = 10.sp,
-                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                                    text = dom.uppercase(),
+                                    color = Color(0xFF64748B),
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 9.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                 )
                             }
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                    // Linear Words section with star prioritization
+                    // Linear Words section with priority indicator
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(DarkBackground.copy(alpha = 0.6f), RoundedCornerShape(10.dp))
-                            .padding(10.dp)
+                            .background(DarkBackground.copy(alpha = 0.8f), RoundedCornerShape(8.dp))
+                            .border(1.dp, DarkOutline, RoundedCornerShape(8.dp))
+                            .padding(8.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("🏷️ Linear Words & Concepts", color = Color.LightGray, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                            Text("Tap ⭐ to prioritize", color = Color.Gray, fontSize = 10.sp)
+                            Text("PRIORITIZED CONCEPTS", color = Color(0xFF64748B), fontFamily = FontFamily.Monospace, fontSize = 9.sp, fontWeight = FontWeight.Bold)
+                            Text("TAP TO PIN", color = Color(0xFF475569), fontFamily = FontFamily.Monospace, fontSize = 8.sp)
                         }
 
                         Spacer(modifier = Modifier.height(6.dp))
@@ -296,25 +343,40 @@ fun AppsHubScreen(
                         @OptIn(ExperimentalLayoutApi::class)
                         FlowRow(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             displayWords.forEach { word ->
                                 val isPri = prioritizedSet.contains(word)
                                 Surface(
-                                    color = if (isPri) VlkgAccent.copy(alpha = 0.2f) else DarkSurfaceVariant,
-                                    shape = RoundedCornerShape(8.dp),
+                                    color = if (isPri) VlkgAccent.copy(alpha = 0.15f) else DarkSurfaceVariant,
+                                    shape = RoundedCornerShape(6.dp),
+                                    border = androidx.compose.foundation.BorderStroke(
+                                        1.dp,
+                                        if (isPri) VlkgAccent.copy(alpha = 0.5f) else DarkOutline
+                                    ),
                                     modifier = Modifier.clickable {
                                         haptic.triggerSuccess()
                                         onTogglePriority(word)
                                     }
                                 ) {
                                     Row(
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Text(text = if (isPri) "⭐ " else "☆ ", fontSize = 10.sp)
-                                        Text(text = word, color = if (isPri) VlkgAccent else Color.LightGray, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
+                                        Text(
+                                            text = if (isPri) "[PIN] " else "",
+                                            fontFamily = FontFamily.Monospace,
+                                            fontSize = 8.sp,
+                                            color = VlkgAccent,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Text(
+                                            text = word,
+                                            color = if (isPri) VlkgAccent else DarkOnSurface,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
                                     }
                                 }
                             }
@@ -322,9 +384,10 @@ fun AppsHubScreen(
 
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = if (isExpanded) "▲ Show fewer words" else "▼ +${defaultWords.size - 3} more words",
+                            text = if (isExpanded) "[-] SHOW LESS" else "[+] +${defaultWords.size - 3} MORE CONCEPTS",
                             color = VlkgPrimary,
-                            fontSize = 10.sp,
+                            fontFamily = FontFamily.Monospace,
+                            fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.clickable {
                                 expandedApps = if (isExpanded) expandedApps - app.id else expandedApps + app.id
@@ -332,46 +395,37 @@ fun AppsHubScreen(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
-                    // Card Bottom Actions (Videos, Dossier, Semantics, Linear Words)
+                    // Card Bottom Actions
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                            FilledTonalButton(
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            OutlinedButton(
                                 onClick = {
                                     onSelectApp(app)
                                     onOpenVideoManager()
                                 },
-                                shape = RoundedCornerShape(8.dp),
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                                shape = RoundedCornerShape(6.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                             ) {
-                                Text("➕ Assign Videos", fontSize = 10.sp)
+                                Text("VIDEOS", fontFamily = FontFamily.Monospace, fontSize = 9.sp, color = DarkOnSurface)
                             }
 
-                            FilledTonalButton(
+                            OutlinedButton(
                                 onClick = {
                                     onSelectApp(app)
                                     onOpenEnrichments()
                                 },
-                                shape = RoundedCornerShape(8.dp),
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                                shape = RoundedCornerShape(6.dp),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                             ) {
-                                Text("✨ Dossier", fontSize = 10.sp)
-                            }
-
-                            FilledTonalButton(
-                                onClick = {
-                                    onSelectApp(app)
-                                    onNavigateTab(AppNavigationTab.PLAYER)
-                                },
-                                shape = RoundedCornerShape(8.dp),
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-                            ) {
-                                Text("⚙️ Semantics", fontSize = 10.sp)
+                                Text("DOSSIER", fontFamily = FontFamily.Monospace, fontSize = 9.sp, color = DarkOnSurface)
                             }
                         }
 
@@ -380,11 +434,11 @@ fun AppsHubScreen(
                                 onSelectApp(app)
                                 onNavigateTab(AppNavigationTab.WORDS)
                             },
-                            colors = ButtonDefaults.buttonColors(containerColor = appColor),
-                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary),
+                            shape = RoundedCornerShape(6.dp),
                             contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                         ) {
-                            Text("Words ➔", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                            Text("EXPLORE [->]", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

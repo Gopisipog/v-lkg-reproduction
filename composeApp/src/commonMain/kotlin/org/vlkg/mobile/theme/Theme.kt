@@ -5,17 +5,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-val VlkgPrimary = Color(0xFF6366F1) // Electric Indigo
-val VlkgSecondary = Color(0xFF06B6D4) // Radiant Cyan
-val VlkgTertiary = Color(0xFF10B981) // Emerald Evidence
+val VlkgPrimary = Color(0xFF0EA5E9) // Electric Cyan (Cockpit Focus)
+val VlkgSecondary = Color(0xFF10B981) // Emerald Telemetry
+val VlkgTertiary = Color(0xFF38BDF8) // Sky Accent
 val VlkgAccent = Color(0xFFF59E0B) // Amber Milestone
 
-val DarkBackground = Color(0xFF090D16)
-val DarkSurface = Color(0xFF131926)
-val DarkSurfaceVariant = Color(0xFF1E293B)
+val DarkBackground = Color(0xFF020617) // Slate 950
+val DarkSurface = Color(0xFF0F172A) // Slate 900
+val DarkSurfaceVariant = Color(0xFF1E293B) // Slate 800
 val DarkOnBackground = Color(0xFFF8FAFC)
 val DarkOnSurface = Color(0xFFE2E8F0)
-val DarkOutline = Color(0xFF334155)
+val DarkOutline = Color(0xFF1E293B) // Hairline Divider Slate 800
 
 private val DarkColorScheme = darkColorScheme(
     primary = VlkgPrimary,
@@ -30,15 +30,15 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF4F46E5),
-    secondary = Color(0xFF0891B2),
-    tertiary = Color(0xFF059669),
+    primary = Color(0xFF0284C7),
+    secondary = Color(0xFF059669),
+    tertiary = Color(0xFF0284C7),
     background = Color(0xFFF8FAFC),
     surface = Color(0xFFFFFFFF),
     surfaceVariant = Color(0xFFF1F5F9),
     onBackground = Color(0xFF0F172A),
     onSurface = Color(0xFF1E293B),
-    outline = Color(0xFFCBD5E1)
+    outline = Color(0xFFE2E8F0)
 )
 
 fun parseHexColor(hex: String, defaultColor: Color = VlkgPrimary): Color {

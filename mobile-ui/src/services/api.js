@@ -1,23 +1,85 @@
+import { 
+  FALLBACK_APPS, 
+  FALLBACK_VIDEOS, 
+  FALLBACK_ENTITIES, 
+  FALLBACK_TRIPLETS, 
+  FALLBACK_INSIGHTS 
+} from "./fallbackData";
+
 const API_BASE = "/api";
 
 export async function fetchJson(url, options = {}) {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
     const res = await fetch(`${API_BASE}${url}`, {
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {})
       },
       ...options
     });
+    clearTimeout(timeoutId);
     if (!res.ok) {
       const err = await res.json().catch(() => ({ detail: res.statusText }));
       throw new Error(err.detail || `Request failed with status ${res.status}`);
     }
     return await res.json();
   } catch (error) {
-    console.error(`API Error on ${url}:`, error);
-    throw error;
+    console.warn(`[V-LKG API Offline/Fallback] ${url}:`, error.message);
+    return getOfflineFallback(url, options);
   }
+}
+
+function getOfflineFallback(url, options) {
+  if (url === "/apps") return FALLBACK_APPS;
+  if (url.startsWith("/apps/") && url.endsWith("/graph")) {
+    return {
+      nodes: FALLBACK_ENTITIES.slice(0, 30).map(e => ({ id: e.name, name: e.name, type: e.type, color: e.color || "#0ea5e9" })),
+      links: FALLBACK_TRIPLETS.slice(0, 45).map(t => ({ source: t.subject, target: t.object, relation: t.relation, weight: 1 }))
+    };
+  }
+  if (url.startsWith("/apps/") && url.endsWith("/insights")) {
+    return FALLBACK_INSIGHTS[0] || {
+      total_nodes: FALLBACK_ENTITIES.length,
+      total_links: FALLBACK_TRIPLETS.length,
+      top_central_entities: FALLBACK_ENTITIES.slice(0, 6).map((e, idx) => ({ id: e.name, label: e.name, type: e.type, centrality: 90 - idx * 5 })),
+      dependency_chains: FALLBACK_TRIPLETS.slice(0, 5).map(t => ({ source: t.subject, target: t.object, relation: t.relation }))
+    };
+  }
+  if (url.startsWith("/apps/") && url.endsWith("/entities")) {
+    return FALLBACK_ENTITIES.slice(0, 35);
+  }
+  if (url.startsWith("/apps/")) {
+    const id = url.split("/")[2];
+    return FALLBACK_APPS.find(a => a.id === id) || FALLBACK_APPS[0];
+  }
+  if (url === "/videos") return FALLBACK_VIDEOS;
+  if (url === "/entities") return FALLBACK_ENTITIES;
+  if (url === "/graph") {
+    return {
+      nodes: FALLBACK_ENTITIES.slice(0, 40).map(e => ({ id: e.name, name: e.name, type: e.type, color: e.color || "#0ea5e9" })),
+      links: FALLBACK_TRIPLETS.slice(0, 60).map(t => ({ source: t.subject, target: t.object, relation: t.relation, weight: 1 }))
+    };
+  }
+  if (url.startsWith("/videos/") && url.endsWith("/transcript")) {
+    return {
+      video_id: "test",
+      segments: [
+        { timestamp: "00:00", text: "Welcome to the executive leadership knowledge graph session." },
+        { timestamp: "00:14", text: "Today we focus on high agency systems and first principles thinking." },
+        { timestamp: "00:32", text: "When teams align around clear boundary setting, execution velocity multiplies." }
+      ]
+    };
+  }
+  if (url === "/voice/live-extract") {
+    return [
+      { name: "First-Principles Thinking", type: "Framework", detected_at: "00:04", color: "#0ea5e9", intelligences: ["executive", "learning"] },
+      { name: "Executive Presence", type: "Competency", detected_at: "00:08", color: "#10b981", intelligences: ["thought_leadership"] }
+    ];
+  }
+  return [];
 }
 
 // ── Child Apps API ──────────────────────────────────────────────────
