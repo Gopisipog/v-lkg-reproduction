@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Send, Sparkles, Brain, Check, Layers, PlayCircle, 
   ArrowRight, MessageSquareCode, Share2, HelpCircle, Radio
@@ -15,12 +15,73 @@ const INTELLIGENCE_LENSES = [
   { id: "thought_leadership", name: "LEADERSHIP" }
 ];
 
-const SUGGESTED_PROMPTS = [
+const INITIAL_PROMPTS = [
   "How do elite presenters use contrast to persuade audiences?",
   "What are the core engineering workflows using Claude Code for GTM?",
   "How should leaders set boundaries and protect high-leverage time?",
   "What is the foundational discipline required to achieve the first $100K?"
 ];
+
+const CURATED_QUESTIONS_POOL = [
+  "How do recursive feedback loops accelerate executive learning curves?",
+  "What heuristics distinguish high-agency operators from conventional managers?",
+  "How can asynchronous knowledge triplets minimize meeting overhead?",
+  "What are the critical inflection points when scaling an AI workflow from 1 to 10?",
+  "How do leaders navigate asymmetric risk during high-stakes strategic negotiations?",
+  "What telemetry metrics best indicate authentic audience resonance in presentations?",
+  "How does radical candor prevent organizational debt in fast-moving engineering teams?",
+  "What mental models help executives de-risk aggressive product roadmap bets?",
+  "How do top engineers leverage declarative knowledge graphs in real-time?",
+  "What are the non-obvious trade-offs between execution speed and architectural purity?",
+  "How can teams build antifragile systems that benefit from market volatility?",
+  "How do first principles simplify complex multi-agent system design?",
+  "What role does emotional regulation play during high-velocity crisis response?",
+  "How does strategic boundary setting increase output density per engineer?",
+  "What are the foundational metrics for measuring cross-workspace entity alignment?"
+];
+
+function generateNewQuestion(answeredQuestion, usedQuestionsSet, activeApp) {
+  // 1. Prioritized entities from active child app
+  if (activeApp && activeApp.prioritized_entities && activeApp.prioritized_entities.length > 0) {
+    const entities = activeApp.prioritized_entities;
+    const randomEntity = entities[Math.floor(Math.random() * entities.length)];
+    const entityTemplates = [
+      `How does ${randomEntity} directly drive execution velocity in this workspace?`,
+      `What are the core operational principles behind ${randomEntity}?`,
+      `How can teams leverage ${randomEntity} to de-risk high-stakes decisions?`,
+      `Where does ${randomEntity} intersect with long-term strategy?`,
+      `What failure modes arise when ${randomEntity} is ignored?`
+    ];
+    for (const q of entityTemplates) {
+      if (!usedQuestionsSet.has(q) && q !== answeredQuestion) {
+        return q;
+      }
+    }
+  }
+
+  // 2. Active app strategic focus
+  if (activeApp && activeApp.name) {
+    const appTemplates = [
+      `What is the primary strategic thesis behind ${activeApp.name}?`,
+      `How does ${activeApp.name} synthesize cross-video knowledge triplets?`,
+      `What are the highest-leverage concepts cataloged in ${activeApp.name}?`
+    ];
+    for (const q of appTemplates) {
+      if (!usedQuestionsSet.has(q) && q !== answeredQuestion) {
+        return q;
+      }
+    }
+  }
+
+  // 3. Fall back to unused curated pool questions
+  const available = CURATED_QUESTIONS_POOL.filter(q => !usedQuestionsSet.has(q) && q !== answeredQuestion);
+  if (available.length > 0) {
+    return available[Math.floor(Math.random() * available.length)];
+  }
+
+  // 4. Default dynamic generative question
+  return `How can teams apply dynamic knowledge graphs to accelerate strategic execution?`;
+}
 
 export default function AppQueryView({ 
   activeApp, 
@@ -33,6 +94,10 @@ export default function AppQueryView({
   const [selectedAppIds, setSelectedAppIds] = useState(
     apps.slice(0, 2).map((a) => a.id)
   );
+
+  // Suggested Prompts Evolution State
+  const [suggestedPrompts, setSuggestedPrompts] = useState(INITIAL_PROMPTS);
+  const [usedQuestions, setUsedQuestions] = useState(() => new Set(INITIAL_PROMPTS));
 
   const [singleResponse, setSingleResponse] = useState(null);
   const [multiResponse, setMultiResponse] = useState(null);
@@ -67,6 +132,42 @@ export default function AppQueryView({
         setSingleResponse(res);
       } else {
         const res = await queryMultiApps(selectedAppIds, question.trim());
+        setMultiResponse(res);
+      }
+    } catch (err) {
+      alert(err.message || "Query failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectSuggestedQuestion = async (selectedPrompt) => {
+    setQuestion(selectedPrompt);
+
+    // 1. Remove selected question from panel & generate replacement question
+    setSuggestedPrompts((prev) => {
+      const remaining = prev.filter((p) => p !== selectedPrompt);
+      const newQuestion = generateNewQuestion(selectedPrompt, usedQuestions, activeApp);
+      setUsedQuestions((prevSet) => new Set([...prevSet, selectedPrompt, newQuestion]));
+      return [...remaining, newQuestion];
+    });
+
+    // 2. Automatically execute query answering
+    setLoading(true);
+    setSingleResponse(null);
+    setMultiResponse(null);
+
+    try {
+      if (mode === "single") {
+        if (!activeApp) return;
+        const res = await querySingleApp(
+          activeApp.id, 
+          selectedPrompt, 
+          selectedLens === "all" ? null : selectedLens
+        );
+        setSingleResponse(res);
+      } else {
+        const res = await queryMultiApps(selectedAppIds, selectedPrompt);
         setMultiResponse(res);
       }
     } catch (err) {
@@ -159,22 +260,34 @@ export default function AppQueryView({
         </div>
       )}
 
-      {/* Suggested Prompts - One Question per Row */}
+      {/* Suggested Prompts - One Question per Row (Auto-evolves on selection) */}
       <div className="space-y-1.5">
-        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block font-semibold">
-          Suggested Question Prompts
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block font-semibold">
+            Suggested Question Prompts
+          </span>
+          <span className="text-[9px] font-mono text-cyan-400 bg-cyan-950/60 px-1.5 py-0.2 rounded border border-cyan-800/40">
+            AUTO-GENERATES ON ANSWER
+          </span>
+        </div>
         <div className="flex flex-col space-y-1.5 w-full">
-          {SUGGESTED_PROMPTS.map((prompt, i) => (
-            <button
-              key={i}
-              onClick={() => setQuestion(prompt)}
-              className="tactile-btn w-full text-left text-xs font-mono px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between group shadow-sm"
-            >
-              <span className="truncate pr-2">{prompt}</span>
-              <ArrowRight className="w-3 h-3 text-slate-600 group-hover:text-cyan-400 shrink-0 transition-colors" />
-            </button>
-          ))}
+          <AnimatePresence mode="popLayout">
+            {suggestedPrompts.map((prompt) => (
+              <motion.button
+                key={prompt}
+                layout
+                initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -20, transition: { duration: 0.15 } }}
+                transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                onClick={() => handleSelectSuggestedQuestion(prompt)}
+                className="tactile-btn w-full text-left text-xs font-mono px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between group shadow-sm"
+              >
+                <span className="truncate pr-2">{prompt}</span>
+                <ArrowRight className="w-3 h-3 text-slate-600 group-hover:text-cyan-400 shrink-0 transition-colors" />
+              </motion.button>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 

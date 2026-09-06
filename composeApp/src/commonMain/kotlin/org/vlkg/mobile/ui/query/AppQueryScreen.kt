@@ -20,6 +20,51 @@ import org.vlkg.mobile.platform.HapticFeedbackHelper
 import org.vlkg.mobile.theme.*
 import org.vlkg.mobile.viewmodel.QueryViewModel
 
+private val CURATED_QUERY_QUESTIONS = listOf(
+    "How do recursive feedback loops accelerate executive learning curves?",
+    "What heuristics distinguish high-agency operators from conventional managers?",
+    "How can asynchronous knowledge triplets minimize meeting overhead?",
+    "What are the critical inflection points when scaling an AI workflow from 1 to 10?",
+    "How do leaders navigate asymmetric risk during high-stakes strategic negotiations?",
+    "What telemetry metrics best indicate authentic audience resonance in presentations?",
+    "How does radical candor prevent organizational debt in fast-moving teams?",
+    "What mental models help executives de-risk aggressive product roadmap bets?",
+    "How do top engineers leverage declarative knowledge graphs in real-time?",
+    "What are the non-obvious trade-offs between execution speed and architectural purity?",
+    "How can teams build antifragile systems that benefit from market volatility?",
+    "How do first principles simplify complex multi-agent system design?",
+    "What role does emotional regulation play during high-velocity crisis response?"
+)
+
+private fun generateNewComposeQuestion(
+    answeredQuestion: String,
+    usedQuestions: Set<String>,
+    activeApp: ChildApp?
+): String {
+    if (activeApp != null && activeApp.prioritized_entities.isNotEmpty()) {
+        val ent = activeApp.prioritized_entities.randomOrNull()
+        if (ent != null) {
+            val templates = listOf(
+                "How does $ent directly drive execution velocity in this workspace?",
+                "What are the core operational principles behind $ent?",
+                "How can teams leverage $ent to de-risk high-stakes decisions?",
+                "Where does $ent intersect with long-term strategy?"
+            )
+            for (t in templates) {
+                if (!usedQuestions.contains(t) && t != answeredQuestion) {
+                    return t
+                }
+            }
+        }
+    }
+    
+    val available = CURATED_QUERY_QUESTIONS.filter { !usedQuestions.contains(it) && it != answeredQuestion }
+    if (available.isNotEmpty()) {
+        return available.random()
+    }
+    return "How can teams apply dynamic knowledge graphs to accelerate strategic execution?"
+}
+
 @Composable
 fun AppQueryScreen(
     activeApp: ChildApp?,
@@ -38,12 +83,16 @@ fun AppQueryScreen(
         }
     }
 
-    val suggestedQuestions = listOf(
-        "How do leaders set boundaries and protect high-leverage time?",
-        "What are the core engineering workflows using AI?",
-        "What is the foundational discipline required to scale execution?",
-        "Explain First-Principles Thinking in leadership."
-    )
+    val initialQuestions = remember {
+        listOf(
+            "How do leaders set boundaries and protect high-leverage time?",
+            "What are the core engineering workflows using AI?",
+            "What is the foundational discipline required to scale execution?",
+            "Explain First-Principles Thinking in leadership."
+        )
+    }
+    var visibleQuestions by remember { mutableStateOf(initialQuestions) }
+    var usedQuestions by remember { mutableStateOf(initialQuestions.toSet()) }
 
     Column(
         modifier = modifier
@@ -166,11 +215,17 @@ fun AppQueryScreen(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            suggestedQuestions.forEach { q ->
+            visibleQuestions.forEach { q ->
                 Surface(
                     onClick = {
                         haptic.triggerClick()
                         queryViewModel.askQuestion(activeApp?.id ?: "app_executive", q, selectedLens)
+
+                        // 1. Remove answered question from panel & generate replacement question
+                        val remaining = visibleQuestions.filter { it != q }
+                        val newQ = generateNewComposeQuestion(q, usedQuestions, activeApp)
+                        usedQuestions = usedQuestions + q + newQ
+                        visibleQuestions = remaining + newQ
                     },
                     shape = RoundedCornerShape(6.dp),
                     color = DarkSurface,
