@@ -19,75 +19,84 @@ export default function EnrichmentsModal({ isOpen, onClose, activeApp }) {
   if (!isOpen || !activeApp) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-xl bg-slate-900 border border-slate-700/80 rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden animate-slide-up">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm">
+      <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-t-2xl sm:rounded-2xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-950/60">
           <div className="flex items-center space-x-3">
             <div 
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-white"
-              style={{ backgroundColor: activeApp.theme_color || "#6366f1" }}
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-sm"
+              style={{ backgroundColor: activeApp.theme_color || "#0ea5e9" }}
             >
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-sm font-semibold tracking-tight text-white">
                 Intelligence Dossier & Enrichments
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-[11px] font-mono text-slate-400">
                 Grounded in <span className="text-white font-medium">{activeApp.name}</span>
               </p>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-full bg-slate-800 hover:bg-slate-750 text-slate-400 hover:text-white transition-colors"
+            className="p-1 rounded-lg bg-slate-800/80 hover:bg-slate-750 text-slate-400 hover:text-white transition-colors tactile-btn"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto space-y-6">
+        <div className="p-5 overflow-y-auto space-y-4">
           {loading ? (
             <div className="py-12 flex flex-col items-center justify-center space-y-3">
-              <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-xs text-slate-400">Synthesizing scoped intelligence metrics...</p>
+              <div className="w-7 h-7 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
+              <p className="text-xs font-mono text-slate-400">Synthesizing scoped intelligence telemetry...</p>
             </div>
           ) : (
             <>
               {/* Summary Card */}
-              <div className="p-4 rounded-2xl bg-slate-850 border border-slate-700/70">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-1">
+              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm">
+                <h4 className="text-[10px] font-mono uppercase tracking-wider text-sky-400 mb-1">
                   Executive Brief & Objective
                 </h4>
-                <p className="text-xs text-slate-200 leading-relaxed">
+                <p className="text-xs text-slate-300 leading-relaxed font-sans">
                   {activeApp.description || "Synthesized leadership intelligence spanning assigned multimedia sources."}
                 </p>
-                <div className="mt-3 flex items-center space-x-3 text-[11px] text-slate-400">
-                  <span>● {insights?.total_nodes || 0} Linear Words / Entities</span>
-                  <span>● {insights?.total_links || 0} Sequential Pathways</span>
-                  <span>● {activeApp?.stats?.video_count || 0} Video Streams</span>
+                <div className="mt-3 pt-2.5 border-t border-slate-800 flex flex-wrap items-center gap-3 text-[10px] font-mono text-slate-400">
+                  <span className="flex items-center space-x-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 inline-block" />
+                    <span><strong className="text-white">{insights?.total_nodes || 0}</strong> Entities</span>
+                  </span>
+                  <span className="flex items-center space-x-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+                    <span><strong className="text-white">{insights?.total_links || 0}</strong> Pathways</span>
+                  </span>
+                  <span className="flex items-center space-x-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" />
+                    <span><strong className="text-white">{activeApp?.stats?.video_count || 0}</strong> Streams</span>
+                  </span>
                 </div>
               </div>
 
               {/* Top Central Entities */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center space-x-1.5">
-                  <TrendingUp className="w-4 h-4 text-emerald-400" />
+                <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1.5">
+                  <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Top Central Entities (Influence Ranking)</span>
                 </h4>
                 <div className="grid grid-cols-2 gap-2">
                   {insights?.top_central_entities?.map((ent) => (
                     <div 
                       key={ent.id} 
-                      className="p-2.5 rounded-xl bg-slate-850/80 border border-slate-800 flex items-center justify-between"
+                      className="p-2.5 rounded-lg bg-slate-900/70 border border-slate-800 flex items-center justify-between shadow-xs"
                     >
                       <div className="min-w-0 pr-2">
                         <p className="text-xs font-semibold text-white truncate">{ent.label}</p>
-                        <p className="text-[10px] text-slate-400">{ent.type}</p>
+                        <p className="text-[10px] font-mono text-slate-400 uppercase">{ent.type}</p>
                       </div>
-                      <div className="px-2 py-0.5 rounded-lg bg-indigo-500/20 text-indigo-300 text-[10px] font-bold">
+                      <div className="px-1.5 py-0.5 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300 text-[10px] font-mono font-bold">
                         {ent.centrality}%
                       </div>
                     </div>
@@ -97,27 +106,29 @@ export default function EnrichmentsModal({ isOpen, onClose, activeApp }) {
 
               {/* Dependency Chains */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center space-x-1.5">
-                  <Layers className="w-4 h-4 text-purple-400" />
+                <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2 flex items-center space-x-1.5">
+                  <Layers className="w-3.5 h-3.5 text-sky-400" />
                   <span>Prerequisite & Dependency Chains</span>
                 </h4>
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {insights?.dependency_chains?.length ? (
                     insights.dependency_chains.map((chain, idx) => (
                       <div 
                         key={idx}
-                        className="p-2.5 rounded-xl bg-slate-850/60 border border-slate-800 flex items-center justify-between text-xs"
+                        className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs"
                       >
-                        <span className="font-semibold text-slate-200">{chain.source}</span>
-                        <div className="flex items-center space-x-1 text-slate-400 px-2">
-                          <span className="text-[10px] uppercase font-bold text-indigo-400">{chain.relation}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-slate-500" />
+                        <span className="font-medium text-slate-200 truncate max-w-[40%]">{chain.source}</span>
+                        <div className="flex items-center space-x-1 text-slate-400 px-1 shrink-0">
+                          <span className="text-[9px] font-mono uppercase font-semibold text-sky-400">{chain.relation}</span>
+                          <ArrowRight className="w-3 h-3 text-slate-500" />
                         </div>
-                        <span className="font-semibold text-slate-200">{chain.target}</span>
+                        <span className="font-medium text-slate-200 truncate max-w-[40%] text-right">{chain.target}</span>
                       </div>
                     ))
                   ) : (
-                    <p className="text-xs text-slate-500 italic">No direct prerequisite links in current scope.</p>
+                    <p className="text-xs font-mono text-slate-500 italic p-3 rounded-lg border border-dashed border-slate-800 text-center">
+                      No direct prerequisite links in current scope.
+                    </p>
                   )}
                 </div>
               </div>

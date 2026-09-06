@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Workflow, Tag, Clock, Search, ExternalLink, Sparkles, Film, Mic, 
-  ArrowRight, ChevronDown, ChevronUp, Filter, X, Layers, Brain, Check,
-  Share2, Compass, PlayCircle
+  ArrowRight, ChevronDown, ChevronUp, Filter, X, Layers, Check,
+  Share2, Compass, PlayCircle, Radio
 } from "lucide-react";
 import { getVideoSemantics } from "../services/api";
 
@@ -78,7 +79,7 @@ export default function VideoPlayerView({
     const parts = text.split(regex);
     return parts.map((part, i) =>
       regex.test(part) ? (
-        <mark key={i} className="bg-amber-400/30 text-amber-200 px-1 py-0.5 rounded font-bold">
+        <mark key={i} className="bg-cyan-950/60 text-cyan-300 font-mono px-1 py-0.2 rounded border border-cyan-700/50">
           {part}
         </mark>
       ) : (
@@ -138,9 +139,9 @@ export default function VideoPlayerView({
   const durationMin = Math.round((currentVideo?.duration_sec || (segments.length * 5)) / 60);
 
   return (
-    <div className="p-4 space-y-4 pb-40 max-w-4xl mx-auto animate-fade-in">
-      {/* Video Carousel Selector */}
-      <div className="flex items-center space-x-2 overflow-x-auto pb-1 no-scrollbar">
+    <div className="p-3 sm:p-5 space-y-3.5 pb-48 max-w-4xl mx-auto">
+      {/* Video Stream Selector Bar */}
+      <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
         {displayVideos.map((v) => {
           const isSelected = v.video_id === currentVideoId;
           const isV = v.is_voice_recording || v.video_id.startsWith("voice_");
@@ -148,77 +149,77 @@ export default function VideoPlayerView({
             <button
               key={v.video_id}
               onClick={() => setCurrentVideoId(v.video_id)}
-              className={`flex items-center space-x-2 px-3 py-1.5 rounded-2xl border text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+              className={`tactile-btn flex items-center space-x-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono whitespace-nowrap transition-colors shrink-0 ${
                 isSelected
-                  ? "bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/25"
-                  : "bg-slate-900 text-slate-400 border-slate-800 hover:text-white"
+                  ? "bg-cyan-950/60 text-cyan-300 border-cyan-700/60 font-bold"
+                  : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-750 hover:text-slate-200"
               }`}
             >
-              {isV ? <Mic className="w-3.5 h-3.5 text-rose-400" /> : <Film className="w-3.5 h-3.5 text-indigo-400" />}
-              <span className="truncate max-w-[150px]">{v.title}</span>
+              {isV ? <Mic className="w-3 h-3 text-rose-400" /> : <Film className="w-3 h-3 text-cyan-400" />}
+              <span className="truncate max-w-[140px]">{v.title}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Main Video Semantics & Knowledge Header (Replaces video iframe) */}
-      <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/40 border border-slate-800 shadow-2xl p-5 space-y-4">
+      {/* Main Cockpit Telemetry Card */}
+      <div className="rounded-xl overflow-hidden bg-slate-900 border border-slate-800 p-4 space-y-3">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="space-y-1">
             <div className="flex items-center space-x-2">
-              <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-[11px] font-bold">
-                <Workflow className="w-3 h-3 text-indigo-400" />
+              <span className="inline-flex items-center space-x-1.5 px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/40 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                <Radio className="w-2.5 h-2.5 text-cyan-400 animate-pulse" />
                 <span>Recorded VLKG Knowledge & Transcript Semantics</span>
               </span>
-              <span className="text-[11px] text-slate-500 font-mono">ID: {currentVideoId}</span>
+              <span className="text-[10px] text-slate-500 font-mono">ID: {currentVideoId}</span>
             </div>
 
-            <h2 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug">
+            <h2 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
               {currentVideo?.title || `Video Archive [${currentVideoId}]`}
             </h2>
 
-            <div className="flex items-center space-x-2 text-xs text-slate-400">
+            <div className="flex items-center space-x-2 text-[11px] font-mono text-slate-400">
               <span>{currentVideo?.channel || "Leadership Series"}</span>
-              <span>·</span>
-              <span>{durationMin > 0 ? `${durationMin} mins duration` : "Ingested Recording"}</span>
+              <span className="text-slate-600">·</span>
+              <span>{durationMin > 0 ? `${durationMin}m duration` : "Ingested Recording"}</span>
               {currentVideo?.url && (
                 <>
-                  <span>·</span>
+                  <span className="text-slate-600">·</span>
                   <a 
                     href={currentVideo.url} 
                     target="_blank" 
                     rel="noreferrer"
-                    className="text-indigo-400 hover:text-indigo-300 inline-flex items-center space-x-0.5 font-medium underline"
+                    className="text-cyan-400 hover:text-cyan-300 inline-flex items-center space-x-0.5 underline font-bold"
                   >
                     <span>YouTube source</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-2.5 h-2.5" />
                   </a>
                 </>
               )}
             </div>
           </div>
 
-          {/* Quick Metrics */}
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="px-3 py-2 rounded-2xl bg-slate-850/80 border border-slate-800 text-center">
-              <div className="text-sm font-black text-indigo-400">{relationships.length}</div>
-              <div className="text-[10px] text-slate-400 font-medium">Relationships</div>
+          {/* Quick Metrics Cockpit Boxes */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <div className="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-center min-w-[70px]">
+              <div className="text-xs font-mono font-bold text-cyan-400">{relationships.length}</div>
+              <div className="text-[9px] font-mono text-slate-500 uppercase">TRIPLETS</div>
             </div>
-            <div className="px-3 py-2 rounded-2xl bg-slate-850/80 border border-slate-800 text-center">
-              <div className="text-sm font-black text-purple-400">{segments.length}</div>
-              <div className="text-[10px] text-slate-400 font-medium">Segments</div>
+            <div className="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-center min-w-[70px]">
+              <div className="text-xs font-mono font-bold text-slate-300">{segments.length}</div>
+              <div className="text-[9px] font-mono text-slate-500 uppercase">SEGMENTS</div>
             </div>
-            <div className="px-3 py-2 rounded-2xl bg-slate-850/80 border border-slate-800 text-center">
-              <div className="text-sm font-black text-emerald-400">{intelPills.length}</div>
-              <div className="text-[10px] text-slate-400 font-medium">Lenses</div>
+            <div className="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-center min-w-[70px]">
+              <div className="text-xs font-mono font-bold text-emerald-400">{intelPills.length}</div>
+              <div className="text-[9px] font-mono text-slate-500 uppercase">LENSES</div>
             </div>
           </div>
         </div>
 
-        {/* Video Summary if available */}
+        {/* Video Summary */}
         {currentVideo?.summary && (
-          <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
-            <strong className="text-slate-200">Summary: </strong>{currentVideo.summary}
+          <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+            <strong className="text-slate-200 font-mono text-[11px] uppercase tracking-wider">Summary: </strong>{currentVideo.summary}
           </p>
         )}
 
@@ -226,33 +227,32 @@ export default function VideoPlayerView({
         <div className="pt-2 border-t border-slate-800/80 space-y-2">
           <button
             onClick={() => setShowPillsSection(!showPillsSection)}
-            className="w-full flex items-center justify-between text-xs font-bold text-slate-300 hover:text-white transition-colors"
+            className="tactile-btn w-full flex items-center justify-between text-xs font-mono font-bold text-slate-300 hover:text-white transition-colors"
           >
-            <div className="flex items-center space-x-2">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Explore Recorded Entity & Intelligence Pills ({extractedPills.length + enrichedPills.length + intelPills.length} Categories)</span>
+            <div className="flex items-center space-x-1.5">
+              <Sparkles className="w-3 h-3 text-cyan-400" />
+              <span>RECORDED ENTITY & INTELLIGENCE PILLS ({extractedPills.length + enrichedPills.length + intelPills.length} CATEGORIES)</span>
             </div>
-            {showPillsSection ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+            {showPillsSection ? <ChevronUp className="w-3.5 h-3.5 text-slate-400" /> : <ChevronDown className="w-3.5 h-3.5 text-slate-400" />}
           </button>
 
           {showPillsSection && (
-            <div className="space-y-3 pt-2 animate-fade-in">
+            <div className="space-y-2.5 pt-1.5">
               {/* Extracted */}
               {extractedPills.length > 0 && (
                 <div className="space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Extracted from Video</div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Extracted from Video</div>
+                  <div className="flex flex-wrap gap-1">
                     {extractedPills.map((group) =>
                       group.entities.slice(0, 15).map((name) => (
                         <button
                           key={name}
                           onClick={() => setSelectedEntityFilter(selectedEntityFilter === name ? null : name)}
-                          className={`text-[11px] px-2.5 py-0.5 rounded-full border transition-all ${
+                          className={`tactile-btn text-[10px] font-mono px-2 py-0.5 rounded border transition-colors ${
                             selectedEntityFilter === name
-                              ? "ring-2 ring-white text-white font-bold"
-                              : "text-slate-200 hover:opacity-80"
+                              ? "bg-cyan-500 text-slate-950 font-bold border-cyan-400"
+                              : "bg-slate-800/70 hover:bg-slate-800 text-slate-300 border-slate-700/60"
                           }`}
-                          style={{ backgroundColor: `${group.color}25`, borderColor: group.color }}
                         >
                           {name}
                         </button>
@@ -265,19 +265,18 @@ export default function VideoPlayerView({
               {/* Enriched */}
               {enrichedPills.length > 0 && (
                 <div className="space-y-1">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Enriched Pathways</div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Enriched Pathways</div>
+                  <div className="flex flex-wrap gap-1">
                     {enrichedPills.map((group) =>
                       group.entities.slice(0, 15).map((name) => (
                         <button
                           key={name}
                           onClick={() => setSelectedEntityFilter(selectedEntityFilter === name ? null : name)}
-                          className={`text-[11px] px-2.5 py-0.5 rounded-full border transition-all ${
+                          className={`tactile-btn text-[10px] font-mono px-2 py-0.5 rounded border transition-colors ${
                             selectedEntityFilter === name
-                              ? "ring-2 ring-white text-white font-bold"
-                              : "text-slate-200 hover:opacity-80"
+                              ? "bg-cyan-500 text-slate-950 font-bold border-cyan-400"
+                              : "bg-slate-800/70 hover:bg-slate-800 text-slate-300 border-slate-700/60"
                           }`}
-                          style={{ backgroundColor: `${group.color}25`, borderColor: group.color }}
                         >
                           {name}
                         </button>
@@ -290,15 +289,17 @@ export default function VideoPlayerView({
               {/* Intelligence */}
               {intelPills.length > 0 && (
                 <div className="space-y-1">
-                  <div className="text-[11px] font-bold text-purple-400 uppercase tracking-wider">Intelligence Lenses</div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-wider">Intelligence Lenses</div>
+                  <div className="flex flex-wrap gap-1">
                     {intelPills.map((group) =>
                       group.entities.slice(0, 10).map((name) => (
                         <button
                           key={name}
                           onClick={() => setSelectedEntityFilter(selectedEntityFilter === name ? null : name)}
-                          className={`text-[11px] px-2.5 py-0.5 rounded-full border border-purple-500/40 bg-purple-500/20 text-purple-200 transition-all ${
-                            selectedEntityFilter === name ? "ring-2 ring-white font-bold" : "hover:opacity-80"
+                          className={`tactile-btn text-[10px] font-mono px-2 py-0.5 rounded border transition-colors ${
+                            selectedEntityFilter === name
+                              ? "bg-cyan-500 text-slate-950 font-bold border-cyan-400"
+                              : "bg-cyan-950/30 text-cyan-300 border-cyan-800/50 hover:bg-cyan-900/40"
                           }`}
                         >
                           {name}
@@ -313,82 +314,77 @@ export default function VideoPlayerView({
         </div>
       </div>
 
-      {/* Control Bar: Search & View Mode */}
+      {/* Control Bar: Search & View Mode Switcher with Framer Motion layoutId */}
       <div className="space-y-2">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           {/* View Mode Toggle */}
-          <div className="bg-slate-900 border border-slate-800 p-1 rounded-2xl flex items-center space-x-1 shadow-md w-fit">
-            <button
-              onClick={() => setActiveViewMode("split")}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                activeViewMode === "split"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              Split View
-            </button>
-            <button
-              onClick={() => setActiveViewMode("relationships")}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                activeViewMode === "relationships"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              Relationships ({filteredRelationships.length})
-            </button>
-            <button
-              onClick={() => setActiveViewMode("transcript")}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                activeViewMode === "transcript"
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                  : "text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              Transcript ({filteredSegments.length})
-            </button>
+          <div className="bg-slate-900 border border-slate-800 p-0.5 rounded-lg flex items-center space-x-1 shadow-sm w-fit">
+            {[
+              { id: "split", label: "SPLIT VIEW" },
+              { id: "relationships", label: `TRIPLETS (${filteredRelationships.length})` },
+              { id: "transcript", label: `TRANSCRIPT (${filteredSegments.length})` }
+            ].map((mode) => {
+              const isSelected = activeViewMode === mode.id;
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => setActiveViewMode(mode.id)}
+                  className={`tactile-btn relative px-2.5 py-1 rounded-md text-[11px] font-mono font-semibold transition-colors ${
+                    isSelected ? "text-slate-950" : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  {isSelected && (
+                    <motion.div
+                      layoutId="playerViewModeIndicator"
+                      className="absolute inset-0 bg-cyan-400 rounded-md -z-10"
+                      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                    />
+                  )}
+                  {mode.label}
+                </button>
+              );
+            })}
           </div>
 
           {/* Active Filter Pill */}
           {selectedEntityFilter && (
-            <div className="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-semibold">
-              <span>Filtered by: <strong>{selectedEntityFilter}</strong></span>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/40 text-cyan-300 text-[10px] font-mono font-bold">
+              <span>FILTER: {selectedEntityFilter}</span>
               <button onClick={() => setSelectedEntityFilter(null)} className="hover:text-white ml-1">
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3 h-3" />
               </button>
             </div>
           )}
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center space-x-2 bg-slate-900 p-2.5 rounded-2xl border border-slate-800 shadow-md">
-          <Search className="w-4 h-4 text-slate-400 ml-1 shrink-0" />
+        <div className="flex items-center space-x-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+          <Search className="w-3.5 h-3.5 text-slate-500 shrink-0" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search relationships, concepts, or transcript words..."
-            className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+            className="w-full bg-transparent text-xs text-white placeholder-slate-500 font-mono focus:outline-none"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery("")} className="text-slate-400 hover:text-white text-xs mr-2">
-              Clear
+            <button onClick={() => setSearchQuery("")} className="text-slate-400 hover:text-white text-xs font-mono mr-1">
+              CLEAR
             </button>
           )}
         </div>
 
-        {/* Relation Type Horizontal Filters (when in relationships or split mode) */}
+        {/* Relation Type Horizontal Filters */}
         {activeViewMode !== "transcript" && relationTypes.length > 2 && (
-          <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 no-scrollbar pt-1">
+          <div className="flex items-center space-x-1 overflow-x-auto pb-1 no-scrollbar pt-0.5">
             {relationTypes.slice(0, 10).map((rel) => (
               <button
                 key={rel}
                 onClick={() => setSelectedRelation(rel)}
-                className={`px-2.5 py-1 rounded-xl text-[11px] font-semibold whitespace-nowrap transition-all border ${
+                className={`tactile-btn px-2 py-0.5 rounded text-[10px] font-mono font-medium whitespace-nowrap transition-colors border ${
                   selectedRelation === rel
-                    ? "bg-indigo-500/30 text-indigo-300 border-indigo-500/50 shadow-sm"
-                    : "bg-slate-900 text-slate-400 border-slate-800 hover:text-slate-200"
+                    ? "bg-cyan-950/60 text-cyan-300 border-cyan-700/60 font-bold"
+                    : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-750 hover:text-slate-200"
                 }`}
               >
                 {rel}
@@ -400,39 +396,39 @@ export default function VideoPlayerView({
 
       {/* Main Content Area */}
       {loading ? (
-        <div className="py-16 text-center text-slate-400 text-xs flex flex-col items-center space-y-2">
-          <Workflow className="w-6 h-6 animate-spin text-indigo-400" />
+        <div className="py-16 text-center text-slate-400 text-xs font-mono flex flex-col items-center space-y-2">
+          <Workflow className="w-6 h-6 animate-spin text-cyan-400" />
           <span>Loading relationships and transcript semantics...</span>
         </div>
       ) : (
-        <div className={`gap-4 ${activeViewMode === "split" ? "grid grid-cols-1 lg:grid-cols-2" : "space-y-4"}`}>
+        <div className={`gap-3 ${activeViewMode === "split" ? "grid grid-cols-1 lg:grid-cols-2" : "space-y-3"}`}>
           {/* 1. Relationships Column / View */}
           {(activeViewMode === "split" || activeViewMode === "relationships") && (
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
-                  <Workflow className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Knowledge Relationships ({filteredRelationships.length})</span>
+                <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
+                  <Workflow className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>KNOWLEDGE TRIPLETS ({filteredRelationships.length})</span>
                 </h3>
-                <span className="text-[10px] text-slate-500">Tap timestamp to jump</span>
+                <span className="text-[10px] font-mono text-slate-500">Tap time to jump</span>
               </div>
 
-              <div className="space-y-2 max-h-[550px] overflow-y-auto pr-1">
+              <div className="space-y-1.5 max-h-[550px] overflow-y-auto pr-1">
                 {filteredRelationships.length > 0 ? (
                   filteredRelationships.map((r, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800/90 hover:border-indigo-500/40 transition-all shadow-sm group"
+                      className="p-2.5 rounded-lg bg-slate-900/80 hover:bg-slate-850 border border-slate-800/80 transition-all group"
                     >
-                      <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <div className="flex items-center justify-between gap-2 mb-1">
                         <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
                           <span 
                             onClick={() => setSelectedEntityFilter(r.subject)}
-                            className="text-xs font-bold text-white hover:text-indigo-300 cursor-pointer transition-colors"
+                            className="text-xs font-bold text-white hover:text-cyan-300 cursor-pointer transition-colors"
                           >
                             {r.subject}
                           </span>
-                          <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-400 font-medium border border-slate-700/50">
+                          <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700/50">
                             {r.subject_type || "Concept"}
                           </span>
                         </div>
@@ -440,35 +436,35 @@ export default function VideoPlayerView({
                         {r.source_time && (
                           <button
                             onClick={() => scrollToTimestamp(r.source_time)}
-                            className="px-2 py-0.5 rounded-lg bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600 hover:text-white border border-indigo-500/30 text-[11px] font-bold transition-all shrink-0 flex items-center space-x-1"
+                            className="tactile-btn px-1.5 py-0.5 rounded bg-cyan-950/40 text-cyan-400 hover:bg-cyan-900/50 border border-cyan-800/40 text-[10px] font-mono font-bold transition-colors shrink-0 flex items-center space-x-1"
                             title="Jump to transcript segment"
                           >
                             <Clock className="w-2.5 h-2.5" />
-                            <span>{r.source_time}</span>
+                            <span>[{r.source_time}]</span>
                           </button>
                         )}
                       </div>
 
                       {/* Relationship Arrow & Object */}
-                      <div className="flex items-center space-x-2 pl-2 border-l-2 border-indigo-500/40 mt-2">
-                        <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-indigo-950/60 text-indigo-300 border border-indigo-500/30">
+                      <div className="flex items-center space-x-1.5 pl-2 border-l-2 border-cyan-500/40 mt-1.5">
+                        <span className="text-[9px] font-mono uppercase font-bold tracking-wider px-1.5 py-0.2 rounded bg-cyan-950/60 text-cyan-300 border border-cyan-800/40">
                           {r.relation}
                         </span>
-                        <ArrowRight className="w-3 h-3 text-slate-500 shrink-0" />
+                        <ArrowRight className="w-2.5 h-2.5 text-slate-500 shrink-0" />
                         <span 
                           onClick={() => setSelectedEntityFilter(r.object)}
-                          className="text-xs font-semibold text-slate-200 hover:text-indigo-300 cursor-pointer transition-colors"
+                          className="text-xs font-medium text-slate-200 hover:text-cyan-300 cursor-pointer transition-colors"
                         >
                           {r.object}
                         </span>
-                        <span className="text-[10px] px-1.5 py-0.2 rounded bg-slate-800/80 text-slate-400">
+                        <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800/80 text-slate-500">
                           {r.object_type || "Concept"}
                         </span>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="py-12 text-center text-slate-500 text-xs bg-slate-900/40 rounded-2xl border border-dashed border-slate-800">
+                  <div className="py-8 text-center text-slate-500 text-xs font-mono bg-slate-900/40 rounded-lg border border-slate-800">
                     No relationships match current filters.
                   </div>
                 )}
@@ -478,16 +474,16 @@ export default function VideoPlayerView({
 
           {/* 2. Transcript Semantics Column / View */}
           {(activeViewMode === "split" || activeViewMode === "transcript") && (
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
-                  <Clock className="w-3.5 h-3.5 text-purple-400" />
-                  <span>Time-Aligned Transcript ({filteredSegments.length})</span>
+                <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
+                  <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>TIME-ALIGNED TRANSCRIPT ({filteredSegments.length})</span>
                 </h3>
-                <span className="text-[10px] text-slate-500">Entities tagged per moment</span>
+                <span className="text-[10px] font-mono text-slate-500">Tagged per moment</span>
               </div>
 
-              <div ref={transcriptListRef} className="space-y-2 max-h-[550px] overflow-y-auto pr-1">
+              <div ref={transcriptListRef} className="space-y-1.5 max-h-[550px] overflow-y-auto pr-1">
                 {filteredSegments.length > 0 ? (
                   filteredSegments.map((seg, idx) => {
                     const isTarget = highlightedTime === seg.timestamp;
@@ -495,29 +491,29 @@ export default function VideoPlayerView({
                       <div
                         key={idx}
                         id={`seg-${seg.timestamp.replace(":", "-")}`}
-                        className={`p-3 rounded-2xl border transition-all ${
+                        className={`p-2.5 rounded-lg border transition-colors ${
                           isTarget
-                            ? "bg-indigo-950/50 border-indigo-500 shadow-md ring-1 ring-indigo-500/30"
-                            : "bg-slate-900/80 hover:bg-slate-850 border-slate-800"
+                            ? "bg-cyan-950/30 border-cyan-500/70 shadow-sm"
+                            : "bg-slate-900/80 hover:bg-slate-850 border-slate-800/80"
                         }`}
                       >
-                        <div className="flex items-start space-x-2.5">
-                          <span className="px-2 py-0.5 rounded-lg bg-purple-600/20 text-purple-300 border border-purple-500/30 text-[11px] font-mono font-bold shrink-0 mt-0.5">
+                        <div className="flex items-start space-x-2">
+                          <span className="px-1.5 py-0.2 rounded bg-slate-800 text-cyan-400 border border-slate-700/60 text-[10px] font-mono font-bold shrink-0 mt-0.5">
                             {seg.timestamp}
                           </span>
-                          <div className="space-y-1.5 flex-1">
+                          <div className="space-y-1 flex-1">
                             <p className="text-xs text-slate-300 leading-relaxed">
                               {highlightMatch(seg.text, searchQuery)}
                             </p>
 
                             {/* Detected Semantics Tags */}
                             {seg.detected_entities && seg.detected_entities.length > 0 && (
-                              <div className="flex flex-wrap gap-1 pt-1">
+                              <div className="flex flex-wrap gap-1 pt-0.5">
                                 {seg.detected_entities.map((ent) => (
                                   <button
                                     key={ent}
                                     onClick={() => setSelectedEntityFilter(ent)}
-                                    className="text-[10px] px-1.5 py-0.2 rounded-md bg-slate-800 hover:bg-indigo-600/30 text-indigo-300 border border-slate-700/60 font-medium transition-colors"
+                                    className="tactile-btn text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800 hover:bg-cyan-950/60 text-cyan-300 border border-slate-700/60 transition-colors"
                                   >
                                     #{ent}
                                   </button>
@@ -530,7 +526,7 @@ export default function VideoPlayerView({
                     );
                   })
                 ) : (
-                  <div className="py-12 text-center text-slate-500 text-xs bg-slate-900/40 rounded-2xl border border-dashed border-slate-800">
+                  <div className="py-8 text-center text-slate-500 text-xs font-mono bg-slate-900/40 rounded-lg border border-slate-800">
                     No transcript segments match your query.
                   </div>
                 )}
@@ -542,3 +538,4 @@ export default function VideoPlayerView({
     </div>
   );
 }
+

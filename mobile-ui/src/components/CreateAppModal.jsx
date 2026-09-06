@@ -85,37 +85,37 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
   const IconComponent = ICON_MAP[icon] || Layers;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-lg bg-slate-900 border border-slate-700/80 rounded-t-3xl sm:rounded-3xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden animate-slide-up">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm">
+      <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-t-2xl sm:rounded-2xl shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-800 bg-slate-950/60">
           <div className="flex items-center space-x-3">
             <div 
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-white shadow-md"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white shadow-sm"
               style={{ backgroundColor: themeColor }}
             >
-              <IconComponent className="w-5 h-5" />
+              <IconComponent className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
-                {editingApp ? "Edit Child App" : "Create New Child App"}
+              <h3 className="text-sm font-semibold tracking-tight text-white">
+                {editingApp ? "Configure Child App" : "Initialize Child Workspace"}
               </h3>
-              <p className="text-xs text-slate-400">Customized V-LKG Knowledge Workspace</p>
+              <p className="text-[11px] font-mono text-slate-400">Scoped V-LKG Knowledge Graph</p>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-full bg-slate-800 hover:bg-slate-750 text-slate-400 hover:text-white transition-colors"
+            className="p-1 rounded-lg bg-slate-800/80 hover:bg-slate-750 text-slate-400 hover:text-white transition-colors tactile-btn"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-5">
+        <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-              App Title *
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              Workspace Identifier / Title *
             </label>
             <input
               type="text"
@@ -123,28 +123,28 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Sales Mastery Hub, GTM AI Lab..."
-              className="w-full px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+              className="w-full px-3 py-2 bg-slate-800/80 border border-slate-700 rounded-lg text-white placeholder-slate-500 text-xs font-mono focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-              Description / Focus Goal
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              Scope Specification / Goal
             </label>
             <textarea
               rows={2}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="What core knowledge domains or skills does this app track?"
-              className="w-full px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
+              placeholder="What core knowledge domains or skills does this workspace prioritize?"
+              className="w-full px-3 py-2 bg-slate-800/80 border border-slate-700 rounded-lg text-white placeholder-slate-500 text-xs focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              App Icon
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              Telemetry Icon
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {AVAILABLE_ICONS.map((iconName) => {
                 const CurrentIcon = ICON_MAP[iconName] || Layers;
                 const isSelected = icon === iconName;
@@ -153,14 +153,14 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
                     key={iconName}
                     type="button"
                     onClick={() => setIcon(iconName)}
-                    className={`p-2.5 rounded-xl border transition-all ${
+                    className={`p-2 rounded-lg border transition-all tactile-btn ${
                       isSelected 
-                        ? "bg-slate-750 border-indigo-500 ring-2 ring-indigo-500/30 scale-105" 
-                        : "bg-slate-800/60 border-slate-700/60 text-slate-400 hover:text-white"
+                        ? "bg-slate-800 border-sky-500 ring-1 ring-sky-500/40" 
+                        : "bg-slate-800/50 border-slate-700/60 text-slate-400 hover:text-white"
                     }`}
                   >
                     <CurrentIcon 
-                      className="w-5 h-5" 
+                      className="w-4 h-4" 
                       style={{ color: isSelected ? themeColor : undefined }} 
                     />
                   </button>
@@ -170,8 +170,8 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Accent Theme
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              Accent Color
             </label>
             <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
               {THEME_COLORS.map((color) => {
@@ -181,17 +181,17 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
                     key={color.value}
                     type="button"
                     onClick={() => setThemeColor(color.value)}
-                    className="flex flex-col items-center space-y-1 group"
+                    className="flex flex-col items-center space-y-1 group tactile-btn"
                   >
                     <div 
-                      className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                        isSelected ? "ring-2 ring-white scale-110 shadow-lg" : "opacity-80 hover:opacity-100"
+                      className={`w-7 h-7 rounded-md flex items-center justify-center transition-all ${
+                        isSelected ? "ring-2 ring-white scale-105 shadow-md" : "opacity-80 hover:opacity-100"
                       }`}
                       style={{ backgroundColor: color.value }}
                     >
-                      {isSelected && <Check className="w-4 h-4 text-white drop-shadow-md" />}
+                      {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
                     </div>
-                    <span className="text-[10px] text-slate-400 group-hover:text-slate-200">
+                    <span className="text-[9px] font-mono text-slate-400 group-hover:text-slate-200">
                       {color.name}
                     </span>
                   </button>
@@ -201,10 +201,10 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
-              Target Intelligence Domains
+            <label className="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+              Target Domain Lenses ({focusDomains.length} Active)
             </label>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-1.5">
               {DOMAIN_OPTIONS.map((domain) => {
                 const active = focusDomains.includes(domain.id);
                 return (
@@ -212,14 +212,14 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
                     key={domain.id}
                     type="button"
                     onClick={() => toggleDomain(domain.id)}
-                    className={`px-3 py-2 rounded-xl text-left text-xs font-medium border transition-all flex items-center justify-between ${
+                    className={`px-2.5 py-1.5 rounded-lg text-left text-xs border transition-all flex items-center justify-between tactile-btn ${
                       active 
-                        ? "bg-slate-800 border-indigo-500 text-white" 
+                        ? "bg-slate-800/90 border-sky-500/70 text-white" 
                         : "bg-slate-850/60 border-slate-700/50 text-slate-400 hover:text-slate-200"
                     }`}
                   >
-                    <span className="truncate">{domain.label}</span>
-                    {active && <Check className="w-3.5 h-3.5 text-indigo-400 shrink-0 ml-1" />}
+                    <span className="truncate text-[11px]">{domain.label}</span>
+                    {active && <Check className="w-3.5 h-3.5 text-sky-400 shrink-0 ml-1" />}
                   </button>
                 );
               })}
@@ -230,13 +230,13 @@ export default function CreateAppModal({ isOpen, onClose, onSave, editingApp }) 
             <button
               type="submit"
               disabled={loading || !name.trim()}
-              className="w-full py-3 px-4 rounded-xl text-white font-semibold text-sm shadow-lg transition-all active:scale-98 disabled:opacity-50 flex items-center justify-center space-x-2"
+              className="w-full py-2.5 px-4 rounded-lg text-white font-semibold text-xs shadow-md transition-all active:scale-98 disabled:opacity-50 flex items-center justify-center space-x-2 tactile-btn"
               style={{ backgroundColor: themeColor }}
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : (
-                <span>{editingApp ? "Save App Changes" : "Launch Child App"}</span>
+                <span className="font-mono">{editingApp ? "Save Workspace Configuration" : "Initialize Workspace"}</span>
               )}
             </button>
           </div>

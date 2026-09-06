@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Search, PlayCircle, Filter, ArrowRight, TrendingUp, 
-  Sparkles, Tag, Layers, Check, ExternalLink, X, ListOrdered, Star
+  Tag, Layers, Check, ExternalLink, X, ListOrdered, Star, Hash
 } from "lucide-react";
 import { getAppGraph } from "../services/api";
 
 const INTELLIGENCE_FILTERS = [
-  { id: "all", label: "All Words", color: "#6366f1" },
-  { id: "executive", label: "Executive", color: "#6366f1" },
-  { id: "sales", label: "Sales & Revenue", color: "#10b981" },
-  { id: "learning", label: "Learning & Mastery", color: "#f59e0b" },
-  { id: "engineering", label: "R&D / AI Tools", color: "#3b82f6" },
-  { id: "compliance", label: "Governance", color: "#ef4444" },
-  { id: "customer", label: "Customer Success", color: "#ec4899" },
-  { id: "competitive", label: "Competitive", color: "#8b5cf6" },
-  { id: "thought_leadership", label: "Leadership", color: "#14b8a6" }
+  { id: "all", label: "ALL WORDS", color: "#0ea5e9" },
+  { id: "executive", label: "EXECUTIVE", color: "#0ea5e9" },
+  { id: "sales", label: "SALES & REVENUE", color: "#10b981" },
+  { id: "learning", label: "MASTERY", color: "#f59e0b" },
+  { id: "engineering", label: "AI TOOLS & R&D", color: "#38bdf8" },
+  { id: "compliance", label: "GOVERNANCE", color: "#ef4444" },
+  { id: "customer", label: "SUCCESS", color: "#ec4899" },
+  { id: "thought_leadership", label: "LEADERSHIP", color: "#14b8a6" }
 ];
 
 const VIEW_MODES = [
-  { id: "ladder", label: "Ranked Ladder" },
-  { id: "pathways", label: "Linear Pathways" },
-  { id: "categories", label: "By Category" }
+  { id: "ladder", label: "RANKED LADDER" },
+  { id: "pathways", label: "LINEAR PATHWAYS" },
+  { id: "categories", label: "BY CATEGORY" }
 ];
 
 export default function LinearWordsView({ 
@@ -73,170 +73,196 @@ export default function LinearWordsView({
   });
 
   return (
-    <div className="p-4 space-y-4 pb-40 max-w-2xl mx-auto animate-fade-in">
-      {/* Header Banner */}
-      <div className="p-4 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-2">
+    <div className="p-3 sm:p-5 space-y-3.5 pb-48 max-w-3xl mx-auto">
+      {/* Cockpit Registry Header */}
+      <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Tag className="w-4 h-4 text-indigo-400" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-white">
+            <Tag className="w-3.5 h-3.5 text-cyan-400" />
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-white">
               Linear Word & Concept Registry
             </h3>
           </div>
-          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/30">
-            {rankedNodes.length} Words in {activeApp?.name ? activeApp.name.split(" ")[0] : "Scope"}
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 font-bold border border-cyan-800/40">
+            {rankedNodes.length} WORDS IN SCOPE
           </span>
         </div>
-        <p className="text-xs text-slate-300">
-          Explore key leadership words and sequential pathways extracted from assigned videos.
+        <p className="text-xs text-slate-400 leading-normal">
+          High-frequency executive vocabulary and sequential concept pathways extracted from ingested transcripts.
         </p>
 
-        {/* View Mode Toggle */}
+        {/* View Mode Toggle with Framer Motion layoutId */}
         <div className="pt-2 flex items-center space-x-1.5 border-t border-slate-800/80">
-          {VIEW_MODES.map((mode) => (
-            <button
-              key={mode.id}
-              onClick={() => setViewMode(mode.id)}
-              className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
-                viewMode === mode.id
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/25"
-                  : "bg-slate-800/80 text-slate-400 hover:text-slate-200"
-              }`}
-            >
-              {mode.label}
-            </button>
-          ))}
+          {VIEW_MODES.map((mode) => {
+            const isSelected = viewMode === mode.id;
+            return (
+              <button
+                key={mode.id}
+                onClick={() => setViewMode(mode.id)}
+                className={`tactile-btn relative px-2.5 py-1 rounded-lg text-[11px] font-mono font-semibold transition-colors ${
+                  isSelected ? "text-slate-950" : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {isSelected && (
+                  <motion.div
+                    layoutId="wordsViewModeIndicator"
+                    className="absolute inset-0 bg-cyan-400 rounded-lg -z-10"
+                    transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                  />
+                )}
+                {mode.label}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Search Bar */}
-      <div className="flex items-center space-x-2 bg-slate-900 p-2.5 rounded-2xl border border-slate-800 shadow-md">
-        <Search className="w-4 h-4 text-slate-400 ml-1 shrink-0" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search linear words (e.g. Active Listening, Clarity, GTM)..."
-          className="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
-        />
-        {searchQuery && (
-          <button onClick={() => setSearchQuery("")} className="text-slate-400 p-1">
-            <X className="w-3.5 h-3.5" />
-          </button>
-        )}
-      </div>
-
-      {/* Intelligence Filters Scroll */}
-      <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
-        {INTELLIGENCE_FILTERS.map((lens) => {
-          const isSelected = selectedLens === lens.id;
-          return (
-            <button
-              key={lens.id}
-              onClick={() => setSelectedLens(lens.id)}
-              className={`px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border shrink-0 ${
-                isSelected
-                  ? "bg-indigo-600 text-white border-indigo-500 shadow-sm"
-                  : "bg-slate-900 text-slate-400 border-slate-800 hover:text-white"
-              }`}
-            >
-              {lens.label}
+      {/* Cockpit Search & Filter Strip */}
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2 bg-slate-900 px-3 py-2 rounded-xl border border-slate-800">
+          <Search className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search linear words (e.g. Active Listening, GTM, Clarity)..."
+            className="w-full bg-transparent text-xs text-white placeholder-slate-500 font-mono focus:outline-none"
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} className="text-slate-400 p-0.5 hover:text-white">
+              <X className="w-3.5 h-3.5" />
             </button>
-          );
-        })}
+          )}
+        </div>
+
+        {/* Intelligence Filters Scroll */}
+        <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
+          {INTELLIGENCE_FILTERS.map((lens) => {
+            const isSelected = selectedLens === lens.id;
+            return (
+              <button
+                key={lens.id}
+                onClick={() => setSelectedLens(lens.id)}
+                className={`tactile-btn px-2 py-0.5 rounded text-[10px] font-mono font-medium whitespace-nowrap transition-colors border shrink-0 ${
+                  isSelected
+                    ? "bg-cyan-950/60 text-cyan-300 border-cyan-700/60 font-bold"
+                    : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200"
+                }`}
+              >
+                {lens.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Content Area based on View Mode */}
+      {/* Content Area */}
       {loading ? (
-        <div className="py-12 flex flex-col items-center justify-center space-y-3">
-          <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-xs text-slate-400">Loading linear words...</p>
+        <div className="py-12 flex flex-col items-center justify-center space-y-2">
+          <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+          <p className="text-xs font-mono text-slate-400">Loading registry stream...</p>
         </div>
       ) : viewMode === "ladder" ? (
-        /* Ranked Ladder View */
-        <div className="space-y-2.5">
+        /* Ranked Ladder View (High Visual Density Cockpit Stream) */
+        <motion.div 
+          className="space-y-1.5"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: { transition: { staggerChildren: 0.03 } }
+          }}
+        >
           {rankedNodes.map((node, idx) => {
             const isPri = node.is_priority || prioritizedSet.has(node.label) || prioritizedSet.has(node.id);
             return (
-              <div
+              <motion.div
                 key={node.id}
-                className={`p-3.5 rounded-2xl border transition-all shadow-md flex items-center justify-between group ${
+                variants={{
+                  hidden: { opacity: 0, y: 6 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+                className={`p-2.5 rounded-lg border transition-all flex items-center justify-between group ${
                   isPri
-                    ? "bg-slate-900 border-amber-500/40 ring-1 ring-amber-500/20 shadow-amber-500/5"
-                    : "bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-slate-700"
+                    ? "bg-slate-900/90 border-amber-500/50 shadow-sm"
+                    : "bg-slate-900/60 hover:bg-slate-900 border-slate-800/80 hover:border-slate-750"
                 }`}
               >
-                <div className="flex items-center space-x-3 min-w-0">
+                <div className="flex items-center space-x-2.5 min-w-0">
                   <button
                     onClick={() => onToggleEntityPriority && onToggleEntityPriority(node.label)}
-                    className={`p-1.5 rounded-xl border transition-all shrink-0 ${
+                    className={`tactile-btn p-1 rounded border transition-colors shrink-0 ${
                       isPri
-                        ? "bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-sm"
-                        : "bg-slate-800/80 hover:bg-slate-750 border-slate-700/60 text-slate-500 hover:text-amber-300"
+                        ? "bg-amber-950/40 border-amber-500/50 text-amber-400"
+                        : "bg-slate-800/70 hover:bg-slate-800 border-slate-700/60 text-slate-500"
                     }`}
                     title={isPri ? "Remove priority" : "Mark as priority word"}
                   >
-                    <Star className={`w-3.5 h-3.5 ${isPri ? "fill-amber-400 text-amber-400" : ""}`} />
+                    <Star className={`w-3 h-3 ${isPri ? "fill-amber-400 text-amber-400" : ""}`} />
                   </button>
 
-                  <span className="w-5 h-5 rounded-lg bg-slate-800 text-slate-400 text-[10px] font-bold flex items-center justify-center shrink-0">
-                    #{idx + 1}
+                  <span className="font-mono text-slate-500 text-[10px] w-6 text-right shrink-0">
+                    #{String(idx + 1).padStart(2, "0")}
                   </span>
+
                   <div className="min-w-0">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1.5">
                       <h4 className="text-xs font-bold text-white truncate">{node.label}</h4>
                       {isPri && (
-                        <span className="text-[9px] px-1.5 py-0.2 rounded font-black uppercase bg-amber-400/20 text-amber-300 border border-amber-500/30 shrink-0">
-                          Priority
+                        <span className="text-[8px] font-mono px-1 rounded uppercase bg-amber-400/20 text-amber-300 font-bold border border-amber-500/30 shrink-0">
+                          PRIORITY
                         </span>
                       )}
                       <span
-                        className="text-[9px] px-1.5 py-0.2 rounded font-bold uppercase shrink-0"
-                        style={{ backgroundColor: `${node.color}25`, color: node.color }}
+                        className="text-[8px] font-mono px-1 rounded uppercase shrink-0 font-semibold"
+                        style={{ backgroundColor: `${node.color || '#0ea5e9'}20`, color: node.color || '#38bdf8' }}
                       >
                         {node.type}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-2 text-[10px] text-slate-400 mt-0.5">
-                      <span>Influence: <strong className="text-indigo-400">{node.centrality}%</strong></span>
-                      <span>·</span>
-                      <span>{node.intelligences?.slice(0, 2).join(", ")}</span>
+                    <div className="flex items-center space-x-2 text-[10px] font-mono text-slate-400 mt-0.5">
+                      <span>INFLUENCE: <strong className="text-cyan-400">{node.centrality || 0}%</strong></span>
+                      {node.intelligences?.length > 0 && (
+                        <>
+                          <span className="text-slate-600">·</span>
+                          <span className="truncate max-w-[140px] text-slate-500">{node.intelligences.slice(0, 2).join(", ")}</span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                {/* Jump Timestamps */}
+                {/* Jump Timestamps with Monospace Font */}
                 <div className="flex items-center space-x-1 shrink-0">
                   {node.timestamps?.slice(0, 2).map((ts, i) => (
                     <button
                       key={i}
                       onClick={() => onJumpToVideo(ts.video_id, ts.time || ts.timestamp || "00:00")}
-                      className="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-[11px] font-bold transition-all active:scale-95"
+                      className="tactile-btn flex items-center space-x-1 px-2 py-0.5 rounded bg-cyan-950/40 hover:bg-cyan-900/50 text-cyan-300 border border-cyan-800/40 text-[10px] font-mono font-bold transition-colors"
                       title={`Jump to [${ts.time || ts.timestamp}]`}
                     >
-                      <PlayCircle className="w-3 h-3 text-indigo-400" />
+                      <PlayCircle className="w-2.5 h-2.5 text-cyan-400" />
                       <span>[{ts.time || ts.timestamp || "00:00"}]</span>
                     </button>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       ) : viewMode === "pathways" ? (
-        /* Linear Pathways View (A -> B -> C) */
-        <div className="space-y-2.5">
+        /* Linear Pathways View (Hairline Connected Rows) */
+        <div className="space-y-1.5">
           {links.length > 0 ? (
             links.map((link, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md flex items-center justify-between text-xs"
+                className="p-2.5 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs"
               >
                 <div className="flex items-center space-x-2 min-w-0 flex-1">
                   <span className="font-bold text-white truncate max-w-[120px]">{link.source}</span>
-                  <div className="flex items-center space-x-1 px-2 py-0.5 rounded-md bg-slate-800 text-[10px] text-indigo-400 font-bold uppercase shrink-0">
+                  <div className="flex items-center space-x-1 px-1.5 py-0.5 rounded bg-slate-800 text-[9px] font-mono text-cyan-400 font-bold uppercase shrink-0">
                     <span>{link.relation}</span>
-                    <ArrowRight className="w-3 h-3 text-slate-400" />
+                    <ArrowRight className="w-2.5 h-2.5 text-slate-400" />
                   </div>
                   <span className="font-bold text-white truncate max-w-[120px]">{link.target}</span>
                 </div>
@@ -244,7 +270,7 @@ export default function LinearWordsView({
                 {link.source_time && (
                   <button
                     onClick={() => onJumpToVideo(link.video_id || "dF3GFpIKPlE", link.source_time)}
-                    className="ml-2 text-[10px] font-bold px-2 py-1 rounded-lg bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 shrink-0 hover:bg-indigo-600 hover:text-white transition-colors"
+                    className="tactile-btn ml-2 text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-950/50 text-cyan-300 border border-cyan-800/40 shrink-0 hover:bg-cyan-900/50 transition-colors"
                   >
                     [{link.source_time}]
                   </button>
@@ -252,34 +278,34 @@ export default function LinearWordsView({
               </div>
             ))
           ) : (
-            <div className="py-8 text-center text-slate-500 text-xs">No linear pathways found in current scope.</div>
+            <div className="py-8 text-center text-slate-500 text-xs font-mono">No linear pathways found in current scope.</div>
           )}
         </div>
       ) : (
         /* By Category Grouping */
-        <div className="space-y-4">
+        <div className="space-y-3">
           {Object.entries(categoriesMap).map(([category, catNodes]) => (
-            <div key={category} className="space-y-2">
-              <div className="flex items-center justify-between pb-1 border-b border-slate-800">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
+            <div key={category} className="space-y-1.5">
+              <div className="flex items-center justify-between pb-1 border-b border-slate-800/80">
+                <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
                   <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: catNodes[0]?.color || "#6366f1" }}
+                    className="w-1.5 h-1.5 rounded-full"
+                    style={{ backgroundColor: catNodes[0]?.color || "#0ea5e9" }}
                   />
                   <span>{category} ({catNodes.length})</span>
                 </h4>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {catNodes.map((node) => {
                   const isPri = node.is_priority || prioritizedSet.has(node.label) || prioritizedSet.has(node.id);
                   return (
                     <div
                       key={node.id}
-                      className={`px-3 py-1.5 rounded-2xl border transition-all flex items-center space-x-2 shadow-sm ${
+                      className={`px-2 py-1 rounded-md border transition-all flex items-center space-x-1.5 ${
                         isPri 
-                          ? "bg-amber-500/15 border-amber-500/50 text-amber-200 shadow-sm shadow-amber-500/10" 
-                          : "bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-indigo-500/50"
+                          ? "bg-amber-950/40 border-amber-600/60 text-amber-200" 
+                          : "bg-slate-900/80 hover:bg-slate-850 border-slate-800 hover:border-cyan-800/60"
                       }`}
                     >
                       <button
@@ -287,10 +313,10 @@ export default function LinearWordsView({
                           e.stopPropagation();
                           if (onToggleEntityPriority) onToggleEntityPriority(node.label);
                         }}
-                        className="hover:scale-110 transition-transform shrink-0"
+                        className="shrink-0 tactile-btn"
                         title={isPri ? "Remove priority" : "Prioritize word"}
                       >
-                        <Star className={`w-3 h-3 ${isPri ? "fill-amber-400 text-amber-400" : "text-slate-500 hover:text-amber-300"}`} />
+                        <Star className={`w-2.5 h-2.5 ${isPri ? "fill-amber-400 text-amber-400" : "text-slate-500 hover:text-amber-300"}`} />
                       </button>
                       <span 
                         onClick={() => {
@@ -298,14 +324,14 @@ export default function LinearWordsView({
                             onJumpToVideo(node.timestamps[0].video_id, node.timestamps[0].time || "00:00");
                           }
                         }}
-                        className="text-xs font-semibold text-white hover:text-indigo-300 cursor-pointer transition-colors"
+                        className="text-xs font-semibold text-white hover:text-cyan-300 cursor-pointer transition-colors"
                       >
                         {node.label}
                       </span>
                       {node.timestamps?.[0] && (
                         <span 
                           onClick={() => onJumpToVideo(node.timestamps[0].video_id, node.timestamps[0].time || "00:00")}
-                          className="text-[10px] text-indigo-400 font-bold cursor-pointer"
+                          className="text-[9px] font-mono text-cyan-400 font-bold cursor-pointer"
                         >
                           [{node.timestamps[0].time || "00:00"}]
                         </span>
@@ -321,3 +347,4 @@ export default function LinearWordsView({
     </div>
   );
 }
+

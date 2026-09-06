@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
+:root {
+  --font-mono: 'JetBrains Mono', 'Geist Mono', 'Fira Code', 'Roboto Mono', ui-monospace, monospace;
+}
+
 body {
   background-color: #020617;
   color: #f8fafc;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }
 
-/* Custom modern scrollbars */
+/* Custom cockpit-grade slim scrollbars */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.5);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(71, 85, 105, 0.8);
-  border-radius: 4px;
+  background: rgba(51, 65, 85, 0.7);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 116, 139, 1);
+  background: rgba(100, 116, 139, 0.9);
 }
 
 .safe-bottom {
@@ -32,11 +36,27 @@ body {
   padding-top: max(0.75rem, env(safe-area-inset-top));
 }
 
-@keyframes pulseFast {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.08); }
+/* Perpetual breathing status pulse */
+@keyframes breathingPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
 }
 
-.animate-pulse-fast {
-  animation: pulseFast 1.2s infinite ease-in-out;
+.animate-status-breathe {
+  animation: breathingPulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* Tactile micro-press feedback */
+.tactile-btn {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease;
+}
+.tactile-btn:active {
+  transform: scale(0.98);
+}
+
