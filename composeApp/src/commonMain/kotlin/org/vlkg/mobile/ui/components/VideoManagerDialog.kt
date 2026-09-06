@@ -93,8 +93,7 @@ fun VideoManagerDialog(
                                     text = video.title,
                                     color = DarkOnBackground,
                                     fontSize = 13.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    maxLines = 2
+                                    fontWeight = FontWeight.SemiBold
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(

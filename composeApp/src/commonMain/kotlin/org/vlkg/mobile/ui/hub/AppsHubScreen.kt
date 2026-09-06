@@ -252,8 +252,12 @@ fun AppsHubScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // Domain tags
-                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    @OptIn(ExperimentalLayoutApi::class)
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
                         app.focus_domains.forEach { dom ->
                             Surface(
                                 color = DarkBackground,
@@ -289,9 +293,11 @@ fun AppsHubScreen(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        Row(
+                        @OptIn(ExperimentalLayoutApi::class)
+                        FlowRow(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             displayWords.forEach { word ->
                                 val isPri = prioritizedSet.contains(word)
@@ -343,7 +349,7 @@ fun AppsHubScreen(
                                 shape = RoundedCornerShape(8.dp),
                                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                             ) {
-                                Text("🎬 Videos", fontSize = 10.sp)
+                                Text("➕ Assign Videos", fontSize = 10.sp)
                             }
 
                             FilledTonalButton(

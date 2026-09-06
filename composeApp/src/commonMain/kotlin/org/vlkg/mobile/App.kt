@@ -109,7 +109,8 @@ fun App(
                         MediaLibraryScreen(
                             allVideos = uiState.allVideos,
                             activeApp = uiState.activeApp,
-                            onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) }
+                            onJumpToVideo = { vid, ts -> viewModel.jumpToVideo(vid, ts) },
+                            onAddVideoToApp = { vid -> viewModel.addVideoToActiveApp(vid) }
                         )
                     }
                 }

@@ -182,6 +182,21 @@ fun AppQueryScreen(
                         modifier = Modifier.widthIn(max = 320.dp)
                     ) {
                         Column(modifier = Modifier.padding(14.dp)) {
+                            if (!isUser) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically, 
+                                    modifier = Modifier.padding(bottom = 10.dp)
+                                ) {
+                                    Text("✨", fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.width(6.dp))
+                                    Text(
+                                        text = "Synthesized Intelligence", 
+                                        color = VlkgAccent, 
+                                        fontSize = 11.sp, 
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }
                             Text(
                                 text = msg.text,
                                 color = DarkOnBackground,
@@ -208,12 +223,32 @@ fun AppQueryScreen(
                                             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
                                         ) {
                                             Column(modifier = Modifier.padding(8.dp)) {
-                                                Text(
-                                                    text = "${triplet.subject} —[${triplet.predicate}]→ ${triplet.`object`}",
-                                                    color = VlkgAccent,
-                                                    fontSize = 11.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
+                                                @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                                                androidx.compose.foundation.layout.FlowRow(
+                                                    verticalArrangement = Arrangement.Center
+                                                ) {
+                                                    Text(
+                                                        text = triplet.subject,
+                                                        color = DarkOnBackground,
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 11.sp,
+                                                        modifier = Modifier.align(Alignment.CenterVertically)
+                                                    )
+                                                    Text(
+                                                        text = " —[${triplet.predicate}]→ ",
+                                                        color = VlkgAccent,
+                                                        fontSize = 10.sp,
+                                                        fontWeight = FontWeight.SemiBold,
+                                                        modifier = Modifier.align(Alignment.CenterVertically)
+                                                    )
+                                                    Text(
+                                                        text = triplet.`object`,
+                                                        color = VlkgTertiary,
+                                                        fontWeight = FontWeight.Bold,
+                                                        fontSize = 11.sp,
+                                                        modifier = Modifier.align(Alignment.CenterVertically)
+                                                    )
+                                                }
                                                 Spacer(modifier = Modifier.height(4.dp))
                                                 Text(
                                                     text = "\"${triplet.transcriptSnippet}\"",

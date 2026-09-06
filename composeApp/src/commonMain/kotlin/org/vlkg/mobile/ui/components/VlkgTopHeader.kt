@@ -48,8 +48,7 @@ fun VlkgTopHeader(
                             text = activeApp?.name ?: "V-LKG Mobile",
                             color = DarkOnBackground,
                             fontSize = 15.sp,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = 1
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = " ▾",
@@ -60,8 +59,7 @@ fun VlkgTopHeader(
                     Text(
                         text = "${activeApp?.video_ids?.size ?: 0} Videos • ${activeApp?.focus_domains?.joinToString(", ") ?: "All"}",
                         color = Color.Gray,
-                        fontSize = 11.sp,
-                        maxLines = 1
+                        fontSize = 11.sp
                     )
                 }
 

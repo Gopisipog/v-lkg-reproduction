@@ -124,6 +124,25 @@ class VlkgMainViewModel(
         }
     }
 
+    fun addVideoToActiveApp(videoId: String) {
+        val app = _uiState.value.activeApp ?: return
+        if (app.video_ids.contains(videoId)) return
+
+        val updatedIds = app.video_ids + videoId
+        val newApp = app.copy(video_ids = updatedIds)
+
+        _uiState.update { state ->
+            state.copy(
+                activeApp = newApp,
+                apps = state.apps.map { if (it.id == app.id) newApp else it }
+            )
+        }
+
+        viewModelScope.launch {
+            assignVideosToApp(app.id, updatedIds)
+        }
+    }
+
     fun setCreateAppDialogVisible(visible: Boolean, appToEdit: ChildApp? = null) {
         _uiState.update { it.copy(isCreateAppOpen = visible, editingApp = appToEdit) }
     }

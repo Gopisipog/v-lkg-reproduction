@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,6 +61,7 @@ fun VideoPlayerScreen(
     var selectedTab by remember { mutableStateOf("split") } // "split" | "relationships" | "transcript"
     var searchQuery by remember { mutableStateOf("") }
     var selectedEntityFilter by remember { mutableStateOf<String?>(null) }
+    var selectedLensFilter by remember { mutableStateOf<String?>(null) }
     var showPillsSection by remember { mutableStateOf(true) }
     var isLoadingSemantics by remember { mutableStateOf(false) }
 
@@ -81,23 +83,28 @@ fun VideoPlayerScreen(
     val relationships = semanticsData?.relationships ?: emptyList()
 
     // Filtered relationships matching selectedEntityFilter and searchQuery
-    val filteredRelationships = remember(relationships, selectedEntityFilter, searchQuery) {
+    val filteredRelationships = remember(relationships, selectedEntityFilter, selectedLensFilter, searchQuery) {
         relationships.filter { r ->
-            val matchesFilter = selectedEntityFilter?.let { filter ->
+            // Entity name filter
+            val matchesEntity = selectedEntityFilter?.let { filter ->
                 val fl = filter.lowercase()
                 r.subject.lowercase().contains(fl) || r.`object`.lowercase().contains(fl)
             } ?: true
-
+            // Lens type filter based on subject_type or object_type
+            val matchesLens = selectedLensFilter?.let { lens ->
+                val lensL = lens.lowercase()
+                r.subject_type.lowercase() == lensL || r.object_type.lowercase() == lensL
+            } ?: true
+            // Search query filter
             val matchesSearch = if (searchQuery.isNotBlank()) {
                 val q = searchQuery.lowercase()
-                r.subject.lowercase().contains(q) ||
-                    r.`object`.lowercase().contains(q) ||
-                    r.relation.lowercase().contains(q)
+                r.subject.lowercase().contains(q) || r.`object`.lowercase().contains(q) || r.relation.lowercase().contains(q)
             } else true
-
-            matchesFilter && matchesSearch
+            matchesEntity && matchesLens && matchesSearch
         }
     }
+
+
 
     // Filtered transcript segments matching selectedEntityFilter and searchQuery
     val filteredSegments = remember(transcriptSegments, selectedEntityFilter, searchQuery) {
@@ -135,11 +142,11 @@ fun VideoPlayerScreen(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.SemiBold
                 )
-                Row(
+                LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    appVideos.take(6).forEach { video ->
+                    items(appVideos) { video ->
                         val isSelected = video.video_id == selectedVideo?.video_id
                         val isVoice = video.is_voice_recording || video.video_id.startsWith("voice_")
 
@@ -733,12 +740,16 @@ private fun TripletCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(rel.subject, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-                    Spacer(modifier = Modifier.width(6.dp))
+                @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                androidx.compose.foundation.layout.FlowRow(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(rel.subject, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterVertically))
                     Surface(
                         color = VlkgPrimary.copy(alpha = 0.2f),
-                        shape = RoundedCornerShape(4.dp)
+                        shape = RoundedCornerShape(4.dp),
+                        modifier = Modifier.align(Alignment.CenterVertically)
                     ) {
                         Text(
                             text = rel.relation,
@@ -748,8 +759,7 @@ private fun TripletCard(
                             modifier = Modifier.padding(horizontal = 4.dp, vertical = 2.dp)
                         )
                     }
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(rel.`object`, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text(rel.`object`, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterVertically))
                 }
                 if (rel.intelligences.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(4.dp))

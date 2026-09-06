@@ -122,7 +122,7 @@ fun EnrichmentsDialog(
                                             horizontalArrangement = Arrangement.SpaceBetween,
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Text(text = label, color = DarkOnBackground, fontSize = 11.sp, maxLines = 1, modifier = Modifier.weight(1f))
+                                            Text(text = label, color = DarkOnBackground, fontSize = 11.sp, modifier = Modifier.weight(1f))
                                             Surface(
                                                 color = VlkgPrimary.copy(alpha = 0.2f),
                                                 shape = RoundedCornerShape(4.dp)

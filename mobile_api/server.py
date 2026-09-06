@@ -452,8 +452,28 @@ def search_transcripts(q: str = "", video_id: Optional[str] = None, limit: int =
 
 @app.get("/api/videos/{video_id}/transcript")
 def get_video_transcript(video_id: str):
-    segments = [s for s in app_store.corpus if s.get("video_id") == video_id]
+    raw_segs = [s for s in app_store.corpus if s.get("video_id") == video_id]
     v_meta = next((v for v in app_store.videos_registry if v.get("video_id") == video_id), None)
+    
+    segments = []
+    for seg in raw_segs:
+        text = (seg.get("text") or seg.get("transcript") or "").strip()
+        ts = seg.get("timestamp") or seg.get("start_time") or 0
+        if isinstance(ts, (int, float)):
+            m = int(ts // 60)
+            s = int(ts % 60)
+            ts_str = f"{m:02d}:{s:02d}"
+        else:
+            ts_str = str(ts)
+            
+        segments.append({
+            "video_id": video_id,
+            "timestamp": ts_str,
+            "start_sec": seg.get("start_sec") or seg.get("start_time") or 0,
+            "text": text
+        })
+    segments.sort(key=lambda x: x["start_sec"])
+        
     return {
         "video_id": video_id,
         "metadata": v_meta,

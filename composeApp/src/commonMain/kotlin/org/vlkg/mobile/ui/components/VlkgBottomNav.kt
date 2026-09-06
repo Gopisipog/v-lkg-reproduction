@@ -38,8 +38,7 @@ fun VlkgBottomNav(
                     Text(
                         text = tab.label,
                         fontSize = 10.sp,
-                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
-                        maxLines = 1
+                        fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(

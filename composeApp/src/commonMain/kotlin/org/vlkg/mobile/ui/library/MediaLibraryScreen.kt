@@ -26,6 +26,7 @@ fun MediaLibraryScreen(
     allVideos: List<VideoMetadata>,
     activeApp: ChildApp?,
     onJumpToVideo: (videoId: String, timestamp: String) -> Unit,
+    onAddVideoToApp: (videoId: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var searchQuery by remember { mutableStateOf("") }
@@ -155,7 +156,13 @@ fun MediaLibraryScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(item.video_title, color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                                    Text(
+                                        text = item.video_title, 
+                                        color = Color.White, 
+                                        fontSize = 12.sp, 
+                                        fontWeight = FontWeight.Bold, 
+                                        modifier = Modifier.weight(1f).padding(end = 8.dp)
+                                    )
                                     Surface(
                                         color = VlkgAccent.copy(alpha = 0.2f),
                                         shape = RoundedCornerShape(6.dp)
@@ -237,7 +244,6 @@ fun MediaLibraryScreen(
                             text = video.summary,
                             color = Color.LightGray,
                             fontSize = 12.sp,
-                            maxLines = 2,
                             lineHeight = 16.sp
                         )
 
@@ -254,16 +260,47 @@ fun MediaLibraryScreen(
                                 fontSize = 11.sp
                             )
 
-                            Button(
-                                onClick = {
-                                    haptic.triggerClick()
-                                    onJumpToVideo(video.video_id, "00:00")
-                                },
-                                colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary.copy(alpha = 0.85f)),
-                                shape = RoundedCornerShape(6.dp),
-                                contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
-                            ) {
-                                Text("Play & Transcripts ➔", fontSize = 11.sp)
+                            val isInActiveApp = activeApp?.video_ids?.contains(video.video_id) == true
+
+                            if (isInActiveApp || activeApp == null) {
+                                Button(
+                                    onClick = {
+                                        haptic.triggerClick()
+                                        onJumpToVideo(video.video_id, "00:00")
+                                    },
+                                    colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary.copy(alpha = 0.85f)),
+                                    shape = RoundedCornerShape(6.dp),
+                                    contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+                                ) {
+                                    Text("Play & Transcripts ➔", fontSize = 11.sp)
+                                }
+                            } else {
+                                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    Button(
+                                        onClick = {
+                                            haptic.triggerClick()
+                                            onAddVideoToApp(video.video_id)
+                                        },
+                                        colors = ButtonDefaults.buttonColors(containerColor = DarkSurfaceVariant),
+                                        shape = RoundedCornerShape(6.dp),
+                                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+                                    ) {
+                                        Text("➕ Add to App", color = VlkgPrimary, fontSize = 11.sp)
+                                    }
+
+                                    Button(
+                                        onClick = {
+                                            haptic.triggerClick()
+                                            onAddVideoToApp(video.video_id)
+                                            onJumpToVideo(video.video_id, "00:00")
+                                        },
+                                        colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary.copy(alpha = 0.85f)),
+                                        shape = RoundedCornerShape(6.dp),
+                                        contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+                                    ) {
+                                        Text("Add & Play ➔", fontSize = 11.sp)
+                                    }
+                                }
                             }
                         }
                     }

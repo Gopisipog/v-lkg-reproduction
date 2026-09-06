@@ -1,4 +1,4 @@
-﻿"""
+"""
 Query Engine — Handles Single-App Questioning and Cross-App "Twice Answered"
 comparative querying grounded in scoped entities, intelligence lenses, and enrichments.
 """
@@ -143,6 +143,7 @@ Instructions:
 2. Directly reference relevant entities and graph relationships.
 3. Include clickable timestamp citations formatted exactly like [02:15] or [00:45] whenever referencing a video point.
 4. Keep the tone professional, insightful, and practical.
+5. Even if the available context does not perfectly answer the question, synthesize the best available intelligence from the knowledge graph and frame it elegantly around the ingested insights. Do not apologize or say you don't know; instead, pivot gracefully to the most relevant ingested knowledge.
 """
         try:
             raw_answer = gemini_client.chat(prompt)

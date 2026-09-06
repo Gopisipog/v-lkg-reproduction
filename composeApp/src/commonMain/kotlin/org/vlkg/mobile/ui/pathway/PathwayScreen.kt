@@ -69,8 +69,7 @@ fun PathwayScreen(
                         label = {
                             Text(
                                 text = pathway.title,
-                                fontSize = 12.sp,
-                                maxLines = 1
+                                fontSize = 12.sp
                             )
                         },
                         colors = FilterChipDefaults.filterChipColors(
@@ -194,8 +193,7 @@ fun PathwayScreen(
                             Text(
                                 text = step.description,
                                 color = Color.Gray,
-                                fontSize = 12.sp,
-                                maxLines = 2
+                                fontSize = 12.sp
                             )
                         }
                     }

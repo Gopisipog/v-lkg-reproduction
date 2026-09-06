@@ -148,24 +148,30 @@ fun InsightDetailScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         // Triplet badge: Subject -> Predicate -> Object
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        @OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
+                        androidx.compose.foundation.layout.FlowRow(
+                            verticalArrangement = Arrangement.Center
+                        ) {
                             Text(
                                 text = item.subject,
                                 color = DarkOnBackground,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 13.sp
+                                fontSize = 13.sp,
+                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                             Text(
                                 text = " —[${item.predicate}]→ ",
                                 color = VlkgAccent,
                                 fontSize = 11.sp,
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                             Text(
                                 text = item.`object`,
                                 color = VlkgTertiary,
                                 fontWeight = FontWeight.Bold,
-                                fontSize = 13.sp
+                                fontSize = 13.sp,
+                                modifier = Modifier.align(Alignment.CenterVertically)
                             )
                         }
                     }
