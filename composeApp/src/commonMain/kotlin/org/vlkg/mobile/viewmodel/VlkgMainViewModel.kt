@@ -204,6 +204,19 @@ class VlkgMainViewModel(
                     focus_domains = domains,
                     saved_to_aura = saveToAura
                 )
+                val payload = CreateAppPayload(
+                    name = name,
+                    description = description,
+                    theme_color = primaryColor,
+                    color_scheme = colorScheme,
+                    pattern = pattern,
+                    pattern_colors = patternColors,
+                    focus_domains = domains,
+                    video_ids = editing.video_ids,
+                    prioritized_entities = editing.prioritized_entities,
+                    save_to_aura = saveToAura
+                )
+                apiClient.updateApp(editing.id, payload)
                 if (saveToAura) {
                     apiClient.saveChildAppToAura(editing.id)
                 }
@@ -247,6 +260,46 @@ class VlkgMainViewModel(
                         isCreateAppOpen = false
                     )
                 }
+            }
+        }
+    }
+
+    fun updateAppScheme(
+        appId: String,
+        colorScheme: String,
+        pattern: String,
+        patternColors: List<String>
+    ) {
+        viewModelScope.launch {
+            val target = _uiState.value.apps.find { it.id == appId } ?: _uiState.value.activeApp ?: return@launch
+            val primaryColor = patternColors.firstOrNull() ?: target.theme_color
+            val updated = target.copy(
+                theme_color = primaryColor,
+                color_scheme = colorScheme,
+                pattern = pattern,
+                pattern_colors = patternColors
+            )
+            _uiState.update { state ->
+                state.copy(
+                    apps = state.apps.map { if (it.id == target.id) updated else it },
+                    activeApp = if (state.activeApp?.id == target.id) updated else state.activeApp
+                )
+            }
+            val payload = CreateAppPayload(
+                name = updated.name,
+                description = updated.description,
+                theme_color = primaryColor,
+                color_scheme = colorScheme,
+                pattern = pattern,
+                pattern_colors = patternColors,
+                focus_domains = updated.focus_domains,
+                video_ids = updated.video_ids,
+                prioritized_entities = updated.prioritized_entities,
+                save_to_aura = updated.saved_to_aura
+            )
+            apiClient.updateApp(target.id, payload)
+            if (updated.saved_to_aura) {
+                apiClient.saveChildAppToAura(target.id)
             }
         }
     }

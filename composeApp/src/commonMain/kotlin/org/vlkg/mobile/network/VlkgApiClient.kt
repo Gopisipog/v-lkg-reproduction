@@ -179,6 +179,17 @@ class VlkgApiClient(
         }
     }
 
+    suspend fun updateApp(appId: String, payload: CreateAppPayload): ChildApp? = withContext(Dispatchers.Default) {
+        try {
+            client.put("$baseUrl/api/apps/$appId") {
+                contentType(ContentType.Application.Json)
+                setBody(payload)
+            }.body<ChildApp>()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun saveChildAppToAura(appId: String): Boolean = withContext(Dispatchers.Default) {
         try {
             client.post("$baseUrl/api/apps/$appId/save-to-aura")

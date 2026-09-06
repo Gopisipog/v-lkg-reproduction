@@ -139,48 +139,5 @@
             "#F59E0B",
             "#F43F5E"
         ]
-    },
-    {
-        "id": "app_1342be6f",
-        "name": "no 1",
-        "slug": "no-1",
-        "description": "one number",
-        "icon": "Layers",
-        "theme_color": "#6366F1",
-        "focus_domains": [
-            "executive",
-            "learning"
-        ],
-        "video_ids": [],
-        "prioritized_entities": [],
-        "created_at": "2026-09-05T05:24:35.942126Z",
-        "color_scheme": "ultraviolet",
-        "pattern": "gradient-bi",
-        "pattern_colors": [
-            "#6366F1",
-            "#D946EF"
-        ]
-    },
-    {
-        "id": "app_585c3bc9",
-        "name": "no 1",
-        "slug": "no-1",
-        "description": "one number",
-        "icon": "Layers",
-        "theme_color": "#94A3B8",
-        "focus_domains": [
-            "executive",
-            "learning"
-        ],
-        "video_ids": [],
-        "prioritized_entities": [],
-        "created_at": "2026-09-05T06:39:27.890147Z",
-        "color_scheme": "titanium-tri",
-        "pattern": "gradient-tri",
-        "pattern_colors": [
-            "#94A3B8",
-            "#38BDF8",
-            "#FBBF24"
-        ]
     }
 ]

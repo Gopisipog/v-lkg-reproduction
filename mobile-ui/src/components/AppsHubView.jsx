@@ -21,6 +21,7 @@ export default function AppsHubView({
   onCreateAppClick,
   onEditAppClick,
   onDeleteApp,
+  onUpdateAppScheme,
   onManageVideosClick,
   onOpenEnrichments,
   onNavigateTab,
@@ -36,6 +37,20 @@ export default function AppsHubView({
   const [selectedPattern, setSelectedPattern] = useState("gradient-bi");
   const [schemeFeedback, setSchemeFeedback] = useState(null);
   const [savingScheme, setSavingScheme] = useState(false);
+
+  // Sync selected scheme with the active app
+  React.useEffect(() => {
+    if (activeApp?.color_scheme) {
+      const match = [...BI_COLOR_PRESETS, ...TRI_COLOR_PRESETS].find(p => p.id === activeApp.color_scheme);
+      if (match) {
+        setSelectedScheme(match);
+        setActiveSchemeTab(match.type || "bi");
+      }
+    }
+    if (activeApp?.pattern) {
+      setSelectedPattern(activeApp.pattern);
+    }
+  }, [activeApp?.id, activeApp?.color_scheme, activeApp?.pattern]);
 
   const toggleExpand = (appId) => {
     setExpandedCards((prev) => ({
@@ -68,16 +83,20 @@ export default function AppsHubView({
     if (!targetApp) return;
     setSavingScheme(true);
     try {
-      const updated = await updateApp(targetApp.id, {
-        ...targetApp,
-        color_scheme: scheme.id,
-        pattern: pattern,
-        pattern_colors: scheme.colors,
-        theme_color: scheme.colors[0]
-      });
-      await saveAppToAura(targetApp.id);
-      setSchemeFeedback(`Saved '${scheme.name}' (${pattern}) to workspace '${targetApp.name}' & synced Aura DB.`);
-      if (onSelectApp) onSelectApp(updated);
+      if (onUpdateAppScheme) {
+        await onUpdateAppScheme(targetApp.id, scheme, pattern);
+      } else {
+        const updated = await updateApp(targetApp.id, {
+          ...targetApp,
+          color_scheme: scheme.id,
+          pattern: pattern,
+          pattern_colors: scheme.colors,
+          theme_color: scheme.colors[0]
+        });
+        await saveAppToAura(targetApp.id);
+        if (onSelectApp) onSelectApp(updated);
+      }
+      setSchemeFeedback(`Updated scheme for '${targetApp.name}' (saved to same app in Aura DB).`);
       setTimeout(() => setSchemeFeedback(null), 5000);
     } catch (err) {
       setSchemeFeedback(`Updated locally: ${err.message}`);
@@ -278,7 +297,12 @@ export default function AppsHubView({
             return (
               <button
                 key={preset.id}
-                onClick={() => setSelectedScheme(preset)}
+                onClick={() => {
+                  setSelectedScheme(preset);
+                  if (activeApp) {
+                    handleApplySchemeToWorkspace(activeApp, preset, selectedPattern);
+                  }
+                }}
                 className={`tactile-btn p-2 rounded-lg border text-left flex flex-col justify-between space-y-1.5 transition-all ${
                   isSelected
                     ? "bg-slate-850 border-cyan-500 ring-1 ring-cyan-500/50"
@@ -323,7 +347,12 @@ export default function AppsHubView({
               return (
                 <button
                   key={mode.id}
-                  onClick={() => setSelectedPattern(mode.id)}
+                  onClick={() => {
+                    setSelectedPattern(mode.id);
+                    if (activeApp) {
+                      handleApplySchemeToWorkspace(activeApp, selectedScheme, mode.id);
+                    }
+                  }}
                   className={`px-2 py-1.5 rounded-lg border text-left flex items-center space-x-2 transition-all ${
                     isPatternActive
                       ? "bg-slate-800 border-cyan-500 text-white ring-1 ring-cyan-500/40"

@@ -102,6 +102,29 @@ export default function App() {
     }
   };
 
+  const handleUpdateAppScheme = async (appId, scheme, pattern) => {
+    const target = apps.find((a) => a.id === appId) || activeApp;
+    if (!target) return;
+    const updated = {
+      ...target,
+      color_scheme: scheme.id,
+      pattern: pattern,
+      pattern_colors: scheme.colors,
+      theme_color: scheme.colors[0]
+    };
+    // Update the same app in-place without adding any separate apps
+    setApps((prev) => prev.map((a) => (a.id === target.id ? updated : a)));
+    if (activeApp?.id === target.id) {
+      setActiveApp(updated);
+    }
+    try {
+      await updateApp(target.id, updated);
+      await saveAppToAura(target.id);
+    } catch (err) {
+      console.warn("Failed to persist scheme update:", err);
+    }
+  };
+
   const handleJumpToVideo = (videoId, timestamp) => {
     setTargetVideoId(videoId);
     setTargetTimestamp(timestamp);
@@ -126,6 +149,7 @@ export default function App() {
             setEditingApp(null);
             setCreateModalOpen(true);
           }}
+          onUpdateAppScheme={(scheme, pattern) => activeApp && handleUpdateAppScheme(activeApp.id, scheme, pattern)}
           onManageVideosClick={() => setVideoManagerOpen(true)}
           isPhoneFrame={isPhoneFrame}
           onToggleFrame={() => setIsPhoneFrame(!isPhoneFrame)}
@@ -147,6 +171,7 @@ export default function App() {
                 setCreateModalOpen(true);
               }}
               onDeleteApp={handleDeleteApp}
+              onUpdateAppScheme={handleUpdateAppScheme}
               onManageVideosClick={() => setVideoManagerOpen(true)}
               onOpenEnrichments={() => setEnrichmentsOpen(true)}
               onNavigateTab={(tab) => setActiveTab(tab === "graph" ? "words" : tab)}

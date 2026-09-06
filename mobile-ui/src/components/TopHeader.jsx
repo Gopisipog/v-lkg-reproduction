@@ -30,6 +30,7 @@ export default function TopHeader({
   apps,
   onSelectApp,
   onCreateAppClick,
+  onUpdateAppScheme,
   onManageVideosClick,
   isPhoneFrame,
   onToggleFrame
@@ -72,6 +73,10 @@ export default function TopHeader({
     } catch (e) {
       console.warn("Failed to persist cockpit scheme to localStorage", e);
     }
+    // Update the same active app directly without creating a new app
+    if (onUpdateAppScheme) {
+      onUpdateAppScheme(scheme, pattern);
+    }
   };
 
   const savePatternMode = (patternId) => {
@@ -84,6 +89,10 @@ export default function TopHeader({
       localStorage.setItem("vlkg_cockpit_scheme", JSON.stringify(updated));
     } catch (e) {
       console.warn("Failed to persist pattern to localStorage", e);
+    }
+    // Update the same active app directly without creating a new app
+    if (onUpdateAppScheme) {
+      onUpdateAppScheme(cockpitScheme, patternId);
     }
   };
 

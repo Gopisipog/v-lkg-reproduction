@@ -37,14 +37,11 @@ fun App(
                     onCreateAppClick = { viewModel.setCreateAppDialogVisible(true) },
                     onSelectScheme = { preset ->
                         uiState.activeApp?.let { app ->
-                            viewModel.createOrUpdateApp(
-                                name = app.name,
-                                description = app.description,
+                            viewModel.updateAppScheme(
+                                appId = app.id,
                                 colorScheme = preset.id,
                                 pattern = app.pattern ?: "gradient-bi",
-                                patternColors = preset.colors,
-                                domains = app.focus_domains,
-                                saveToAura = app.saved_to_aura
+                                patternColors = preset.colors
                             )
                         }
                     }
@@ -77,25 +74,19 @@ fun App(
                             onOpenVideoManager = { viewModel.setVideoManagerDialogVisible(true) },
                             onOpenEnrichments = { viewModel.setEnrichmentsDialogVisible(true) },
                             onApplySchemeToApp = { app, preset ->
-                                viewModel.createOrUpdateApp(
-                                    name = app.name,
-                                    description = app.description,
+                                viewModel.updateAppScheme(
+                                    appId = app.id,
                                     colorScheme = preset.id,
                                     pattern = app.pattern ?: "gradient-bi",
-                                    patternColors = preset.colors,
-                                    domains = app.focus_domains,
-                                    saveToAura = app.saved_to_aura
+                                    patternColors = preset.colors
                                 )
                             },
                             onApplyPatternToApp = { app, patternId ->
-                                viewModel.createOrUpdateApp(
-                                    name = app.name,
-                                    description = app.description,
+                                viewModel.updateAppScheme(
+                                    appId = app.id,
                                     colorScheme = app.color_scheme ?: "cyber-cyan",
                                     pattern = patternId,
-                                    patternColors = app.pattern_colors.ifEmpty { listOf("#0EA5E9", "#10B981") },
-                                    domains = app.focus_domains,
-                                    saveToAura = app.saved_to_aura
+                                    patternColors = app.pattern_colors.ifEmpty { listOf("#0EA5E9", "#10B981") }
                                 )
                             },
                             onSyncAppToAura = { appId ->
