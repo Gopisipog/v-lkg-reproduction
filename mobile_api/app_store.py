@@ -210,7 +210,7 @@ class MobileAppStore:
         result = []
         for app in self.child_apps:
             app_id = app["id"]
-            graph = self.get_scoped_graph(app_id=app_id)
+            graph = self.get_scoped_graph(app_id=app_id, reload=False)
             assigned_vids = app.get("video_ids", [])
             active_lenses = set()
             for vid in assigned_vids:
@@ -362,8 +362,9 @@ class MobileAppStore:
 
     # ── Scoped Knowledge Graph & Enrichments ─────────────────────────
 
-    def get_scoped_graph(self, app_id: Optional[str] = None, intelligence_lens: Optional[str] = None) -> Dict[str, Any]:
-        self.reload()
+    def get_scoped_graph(self, app_id: Optional[str] = None, intelligence_lens: Optional[str] = None, reload: bool = True) -> Dict[str, Any]:
+        if reload:
+            self.reload()
         
         target_vids = None
         target_app = None
