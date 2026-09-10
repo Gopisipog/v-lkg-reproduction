@@ -15,6 +15,7 @@ import MediaLibraryView from "./components/MediaLibraryView";
 import CreateAppModal from "./components/CreateAppModal";
 import VideoManagerModal from "./components/VideoManagerModal";
 import EnrichmentsModal from "./components/EnrichmentsModal";
+import DatabaseModal from "./components/DatabaseModal";
 
 export default function App() {
   const [apps, setApps] = useState([]);
@@ -31,6 +32,7 @@ export default function App() {
   const [editingApp, setEditingApp] = useState(null);
   const [videoManagerOpen, setVideoManagerOpen] = useState(false);
   const [enrichmentsOpen, setEnrichmentsOpen] = useState(false);
+  const [databaseModalOpen, setDatabaseModalOpen] = useState(false);
 
   // Frame preview mode
   const [isPhoneFrame, setIsPhoneFrame] = useState(false);
@@ -175,6 +177,7 @@ export default function App() {
           onManageVideosClick={() => setVideoManagerOpen(true)}
           isPhoneFrame={isPhoneFrame}
           onToggleFrame={() => setIsPhoneFrame(!isPhoneFrame)}
+          onOpenDatabaseModal={() => setDatabaseModalOpen(true)}
         />
 
         {/* Main Content Body */}
@@ -279,6 +282,14 @@ export default function App() {
           isOpen={enrichmentsOpen}
           onClose={() => setEnrichmentsOpen(false)}
           activeApp={activeApp}
+        />
+
+        <DatabaseModal
+          isOpen={databaseModalOpen}
+          onClose={() => {
+            setDatabaseModalOpen(false);
+            refreshAll();
+          }}
         />
       </div>
     </div>

@@ -11,7 +11,7 @@ const API_BASE = "/api";
 export async function fetchJson(url, options = {}) {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
     const res = await fetch(`${API_BASE}${url}`, {
       signal: controller.signal,
       headers: {
@@ -27,12 +27,35 @@ export async function fetchJson(url, options = {}) {
     }
     return await res.json();
   } catch (error) {
+    if (options.method && options.method.toUpperCase() !== "GET") {
+      throw error;
+    }
     console.warn(`[V-LKG API Offline/Fallback] ${url}:`, error.message);
     return getOfflineFallback(url, options);
   }
 }
 
 function getOfflineFallback(url, options) {
+  if (url === "/database/status") {
+    return {
+      status: "fallback_local",
+      is_connected_to_aura: false,
+      active_store: "LocalGraphStore (JSON Storage)",
+      uri: "neo4j+s://60634b9c.databases.neo4j.io",
+      user: "60634b9c",
+      last_error: null,
+      aura_stats: { nodes: null, relationships: null, labels: [] },
+      repository_stats: {
+        entities_count: FALLBACK_ENTITIES.length,
+        triplets_count: FALLBACK_TRIPLETS.length,
+        videos_count: FALLBACK_VIDEOS.length,
+        child_apps_count: FALLBACK_APPS.length,
+        corpus_segments_count: 50,
+        insights_count: FALLBACK_INSIGHTS.length
+      },
+      notice: "Operating in local JSON storage mode."
+    };
+  }
   if (url === "/apps") return FALLBACK_APPS;
   if (url.startsWith("/apps/") && url.endsWith("/graph")) {
     return {
@@ -158,19 +181,3 @@ export const processVoiceRecording = (title, transcriptSegments, appId, intellig
       intelligence_lenses: intelligenceLenses
     })
   });
-
-// ── CineGraph Studio API (Google Cloud Agentic Cinema & Parallel) ───
-export const getStudioStatus = () => fetchJson("/studio/status");
-
-export const analyzeStudioScene = (payload) =>
-  fetchJson("/studio/analyze-scene", {
-    method: "POST",
-    body: JSON.stringify(payload)
-  });
-
-export const queryStudioCopilot = (query, sceneContext) =>
-  fetchJson("/studio/copilot", {
-    method: "POST",
-    body: JSON.stringify({ query, scene_context: sceneContext })
-  });
-

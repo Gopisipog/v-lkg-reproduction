@@ -1,7 +1,7 @@
 [
     {
         "id": "app_cinegraph",
-        "name": "🎬 CineGraph Studio Lot",
+        "name": "\ud83c\udfac CineGraph Studio Lot",
         "slug": "cinegraph-studio-lot",
         "description": "Agentic Cinema Studio Lot: Autonomous scene analysis, screenplay fact-checking, and live industry research powered by Google Cloud Gemini 2.5 Flash & Parallel Web Systems.",
         "icon": "Film",
@@ -38,28 +38,40 @@
         "slug": "executive-leadership",
         "description": "C-suite strategic frameworks, time management, personal discipline, and leadership alignment.",
         "icon": "Briefcase",
-        "theme_color": "#EC4899",
+        "theme_color": "#0EA5E9",
         "focus_domains": [
             "executive",
             "learning",
             "thought_leadership"
         ],
         "video_ids": [
+            "voice_1788431626",
             "test_ingest_789",
-            "dF3GFpIKPlE",
-            "paF4J941uqg"
+            "jzzTomTwltQ",
+            "voice_1788431219",
+            "jfW6gL6hKhk",
+            "test_ingest",
+            "NeqEKCrTbL4",
+            "jl3OLK9vP1o",
+            "iCvmsMzlF7o",
+            "VozV9KmhPTU",
+            "live_1778424632",
+            "live_1778427429",
+            "live_1778473960"
         ],
         "created_at": "2026-03-01T10:00:00Z",
         "prioritized_entities": [
+            "Autonomous AI Agents",
             "First-Principles Thinking",
             "Transformational Leadership",
             "Radical Candor"
         ],
-        "color_scheme": "hyper-plasma",
+        "color_scheme": "aurora-tri",
         "pattern": "stripe-tri",
         "pattern_colors": [
-            "#EC4899",
-            "#8B5CF6"
+            "#0EA5E9",
+            "#8B5CF6",
+            "#10B981"
         ]
     },
     {

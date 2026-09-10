@@ -11,7 +11,7 @@ import {
   getPatternBackground, 
   resolveAppTheme 
 } from "../utils/colorSchemes";
-import { syncDataToAura } from "../services/api";
+import { getDatabaseStatus, syncDataToAura } from "../services/api";
 
 export const ICON_MAP = {
   Briefcase,
@@ -34,12 +34,32 @@ export default function TopHeader({
   onUpdateAppScheme,
   onManageVideosClick,
   isPhoneFrame,
-  onToggleFrame
+  onToggleFrame,
+  onOpenDatabaseModal
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [themeModalOpen, setThemeModalOpen] = useState(false);
   const [auraSyncing, setAuraSyncing] = useState(false);
   const [auraFeedback, setAuraFeedback] = useState(null);
+  const [dbState, setDbState] = useState({ connected: false, label: "DATA STORE" });
+
+  useEffect(() => {
+    let isMounted = true;
+    getDatabaseStatus()
+      .then((res) => {
+        if (isMounted && res) {
+          const isAura = Boolean(res.is_connected_to_aura || res.status === "connected");
+          setDbState({
+            connected: isAura,
+            label: isAura ? "AURA DB" : "DATA STORE"
+          });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Global Cockpit Scheme State (saved in localStorage)
   const [cockpitScheme, setCockpitScheme] = useState(() => {
@@ -333,18 +353,15 @@ export default function TopHeader({
           )}
         </div>
 
-        {/* Aura DB Global Sync Button */}
+        {/* Knowledge Graph Data Store & Connection Button */}
         <button
-          onClick={handleGlobalAuraSync}
-          disabled={auraSyncing}
-          className={`tactile-btn flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 text-xs font-mono py-1 px-2.5 rounded-lg transition-colors shadow-sm ${
-            auraSyncing ? "animate-pulse" : ""
-          }`}
-          title="Synchronize all child apps, entities, and triplets to Neo4j Aura DB"
+          onClick={onOpenDatabaseModal || handleGlobalAuraSync}
+          className="tactile-btn flex items-center space-x-1.5 bg-slate-900 hover:bg-slate-850 text-slate-200 border border-slate-800 text-xs font-mono py-1 px-2.5 rounded-lg transition-colors shadow-sm"
+          title="Open Database Connection Manager (Neo4j AuraDB / LocalGraphStore)"
         >
-          <Database className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="hidden sm:inline">AURA DB</span>
-          {auraSyncing && <span className="text-[10px] text-cyan-300">...</span>}
+          <Database className={`w-3.5 h-3.5 ${dbState.connected ? "text-emerald-400" : "text-cyan-400"}`} />
+          <span className="hidden sm:inline">{dbState.label}</span>
+          <span className={`w-1.5 h-1.5 rounded-full ${dbState.connected ? "bg-emerald-400 animate-pulse" : "bg-cyan-400"}`} />
         </button>
 
         {/* Videos Counter Button */}
