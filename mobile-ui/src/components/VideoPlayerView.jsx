@@ -91,7 +91,20 @@ export default function VideoPlayerView({
   const currentVideo = displayVideos.find((v) => v.video_id === currentVideoId) || semanticsData?.metadata;
   const isVoice = currentVideo?.is_voice_recording || currentVideoId?.startsWith("voice_") || currentVideoId?.startsWith("live_");
 
-  const relationships = semanticsData?.relationships || [];
+  const rawRelationships = semanticsData?.relationships || [];
+  const relationships = React.useMemo(() => {
+    const seen = new Set();
+    return rawRelationships.filter((r) => {
+      const sub = (r.subject || "").trim().toLowerCase();
+      const rel = (r.relation || "").trim().toLowerCase();
+      const obj = (r.object || "").trim().toLowerCase();
+      if (!sub || !obj) return false;
+      const key = `${sub}|${rel}|${obj}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [rawRelationships]);
   const segments = semanticsData?.segments || [];
   const extractedPills = semanticsData?.extracted_pills || [];
   const enrichedPills = semanticsData?.enriched_pills || [];

@@ -60,7 +60,7 @@ class VlkgApiClient(
             val query = if (!lens.isNullOrBlank() && lens != "all") "?intelligence_lens=$lens" else ""
             val raw = client.get("$baseUrl/api/apps/$appId/graph$query").body<ApiScopedGraphResponse>()
             val nodes = raw.nodes.map { it.toConceptNode() }
-            val edges = raw.links.map { it.toEdgeRelationship() }
+            val edges = raw.links.distinctBy { "${it.source}|${it.relation}|${it.target}" }.map { it.toEdgeRelationship() }
             if (nodes.isNotEmpty()) {
                 GraphDataResponse(nodes = nodes, edges = edges, timestamp = "")
             } else {

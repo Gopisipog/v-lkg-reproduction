@@ -5,6 +5,8 @@ import {
   ArrowRight, MessageSquareCode, Share2, HelpCircle, Radio
 } from "lucide-react";
 import { querySingleApp, queryMultiApps } from "../services/api";
+import { resolveAppTheme } from "../utils/colorSchemes";
+import { ICON_MAP } from "./TopHeader";
 
 const INTELLIGENCE_LENSES = [
   { id: "all", name: "CONSOLIDATED" },
@@ -85,9 +87,13 @@ function generateNewQuestion(answeredQuestion, usedQuestionsSet, activeApp) {
 
 export default function AppQueryView({ 
   activeApp, 
+  activeAppTheme: propTheme,
   apps, 
   onJumpToVideo 
 }) {
+  const theme = propTheme || resolveAppTheme(activeApp);
+  const primaryColor = theme.primaryColor || "#0EA5E9";
+
   const [mode, setMode] = useState("single"); // "single" | "multi"
   const [question, setQuestion] = useState("");
   const [selectedLens, setSelectedLens] = useState("all");
@@ -114,7 +120,7 @@ export default function AppQueryView({
   };
 
   const handleQuery = async (e) => {
-    if (e) e.preventDefault();
+    e?.preventDefault();
     if (!question.trim()) return;
 
     setLoading(true);
@@ -191,7 +197,8 @@ export default function AppQueryView({
             {mode === "single" && (
               <motion.div
                 layoutId="queryModeIndicator"
-                className="absolute inset-0 bg-cyan-400 rounded-md -z-10"
+                style={{ background: theme.background }}
+                className="absolute inset-0 rounded-md -z-10 shadow-sm"
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
               />
             )}
@@ -206,7 +213,8 @@ export default function AppQueryView({
             {mode === "multi" && (
               <motion.div
                 layoutId="queryModeIndicator"
-                className="absolute inset-0 bg-cyan-400 rounded-md -z-10"
+                style={{ background: theme.background }}
+                className="absolute inset-0 rounded-md -z-10 shadow-sm"
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
               />
             )}
@@ -223,9 +231,14 @@ export default function AppQueryView({
             <button
               key={lens.id}
               onClick={() => setSelectedLens(lens.id)}
+              style={selectedLens === lens.id ? {
+                backgroundColor: `${theme.colors[0]}22`,
+                borderColor: `${theme.colors[0]}66`,
+                color: theme.colors[0]
+              } : undefined}
               className={`tactile-btn px-2 py-0.5 rounded text-[10px] font-mono font-medium whitespace-nowrap transition-colors border shrink-0 ${
                 selectedLens === lens.id
-                  ? "bg-cyan-950/60 text-cyan-300 border-cyan-700/60 font-bold"
+                  ? "font-bold shadow-xs"
                   : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-750 hover:text-slate-200"
               }`}
             >
@@ -234,25 +247,69 @@ export default function AppQueryView({
           ))}
         </div>
       ) : (
-        <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1.5">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 block font-bold">
-            Select 2+ Child Workspaces for Dual Verification:
-          </span>
-          <div className="grid grid-cols-2 gap-1.5">
+        <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-white flex items-center space-x-1.5">
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: primaryColor }} />
+              <span>Select Workspaces to Compare (One Workspace Per Row):</span>
+            </span>
+            <span className="text-[10px] font-mono text-slate-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+              {selectedAppIds.length} Selected
+            </span>
+          </div>
+
+          {/* Strictly One Workspace Per Row */}
+          <div className="flex flex-col space-y-2 w-full pt-1">
             {apps.map((app) => {
               const active = selectedAppIds.includes(app.id);
+              const AppIcon = ICON_MAP[app.icon] || Layers;
+              const itemTheme = resolveAppTheme(app);
               return (
                 <button
                   key={app.id}
                   onClick={() => toggleAppSelection(app.id)}
-                  className={`tactile-btn p-2 rounded-md text-left text-xs font-mono border transition-colors flex items-center justify-between ${
+                  style={active ? {
+                    backgroundColor: `${itemTheme.colors[0]}15`,
+                    borderColor: `${itemTheme.colors[0]}60`
+                  } : undefined}
+                  className={`tactile-btn w-full p-2.5 rounded-lg border text-left flex items-center justify-between transition-all ${
                     active 
-                      ? "bg-cyan-950/40 border-cyan-700/60 text-cyan-200 font-bold" 
-                      : "bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200"
+                      ? "shadow-sm ring-1 ring-white/10" 
+                      : "bg-slate-950/70 border-slate-800/80 hover:border-slate-700 text-slate-400 hover:text-slate-200"
                   }`}
                 >
-                  <span className="truncate">{app.name}</span>
-                  {active && <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0 ml-1" />}
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <div 
+                      className="w-8 h-8 rounded-lg flex items-center justify-center text-white shrink-0 shadow-md"
+                      style={{ background: itemTheme.background }}
+                    >
+                      <AppIcon className="w-4 h-4 drop-shadow" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-xs font-bold text-white truncate">{app.name}</span>
+                        <span className="text-[8px] font-mono px-1.5 py-0.2 bg-slate-800 text-slate-400 rounded border border-slate-700/50 uppercase">
+                          DOMAIN IN A BOX
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono text-slate-400 truncate block mt-0.5">
+                        {app.stats?.video_count || 0} streams · {app.stats?.entity_count || 0} linear words · {app.focus_domains?.slice(0, 2).join(", ") || "executive"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2.5 shrink-0">
+                    <div 
+                      className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all ${
+                        active 
+                          ? "text-slate-950 font-bold shadow-xs" 
+                          : "border-slate-700 bg-slate-900 text-transparent"
+                      }`}
+                      style={active ? { backgroundColor: itemTheme.colors[0], borderColor: itemTheme.colors[0] } : undefined}
+                    >
+                      {active ? <Check className="w-3.5 h-3.5 text-slate-950 stroke-[3]" /> : null}
+                    </div>
+                  </div>
                 </button>
               );
             })}
@@ -266,7 +323,14 @@ export default function AppQueryView({
           <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block font-semibold">
             Suggested Question Prompts
           </span>
-          <span className="text-[9px] font-mono text-cyan-400 bg-cyan-950/60 px-1.5 py-0.2 rounded border border-cyan-800/40">
+          <span 
+            style={{ 
+              backgroundColor: `${theme.colors[0]}1a`, 
+              color: primaryColor, 
+              borderColor: `${theme.colors[0]}44` 
+            }}
+            className="text-[9px] font-mono px-1.5 py-0.2 rounded border"
+          >
             AUTO-GENERATES ON ANSWER
           </span>
         </div>
@@ -281,10 +345,13 @@ export default function AppQueryView({
                 exit={{ opacity: 0, x: -20, transition: { duration: 0.15 } }}
                 transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 onClick={() => handleSelectSuggestedQuestion(prompt)}
-                className="tactile-btn w-full text-left text-xs font-mono px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between group shadow-sm"
+                className="tactile-btn w-full text-left text-xs font-mono px-3 py-2 rounded-lg bg-slate-900/90 hover:bg-slate-850 text-slate-300 hover:text-white border border-slate-800 transition-all flex items-center justify-between group shadow-sm"
               >
                 <span className="truncate pr-2">{prompt}</span>
-                <ArrowRight className="w-3 h-3 text-slate-600 group-hover:text-cyan-400 shrink-0 transition-colors" />
+                <ArrowRight 
+                  style={{ color: `${theme.colors[0]}aa` }}
+                  className="w-3 h-3 group-hover:scale-110 shrink-0 transition-transform" 
+                />
               </motion.button>
             ))}
           </AnimatePresence>
@@ -298,12 +365,16 @@ export default function AppQueryView({
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           placeholder={mode === "single" ? `Ask ${activeApp?.name || 'app'} (entities & linear words)...` : "Ask across selected child apps..."}
-          className="w-full px-3 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-500 pr-12 resize-none shadow-inner"
+          className="w-full px-3 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 font-mono focus:outline-none pr-12 resize-none shadow-inner"
         />
         <button
           type="submit"
           disabled={loading || !question.trim()}
-          className="tactile-btn absolute right-2.5 bottom-2.5 p-1.5 rounded-lg bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold transition-all disabled:opacity-40"
+          style={{ 
+            background: theme.background, 
+            boxShadow: `0 0 14px ${theme.colors[0]}44` 
+          }}
+          className="tactile-btn absolute right-2.5 bottom-2.5 p-1.5 rounded-lg text-slate-950 font-bold transition-all disabled:opacity-40"
         >
           <Send className="w-3.5 h-3.5" />
         </button>
@@ -312,7 +383,10 @@ export default function AppQueryView({
       {/* Loading State */}
       {loading && (
         <div className="py-12 flex flex-col items-center justify-center space-y-2">
-          <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+          <div 
+            className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" 
+            style={{ borderColor: primaryColor, borderTopColor: "transparent" }}
+          />
           <p className="text-xs font-mono text-slate-400">
             {mode === "single" ? "Synthesizing scoped entity pathways..." : "Generating dual-verified comparative analysis..."}
           </p>
@@ -408,50 +482,85 @@ export default function AppQueryView({
             </div>
           </div>
 
-          {/* Individual Child App Answers Side-by-Side */}
+          {/* Individual Child App Answers - STRICTLY ONE WORKSPACE PER ROW */}
           <div className="space-y-2">
-            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
-              Individual App Linear Entities & Answers ({multiResponse.apps.length})
+            <h4 className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+              <span>Individual Domain Box Breakdown (One Per Row):</span>
+              <span className="text-cyan-400 font-normal">{multiResponse.apps.length} Domains Compared</span>
             </h4>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-              {multiResponse.apps.map((appAns, idx) => (
-                <div
-                  key={idx}
-                  className="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-2"
-                >
-                  <div className="flex items-center justify-between pb-1 border-b border-slate-800/80">
-                    <h5 className="text-xs font-bold text-white truncate">{appAns.app_name}</h5>
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: appAns.theme_color || "#0ea5e9" }}
+            {/* Vertically Stacked: One Workspace per Line/Row */}
+            <div className="flex flex-col space-y-3 w-full">
+              {multiResponse.apps.map((appAns, idx) => {
+                const matchedApp = apps.find(a => a.id === appAns.app_id || a.name === appAns.app_name);
+                const AppIcon = matchedApp && ICON_MAP[matchedApp.icon] ? ICON_MAP[matchedApp.icon] : Layers;
+                const domainTheme = resolveAppTheme(matchedApp);
+                return (
+                  <div
+                    key={idx}
+                    className="p-3.5 rounded-xl bg-slate-900/95 border border-slate-800 space-y-2.5 relative overflow-hidden shadow-sm"
+                  >
+                    {/* Top Edge Domain Theme Accent Bar */}
+                    <div 
+                      className="absolute top-0 left-0 right-0 h-1 transition-all"
+                      style={{ background: domainTheme.background }}
                     />
-                  </div>
 
-                  <div className="text-xs text-slate-300 leading-relaxed max-h-56 overflow-y-auto whitespace-pre-line pr-1 font-sans">
-                    {appAns.answer}
-                  </div>
+                    {/* Domain in a Box Header */}
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 pt-1">
+                      <div className="flex items-center space-x-2.5 min-w-0">
+                        <div 
+                          className="w-6 h-6 rounded-md flex items-center justify-center text-white shrink-0 shadow-sm"
+                          style={{ background: domainTheme.background }}
+                        >
+                          <AppIcon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="flex items-center space-x-2 min-w-0">
+                          <h5 className="text-xs font-bold text-white truncate">{appAns.app_name}</h5>
+                          <span className="text-[8px] font-mono px-1.5 py-0.2 bg-slate-800 text-slate-400 rounded border border-slate-700/50 uppercase">
+                            DOMAIN IN A BOX
+                          </span>
+                        </div>
+                      </div>
 
-                  {appAns.timestamp_citations?.length > 0 && (
-                    <div className="pt-1.5 border-t border-slate-800/80">
-                      <span className="text-[9px] font-mono uppercase text-slate-500 block mb-1">
-                        Timestamps:
+                      <span 
+                        className="text-[9px] font-mono px-2 py-0.5 rounded font-bold border shrink-0"
+                        style={{ 
+                          backgroundColor: `${domainTheme.colors[0]}20`, 
+                          color: domainTheme.primaryColor,
+                          borderColor: `${domainTheme.colors[0]}50`
+                        }}
+                      >
+                        ROW #{idx + 1}
                       </span>
-                      <div className="flex flex-wrap gap-1">
+                    </div>
+
+                    {/* Domain Synthesized Answer */}
+                    <div className="text-xs text-slate-200 leading-relaxed whitespace-pre-line font-sans">
+                      {appAns.answer}
+                    </div>
+
+                    {/* Timestamp Citations in this Domain */}
+                    {appAns.timestamp_citations?.length > 0 && (
+                      <div className="pt-2 border-t border-slate-800/80 flex items-center flex-wrap gap-1.5">
+                        <span className="text-[9px] font-mono uppercase text-slate-500 mr-1">
+                          Domain Citations:
+                        </span>
                         {appAns.timestamp_citations.map((c, i) => (
                           <button
                             key={i}
                             onClick={() => onJumpToVideo(c.video_id, c.timestamp)}
-                            className="tactile-btn text-[9px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-cyan-300 border border-slate-700"
+                            className="tactile-btn text-[9px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-750 text-cyan-300 border border-slate-700 hover:border-cyan-500/50 transition-colors flex items-center space-x-1"
                           >
-                            [{c.timestamp}]
+                            <PlayCircle className="w-2.5 h-2.5 text-cyan-400" />
+                            <span>[{c.timestamp}]</span>
                           </button>
                         ))}
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

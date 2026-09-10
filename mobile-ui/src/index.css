@@ -60,3 +60,33 @@ body {
   transform: scale(0.98);
 }
 
+/* Dynamic Cockpit App Theme Variables & Utility Classes */
+:root {
+  --theme-pri: #0EA5E9;
+  --theme-sec: #10B981;
+  --theme-ter: #8B5CF6;
+  --theme-bg-gradient: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+  --theme-card-atmosphere: radial-gradient(ellipse at top left, rgba(14, 165, 233, 0.18), transparent 50%), radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.15), transparent 50%);
+  --theme-glow: rgba(14, 165, 233, 0.3);
+  --theme-border: rgba(14, 165, 233, 0.5);
+}
+
+.theme-bg-pri { background-color: var(--theme-pri) !important; }
+.theme-bg-sec { background-color: var(--theme-sec) !important; }
+.theme-bg-ter { background-color: var(--theme-ter) !important; }
+
+.theme-text-pri { color: var(--theme-pri) !important; }
+.theme-text-sec { color: var(--theme-sec) !important; }
+.theme-text-ter { color: var(--theme-ter) !important; }
+
+.theme-border-pri { border-color: var(--theme-pri) !important; }
+.theme-border-glow { border-color: var(--theme-border) !important; }
+
+.theme-gradient-accent {
+  background: var(--theme-bg-gradient) !important;
+}
+
+.theme-glow-shadow {
+  box-shadow: 0 4px 20px -2px var(--theme-glow) !important;
+}
+

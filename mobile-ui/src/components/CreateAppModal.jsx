@@ -14,7 +14,7 @@ import {
   getCardAtmosphere 
 } from "../utils/colorSchemes";
 
-const AVAILABLE_ICONS = ["Briefcase", "Cpu", "Sparkles", "TrendingUp", "Layers", "GraduationCap", "ShieldCheck", "Users", "Crosshair"];
+const AVAILABLE_ICONS = ["Briefcase", "Cpu", "Sparkles", "TrendingUp", "Layers", "GraduationCap", "ShieldCheck", "Users", "Crosshair", "Film"];
 
 const DOMAIN_OPTIONS = [
   { id: "executive", label: "Executive Strategy" },

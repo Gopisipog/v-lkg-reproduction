@@ -32,6 +32,10 @@ fun VlkgTopHeader(
     var dropdownExpanded by remember { mutableStateOf(false) }
     var schemeMenuExpanded by remember { mutableStateOf(false) }
 
+    val appTheme = LocalVlkgAppTheme.current
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+
     Surface(
         color = DarkBackground,
         contentColor = DarkOnBackground,
@@ -39,27 +43,35 @@ fun VlkgTopHeader(
             .fillMaxWidth()
             .border(width = 1.dp, color = DarkOutline)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 14.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Dynamic Top Edge Telemetry Accent Bar
+            Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .clickable { dropdownExpanded = true }
-                    .padding(vertical = 4.dp, horizontal = 6.dp)
+                    .fillMaxWidth()
+                    .height(2.5.dp)
+                    .background(appTheme.brush)
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Online Breathing Dot Indicator
-                Box(
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .size(8.dp)
-                        .clip(CircleShape)
-                        .background(VlkgSecondary)
-                )
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable { dropdownExpanded = true }
+                        .padding(vertical = 4.dp, horizontal = 6.dp)
+                ) {
+                    // Online Breathing Dot Indicator
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .clip(CircleShape)
+                            .background(secondaryColor)
+                    )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -263,10 +275,10 @@ fun VlkgTopHeader(
                 OutlinedButton(
                     onClick = onCreateAppClick,
                     shape = RoundedCornerShape(6.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, VlkgPrimary.copy(alpha = 0.5f)),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, primaryColor.copy(alpha = 0.5f)),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        containerColor = VlkgPrimary.copy(alpha = 0.1f),
-                        contentColor = VlkgPrimary
+                        containerColor = primaryColor.copy(alpha = 0.1f),
+                        contentColor = primaryColor
                     ),
                     contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                 ) {
@@ -280,4 +292,5 @@ fun VlkgTopHeader(
             }
         }
     }
+}
 }

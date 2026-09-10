@@ -3,7 +3,11 @@ package org.vlkg.mobile.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import org.vlkg.mobile.model.ChildApp
 
 val VlkgPrimary = Color(0xFF0EA5E9) // Electric Cyan (Cockpit Focus)
 val VlkgSecondary = Color(0xFF10B981) // Emerald Telemetry
@@ -41,6 +45,24 @@ private val LightColorScheme = lightColorScheme(
     outline = Color(0xFFE2E8F0)
 )
 
+data class VlkgAppThemeData(
+    val primary: Color,
+    val secondary: Color,
+    val tertiary: Color,
+    val pattern: String,
+    val brush: Brush
+)
+
+val LocalVlkgAppTheme = staticCompositionLocalOf {
+    VlkgAppThemeData(
+        primary = VlkgPrimary,
+        secondary = VlkgSecondary,
+        tertiary = VlkgTertiary,
+        pattern = "gradient-bi",
+        brush = Brush.linearGradient(listOf(VlkgPrimary, VlkgSecondary))
+    )
+}
+
 fun parseHexColor(hex: String, defaultColor: Color = VlkgPrimary): Color {
     return try {
         val clean = hex.removePrefix("#")
@@ -59,14 +81,42 @@ fun parseHexColor(hex: String, defaultColor: Color = VlkgPrimary): Color {
 
 @Composable
 fun VlkgTheme(
+    activeApp: ChildApp? = null,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val appColors = getColorsForApp(activeApp)
+    val primaryColor = appColors.getOrElse(0) { VlkgPrimary }
+    val secondaryColor = appColors.getOrElse(1) { VlkgSecondary }
+    val tertiaryColor = appColors.getOrElse(2) { appColors.getOrElse(1) { VlkgTertiary } }
+    val pattern = activeApp?.pattern ?: "gradient-bi"
+    val patternBrush = getPatternBrush(pattern, appColors)
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography(),
-        content = content
+    val themeData = VlkgAppThemeData(
+        primary = primaryColor,
+        secondary = secondaryColor,
+        tertiary = tertiaryColor,
+        pattern = pattern,
+        brush = patternBrush
     )
+
+    val dynamicDarkColorScheme = DarkColorScheme.copy(
+        primary = primaryColor,
+        secondary = secondaryColor,
+        tertiary = tertiaryColor
+    )
+    val dynamicLightColorScheme = LightColorScheme.copy(
+        primary = primaryColor,
+        secondary = secondaryColor,
+        tertiary = tertiaryColor
+    )
+    val colorScheme = if (darkTheme) dynamicDarkColorScheme else dynamicLightColorScheme
+
+    CompositionLocalProvider(LocalVlkgAppTheme provides themeData) {
+        MaterialTheme(
+            colorScheme = colorScheme,
+            typography = Typography(),
+            content = content
+        )
+    }
 }

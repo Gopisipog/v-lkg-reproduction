@@ -131,47 +131,10 @@ def transcribe_recording_gcp(file_path: str) -> list[dict]:
 
 def transcribe_recording_openai(file_path: str) -> list[dict]:
     """
-    Transcribe using OpenAI's Whisper API (cloud-based, no local model needed).
-
-    Args:
-        file_path: Path to the audio/video file.
-
-    Returns:
-        List of segment dicts with keys: start, end, text
+    Deprecated: Redirects directly to Google Cloud Speech-to-Text for 100% Google Cloud compliance.
     """
-    from openai import OpenAI
-
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY not set in environment")
-
-    client = OpenAI(api_key=api_key)
-
-    with open(file_path, "rb") as f:
-        response = client.audio.transcriptions.create(
-            model="whisper-1",
-            file=f,
-            response_format="verbose_json",
-            timestamp_granularities=["segment"],
-        )
-
-    segments = []
-    for seg in getattr(response, "segments", []):
-        segments.append({
-            "start": seg.get("start", 0),
-            "end": seg.get("end", 0),
-            "text": seg.get("text", "").strip(),
-        })
-
-    # Fallback if no segments returned
-    if not segments and hasattr(response, "text") and response.text:
-        segments.append({
-            "start": 0.0,
-            "end": 60.0,
-            "text": response.text.strip(),
-        })
-
-    return segments
+    print("[GCP] Using Google Cloud Speech-to-Text transcription.")
+    return transcribe_recording_gcp(file_path)
 
 
 def save_to_corpus(

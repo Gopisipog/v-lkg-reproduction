@@ -4045,9 +4045,14 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "IntelligenceDomain",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
+      "U40qvUiefQo",
       "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
       "jzzTomTwltQ",
-      "U40qvUiefQo"
+      "paF4J941uqg"
     ],
     "source_time": "00:04",
     "weight": 1,
@@ -4064,9 +4069,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "IntelligenceDomain",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:30",
     "weight": 1,
@@ -4083,17 +4091,20 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:45",
     "weight": 1,
     "intelligences": [
-      "sales",
+      "competitive",
       "executive",
       "learning",
-      "competitive"
+      "sales"
     ]
   },
   {
@@ -4104,9 +4115,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Competitor",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:20",
     "weight": 1,
@@ -4123,7 +4137,13 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "U40qvUiefQo",
     "video_ids": [
-      "U40qvUiefQo"
+      "NeqEKCrTbL4",
+      "U40qvUiefQo",
+      "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "04:57",
     "weight": 1,
@@ -4141,8 +4161,9 @@ export const FALLBACK_TRIPLETS = [
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:20",
     "weight": 1,
@@ -4160,8 +4181,9 @@ export const FALLBACK_TRIPLETS = [
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:20",
     "weight": 1,
@@ -4177,13 +4199,19 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "test_ingest_789",
     "video_ids": [
+      "NeqEKCrTbL4",
+      "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg",
       "test_ingest_789"
     ],
     "source_time": "04:00",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive"
+      "executive",
+      "sales"
     ]
   },
   {
@@ -4194,16 +4222,19 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Strategy",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:30",
     "weight": 1,
     "intelligences": [
-      "sales",
+      "compliance",
       "executive",
-      "compliance"
+      "sales"
     ]
   },
   {
@@ -4214,16 +4245,19 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Control",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:45",
     "weight": 1,
     "intelligences": [
+      "compliance",
       "engineering",
-      "learning",
-      "compliance"
+      "learning"
     ]
   },
   {
@@ -4234,16 +4268,19 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:40",
     "weight": 1,
     "intelligences": [
-      "sales",
+      "engineering",
       "executive",
-      "engineering"
+      "sales"
     ]
   },
   {
@@ -4254,17 +4291,20 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Strategy",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:50",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive",
       "engineering",
-      "learning"
+      "executive",
+      "learning",
+      "sales"
     ]
   },
   {
@@ -4275,17 +4315,20 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:10",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive",
       "customer",
-      "learning"
+      "executive",
+      "learning",
+      "sales"
     ]
   },
   {
@@ -4296,16 +4339,19 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:10",
     "weight": 1,
     "intelligences": [
-      "sales",
       "customer",
-      "learning"
+      "learning",
+      "sales"
     ]
   },
   {
@@ -4316,9 +4362,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Competency",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:10",
     "weight": 1,
@@ -4334,17 +4383,18 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Strategy",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
       "NeqEKCrTbL4",
-      "jl3OLK9vP1o",
+      "U40qvUiefQo",
       "VozV9KmhPTU",
+      "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "jzzTomTwltQ",
+      "paF4J941uqg",
+      "test_ingest_789",
       "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
+      "voice_1788431626"
     ],
     "source_time": "00:00",
     "weight": 1,
@@ -4360,12 +4410,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Strategy",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "U40qvUiefQo",
       "dF3GFpIKPlE",
       "jzzTomTwltQ",
-      "U40qvUiefQo",
+      "test_ingest_789",
       "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
+      "voice_1788431626"
     ],
     "source_time": "00:04",
     "weight": 1,
@@ -4382,6 +4432,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "test_ingest_789",
     "video_ids": [
+      "NeqEKCrTbL4",
+      "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg",
       "test_ingest_789"
     ],
     "source_time": "02:00",
@@ -4398,9 +4454,9 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "KnowledgeBase",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "U40qvUiefQo",
       "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
+      "jzzTomTwltQ"
     ],
     "source_time": "00:04",
     "weight": 1,
@@ -4417,9 +4473,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:40",
     "weight": 1,
@@ -4436,9 +4495,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:40",
     "weight": 1,
@@ -4455,9 +4517,12 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:40",
     "weight": 1,
@@ -4473,9 +4538,11 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jl3OLK9vP1o"
+      "iCvmsMzlF7o",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "04:42",
     "weight": 1,
@@ -4492,14 +4559,15 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Outcome",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
       "NeqEKCrTbL4",
+      "U40qvUiefQo",
+      "VozV9KmhPTU",
+      "dF3GFpIKPlE",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
       "jl3OLK9vP1o",
-      "VozV9KmhPTU"
+      "jzzTomTwltQ",
+      "paF4J941uqg"
     ],
     "source_time": "00:00",
     "weight": 1,
@@ -4515,15 +4583,18 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Expertise",
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
+      "NeqEKCrTbL4",
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "02:05",
     "weight": 1,
     "intelligences": [
-      "sales",
       "executive",
+      "sales",
       "thought_leadership"
     ]
   },
@@ -4536,8 +4607,9 @@ export const FALLBACK_TRIPLETS = [
     "video_id": "dF3GFpIKPlE",
     "video_ids": [
       "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk"
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "paF4J941uqg"
     ],
     "source_time": "01:20",
     "weight": 1,
@@ -4546,26 +4618,6 @@ export const FALLBACK_TRIPLETS = [
     ]
   },
   {
-    "subject": "Communication",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
-    ],
-    "source_time": "00:04",
-    "weight": 1,
-    "intelligences": [
-      "learning",
-      "thought_leadership"
-    ]
-  },
-  {
     "subject": "Strategic Thinking",
     "subject_type": "Competency",
     "relation": "DEVELOPS_COMPETENCY",
@@ -4573,7 +4625,11 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "IntelligenceDomain",
     "video_id": "NeqEKCrTbL4",
     "video_ids": [
-      "NeqEKCrTbL4"
+      "NeqEKCrTbL4",
+      "iCvmsMzlF7o",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:15",
     "weight": 1,
@@ -4590,1199 +4646,37 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "IntelligenceDomain",
     "video_id": "NeqEKCrTbL4",
     "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Advanced strategic execution",
-    "subject_type": "SkillGap",
-    "relation": "IDENTIFIED_IN",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:30",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership best practices",
-    "subject_type": "CompetitiveTopic",
-    "relation": "ANALYZED_IN",
-    "object": "Market Positioning",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:45",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Complacency in skill development",
-    "subject_type": "Threat",
-    "relation": "FROM_COMPETITOR",
-    "object": "Industry peers",
-    "object_type": "Competitor",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:20",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
       "NeqEKCrTbL4",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "General leadership interest",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership ethics",
-    "subject_type": "PolicyTopic",
-    "relation": "GOVERNS",
-    "object": "Risk Mitigation",
-    "object_type": "Strategy",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:30",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Inconsistent policy application",
-    "subject_type": "Risk",
-    "relation": "MITIGATED_BY",
-    "object": "Regular training sessions",
-    "object_type": "Control",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:45",
-    "weight": 1,
-    "intelligences": [
-      "engineering",
-      "learning",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Leadership innovation",
-    "subject_type": "EmergingTrend",
-    "relation": "ACCELERATES",
-    "object": "Engineering Velocity",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:40",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Apply leadership frameworks to R&D",
-    "subject_type": "Innovation",
-    "relation": "EXPANDS",
-    "object": "Technical Architecture",
-    "object_type": "Strategy",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:50",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership challenges",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Skill development",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Implementing change",
-    "subject_type": "PainPoint",
-    "relation": "RESOLVED_BY",
-    "object": "Active Empathy",
-    "object_type": "Competency",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:10",
-    "weight": 1,
-    "intelligences": [
-      "customer"
-    ]
-  },
-  {
-    "subject": "Change",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
-      "jl3OLK9vP1o",
-      "VozV9KmhPTU",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Document key takeaways per video",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Cross-reference concepts across videos",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Apply frameworks in practice",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "learning"
-    ]
-  },
-  {
-    "subject": "Ai",
-    "subject_type": "Narrative",
-    "relation": "SHAPES",
-    "object": "Market Authority",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "04:42",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Change",
-    "subject_type": "Narrative",
-    "relation": "SHAPES",
-    "object": "Market Authority",
-    "object_type": "Outcome",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
-      "jl3OLK9vP1o",
-      "VozV9KmhPTU"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Featured speakers",
-    "subject_type": "ThoughtLeader",
-    "relation": "HAS_EXPERTISE",
-    "object": "Leadership and management",
-    "object_type": "Expertise",
-    "video_id": "NeqEKCrTbL4",
-    "video_ids": [
-      "NeqEKCrTbL4"
-    ],
-    "source_time": "02:05",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "dF3GFpIKPlE",
-    "video_ids": [
-      "dF3GFpIKPlE",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "General leadership interest",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "dF3GFpIKPlE",
-    "video_ids": [
-      "dF3GFpIKPlE"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "dF3GFpIKPlE",
-    "video_ids": [
-      "dF3GFpIKPlE",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "dF3GFpIKPlE",
-    "video_ids": [
-      "dF3GFpIKPlE",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Communication",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
       "iCvmsMzlF7o",
-      "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
-    ],
-    "source_time": "00:04",
-    "weight": 1,
-    "intelligences": [
-      "learning",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Strategic Thinking",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg"
     ],
     "source_time": "01:15",
     "weight": 1,
     "intelligences": [
       "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Team Leadership",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Advanced strategic execution",
-    "subject_type": "SkillGap",
-    "relation": "IDENTIFIED_IN",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:30",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership best practices",
-    "subject_type": "CompetitiveTopic",
-    "relation": "ANALYZED_IN",
-    "object": "Market Positioning",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:45",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
       "learning",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Complacency in skill development",
-    "subject_type": "Threat",
-    "relation": "FROM_COMPETITOR",
-    "object": "Industry peers",
-    "object_type": "Competitor",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:20",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Budget/pricing discussion",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
       "sales"
     ]
   },
   {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership ethics",
-    "subject_type": "PolicyTopic",
-    "relation": "GOVERNS",
-    "object": "Risk Mitigation",
-    "object_type": "Strategy",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:30",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Inconsistent policy application",
-    "subject_type": "Risk",
-    "relation": "MITIGATED_BY",
-    "object": "Regular training sessions",
-    "object_type": "Control",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:45",
-    "weight": 1,
-    "intelligences": [
-      "engineering",
-      "learning",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Leadership innovation",
-    "subject_type": "EmergingTrend",
-    "relation": "ACCELERATES",
-    "object": "Engineering Velocity",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:40",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Apply leadership frameworks to R&D",
-    "subject_type": "Innovation",
-    "relation": "EXPANDS",
-    "object": "Technical Architecture",
-    "object_type": "Strategy",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:50",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership challenges",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Skill development",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Implementing change",
-    "subject_type": "PainPoint",
-    "relation": "RESOLVED_BY",
-    "object": "Active Empathy",
-    "object_type": "Competency",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:10",
-    "weight": 1,
-    "intelligences": [
-      "customer"
-    ]
-  },
-  {
-    "subject": "Change",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
-      "NeqEKCrTbL4",
-      "jl3OLK9vP1o",
-      "VozV9KmhPTU",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Document key takeaways per video",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Cross-reference concepts across videos",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Apply frameworks in practice",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "learning"
-    ]
-  },
-  {
-    "subject": "Ai",
-    "subject_type": "Narrative",
-    "relation": "SHAPES",
-    "object": "Market Authority",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "04:42",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Change",
-    "subject_type": "Narrative",
-    "relation": "SHAPES",
-    "object": "Market Authority",
-    "object_type": "Outcome",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o",
-      "dF3GFpIKPlE",
-      "paF4J941uqg",
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "U40qvUiefQo",
-      "NeqEKCrTbL4",
-      "jl3OLK9vP1o",
-      "VozV9KmhPTU"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Featured speakers",
-    "subject_type": "ThoughtLeader",
-    "relation": "HAS_EXPERTISE",
-    "object": "Leadership and management",
-    "object_type": "Expertise",
-    "video_id": "iCvmsMzlF7o",
-    "video_ids": [
-      "iCvmsMzlF7o"
-    ],
-    "source_time": "02:05",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Communication",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk",
-      "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
-    ],
-    "source_time": "00:04",
-    "weight": 1,
-    "intelligences": [
-      "learning",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Strategic Thinking",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Team Leadership",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Advanced strategic execution",
-    "subject_type": "SkillGap",
-    "relation": "IDENTIFIED_IN",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:30",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership best practices",
-    "subject_type": "CompetitiveTopic",
-    "relation": "ANALYZED_IN",
-    "object": "Market Positioning",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:45",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Complacency in skill development",
-    "subject_type": "Threat",
-    "relation": "FROM_COMPETITOR",
-    "object": "Industry peers",
-    "object_type": "Competitor",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:20",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
     "subject": "General leadership interest",
     "subject_type": "BuyerSignal",
     "relation": "SIGNALS",
     "object": "Commercial Opportunity",
     "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
+    "video_id": "NeqEKCrTbL4",
     "video_ids": [
+      "NeqEKCrTbL4",
+      "dF3GFpIKPlE",
       "jfW6gL6hKhk"
     ],
     "source_time": "01:20",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership ethics",
-    "subject_type": "PolicyTopic",
-    "relation": "GOVERNS",
-    "object": "Risk Mitigation",
-    "object_type": "Strategy",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:30",
-    "weight": 1,
-    "intelligences": [
-      "sales",
       "executive",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Inconsistent policy application",
-    "subject_type": "Risk",
-    "relation": "MITIGATED_BY",
-    "object": "Regular training sessions",
-    "object_type": "Control",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:45",
-    "weight": 1,
-    "intelligences": [
-      "engineering",
-      "learning",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Leadership innovation",
-    "subject_type": "EmergingTrend",
-    "relation": "ACCELERATES",
-    "object": "Engineering Velocity",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:40",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Apply leadership frameworks to R&D",
-    "subject_type": "Innovation",
-    "relation": "EXPANDS",
-    "object": "Technical Architecture",
-    "object_type": "Strategy",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:50",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership challenges",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Skill development",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Implementing change",
-    "subject_type": "PainPoint",
-    "relation": "RESOLVED_BY",
-    "object": "Active Empathy",
-    "object_type": "Competency",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:10",
-    "weight": 1,
-    "intelligences": [
-      "customer"
+      "sales"
     ]
   },
   {
@@ -5793,19 +4687,20 @@ export const FALLBACK_TRIPLETS = [
     "object_type": "Strategy",
     "video_id": "jfW6gL6hKhk",
     "video_ids": [
-      "jfW6gL6hKhk",
-      "jzzTomTwltQ",
-      "test_ingest_789",
-      "jl3OLK9vP1o",
       "VozV9KmhPTU",
+      "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "jzzTomTwltQ",
+      "paF4J941uqg",
+      "test_ingest_789",
       "voice_1788431219",
       "voice_1788431626"
     ],
     "source_time": "01:29",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive"
+      "executive",
+      "sales"
     ]
   },
   {
@@ -5817,12 +4712,12 @@ export const FALLBACK_TRIPLETS = [
     "video_id": "jfW6gL6hKhk",
     "video_ids": [
       "jfW6gL6hKhk",
-      "paF4J941uqg",
-      "jzzTomTwltQ",
       "jl3OLK9vP1o",
+      "jzzTomTwltQ",
+      "paF4J941uqg",
+      "test_ingest_789",
       "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
+      "voice_1788431626"
     ],
     "source_time": "09:06",
     "weight": 1,
@@ -5839,81 +4734,16 @@ export const FALLBACK_TRIPLETS = [
     "video_id": "jfW6gL6hKhk",
     "video_ids": [
       "jfW6gL6hKhk",
+      "jl3OLK9vP1o",
+      "paF4J941uqg",
+      "test_ingest_789",
       "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
+      "voice_1788431626"
     ],
     "source_time": "00:00",
     "weight": 1,
     "intelligences": [
       "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Document key takeaways per video",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Cross-reference concepts across videos",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Apply frameworks in practice",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "learning"
     ]
   },
   {
@@ -5929,880 +4759,9 @@ export const FALLBACK_TRIPLETS = [
     "source_time": "01:35",
     "weight": 1,
     "intelligences": [
-      "sales",
-      "executive",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Featured speakers",
-    "subject_type": "ThoughtLeader",
-    "relation": "HAS_EXPERTISE",
-    "object": "Leadership and management",
-    "object_type": "Expertise",
-    "video_id": "jfW6gL6hKhk",
-    "video_ids": [
-      "jfW6gL6hKhk"
-    ],
-    "source_time": "02:05",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Communication",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
-    ],
-    "source_time": "00:04",
-    "weight": 1,
-    "intelligences": [
-      "learning",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Strategic Thinking",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Team Leadership",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Advanced strategic execution",
-    "subject_type": "SkillGap",
-    "relation": "IDENTIFIED_IN",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:30",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership best practices",
-    "subject_type": "CompetitiveTopic",
-    "relation": "ANALYZED_IN",
-    "object": "Market Positioning",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:45",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Complacency in skill development",
-    "subject_type": "Threat",
-    "relation": "FROM_COMPETITOR",
-    "object": "Industry peers",
-    "object_type": "Competitor",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:20",
-    "weight": 1,
-    "intelligences": [
       "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Urgency/priority signal",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Competitive evaluation",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
       "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership ethics",
-    "subject_type": "PolicyTopic",
-    "relation": "GOVERNS",
-    "object": "Risk Mitigation",
-    "object_type": "Strategy",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:30",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Inconsistent policy application",
-    "subject_type": "Risk",
-    "relation": "MITIGATED_BY",
-    "object": "Regular training sessions",
-    "object_type": "Control",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:45",
-    "weight": 1,
-    "intelligences": [
-      "engineering",
-      "learning",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Leadership innovation",
-    "subject_type": "EmergingTrend",
-    "relation": "ACCELERATES",
-    "object": "Engineering Velocity",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:40",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Apply leadership frameworks to R&D",
-    "subject_type": "Innovation",
-    "relation": "EXPANDS",
-    "object": "Technical Architecture",
-    "object_type": "Strategy",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:50",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership challenges",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Skill development",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Implementing change",
-    "subject_type": "PainPoint",
-    "relation": "RESOLVED_BY",
-    "object": "Active Empathy",
-    "object_type": "Competency",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:10",
-    "weight": 1,
-    "intelligences": [
-      "customer"
-    ]
-  },
-  {
-    "subject": "Leadership",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "jzzTomTwltQ",
-      "test_ingest_789",
-      "VozV9KmhPTU",
-      "voice_1788431219",
-      "voice_1788431626"
-    ],
-    "source_time": "01:29",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Strategy",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "paF4J941uqg",
-      "jzzTomTwltQ",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "09:06",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Culture",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Document key takeaways per video",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Cross-reference concepts across videos",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Apply frameworks in practice",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "learning"
-    ]
-  },
-  {
-    "subject": "Ai",
-    "subject_type": "Narrative",
-    "relation": "SHAPES",
-    "object": "Market Authority",
-    "object_type": "Outcome",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o",
-      "dF3GFpIKPlE",
-      "paF4J941uqg"
-    ],
-    "source_time": "04:42",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Featured speakers",
-    "subject_type": "ThoughtLeader",
-    "relation": "HAS_EXPERTISE",
-    "object": "Leadership and management",
-    "object_type": "Expertise",
-    "video_id": "jl3OLK9vP1o",
-    "video_ids": [
-      "jl3OLK9vP1o"
-    ],
-    "source_time": "02:05",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Communication",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "dF3GFpIKPlE",
-      "jzzTomTwltQ",
-      "U40qvUiefQo"
-    ],
-    "source_time": "00:04",
-    "weight": 1,
-    "intelligences": [
-      "learning",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Strategic Thinking",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Team Leadership",
-    "subject_type": "Competency",
-    "relation": "DEVELOPS_COMPETENCY",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:15",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Advanced strategic execution",
-    "subject_type": "SkillGap",
-    "relation": "IDENTIFIED_IN",
-    "object": "Learning & Development",
-    "object_type": "IntelligenceDomain",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:30",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership best practices",
-    "subject_type": "CompetitiveTopic",
-    "relation": "ANALYZED_IN",
-    "object": "Market Positioning",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:45",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "learning",
-      "competitive"
-    ]
-  },
-  {
-    "subject": "Complacency in skill development",
-    "subject_type": "Threat",
-    "relation": "FROM_COMPETITOR",
-    "object": "Industry peers",
-    "object_type": "Competitor",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:20",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Upskilling programs",
-    "subject_type": "MarketOpportunity",
-    "relation": "ENABLES",
-    "object": "Competitive Advantage",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "U40qvUiefQo"
-    ],
-    "source_time": "04:57",
-    "weight": 1,
-    "intelligences": [
-      "competitive",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Competitive evaluation",
-    "subject_type": "BuyerSignal",
-    "relation": "SIGNALS",
-    "object": "Commercial Opportunity",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:20",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
-    ]
-  },
-  {
-    "subject": "Leadership development",
-    "subject_type": "DealTheme",
-    "relation": "DRIVES",
-    "object": "Revenue Growth",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "test_ingest_789"
-    ],
-    "source_time": "04:00",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Leadership ethics",
-    "subject_type": "PolicyTopic",
-    "relation": "GOVERNS",
-    "object": "Risk Mitigation",
-    "object_type": "Strategy",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:30",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Inconsistent policy application",
-    "subject_type": "Risk",
-    "relation": "MITIGATED_BY",
-    "object": "Regular training sessions",
-    "object_type": "Control",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:45",
-    "weight": 1,
-    "intelligences": [
-      "engineering",
-      "learning",
-      "compliance"
-    ]
-  },
-  {
-    "subject": "Leadership innovation",
-    "subject_type": "EmergingTrend",
-    "relation": "ACCELERATES",
-    "object": "Engineering Velocity",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:40",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering"
-    ]
-  },
-  {
-    "subject": "Apply leadership frameworks to R&D",
-    "subject_type": "Innovation",
-    "relation": "EXPANDS",
-    "object": "Technical Architecture",
-    "object_type": "Strategy",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:50",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "engineering",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Leadership challenges",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Skill development",
-    "subject_type": "CustomerTheme",
-    "relation": "DRIVES",
-    "object": "Customer Retention",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "01:10",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "customer",
-      "learning"
-    ]
-  },
-  {
-    "subject": "Implementing change",
-    "subject_type": "PainPoint",
-    "relation": "RESOLVED_BY",
-    "object": "Active Empathy",
-    "object_type": "Competency",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:10",
-    "weight": 1,
-    "intelligences": [
-      "customer"
-    ]
-  },
-  {
-    "subject": "Leadership",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "jzzTomTwltQ",
-      "test_ingest_789",
-      "jl3OLK9vP1o",
-      "VozV9KmhPTU",
-      "voice_1788431219",
-      "voice_1788431626"
-    ],
-    "source_time": "01:29",
-    "weight": 1,
-    "intelligences": [
-      "sales",
-      "executive"
-    ]
-  },
-  {
-    "subject": "Strategy",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "jzzTomTwltQ",
-      "jl3OLK9vP1o",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "09:06",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Culture",
-    "subject_type": "ExecutiveTheme",
-    "relation": "PRIORITIZES",
-    "object": "Strategic Clarity",
-    "object_type": "Strategy",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "voice_1788431219",
-      "voice_1788431626",
-      "test_ingest_789"
-    ],
-    "source_time": "00:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Review all video insights for strategic alignment",
-    "subject_type": "Decision",
-    "relation": "ENABLES",
-    "object": "Execution Velocity",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg",
-      "test_ingest_789"
-    ],
-    "source_time": "02:00",
-    "weight": 1,
-    "intelligences": [
-      "executive"
-    ]
-  },
-  {
-    "subject": "Document key takeaways per video",
-    "subject_type": "BestPractice",
-    "relation": "OPTIMIZES",
-    "object": "Operational Excellence",
-    "object_type": "Outcome",
-    "video_id": "paF4J941uqg",
-    "video_ids": [
-      "paF4J941uqg"
-    ],
-    "source_time": "02:40",
-    "weight": 1,
-    "intelligences": [
-      "executive",
-      "thought_leadership"
+      "sales"
     ]
   }
 ];

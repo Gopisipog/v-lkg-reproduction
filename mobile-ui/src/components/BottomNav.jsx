@@ -1,8 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { LayoutGrid, Tag, Workflow, Mic, MessageSquareCode, Film } from "lucide-react";
+import { resolveAppTheme } from "../utils/colorSchemes";
 
-export default function BottomNav({ activeTab, onTabChange, activeApp, isPhoneFrame }) {
+export default function BottomNav({ activeTab, onTabChange, activeApp, activeAppTheme: propTheme, isPhoneFrame }) {
+  const theme = propTheme || resolveAppTheme(activeApp);
+  const primaryColor = theme.primaryColor || "#0EA5E9";
+
   const tabs = [
     { id: "hub", label: "HUB", icon: LayoutGrid },
     { id: "words", label: "WORDS", icon: Tag },
@@ -14,6 +18,8 @@ export default function BottomNav({ activeTab, onTabChange, activeApp, isPhoneFr
 
   return (
     <nav className={`${isPhoneFrame ? "absolute" : "fixed"} bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-md border-t border-slate-800/80 safe-bottom`}>
+      {/* Top subtle dynamic theme line */}
+      <div className="h-[1.5px] w-full" style={{ background: theme.background }} />
       <div className="max-w-md md:max-w-2xl mx-auto flex items-center justify-around px-2 py-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -46,14 +52,20 @@ export default function BottomNav({ activeTab, onTabChange, activeApp, isPhoneFr
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
+              style={isActive ? { color: primaryColor } : undefined}
               className={`tactile-btn relative flex flex-col items-center justify-center py-1 px-2.5 rounded-lg transition-colors ${
-                isActive ? "text-cyan-400" : "text-slate-400 hover:text-slate-200"
+                isActive ? "" : "text-slate-400 hover:text-slate-200"
               }`}
             >
               {isActive && (
                 <motion.div
                   layoutId="bottomNavIndicator"
-                  className="absolute inset-0 bg-cyan-950/40 border border-cyan-800/40 rounded-lg -z-10"
+                  style={{
+                    backgroundColor: `${theme.colors[0]}1c`,
+                    borderColor: `${theme.colors[0]}55`,
+                    boxShadow: `0 0 12px ${theme.colors[0]}22`
+                  }}
+                  className="absolute inset-0 border rounded-lg -z-10"
                   transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 />
               )}

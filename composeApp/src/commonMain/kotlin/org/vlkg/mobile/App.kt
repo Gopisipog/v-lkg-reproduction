@@ -26,7 +26,7 @@ fun App(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    VlkgTheme(darkTheme = true) {
+    VlkgTheme(activeApp = uiState.activeApp, darkTheme = true) {
         Scaffold(
             contentWindowInsets = WindowInsets.safeDrawing,
             topBar = {

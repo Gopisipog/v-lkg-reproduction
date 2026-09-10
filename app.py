@@ -667,7 +667,12 @@ with tab_knowledge:
                     local = db._local_fallback
                     # Retrieve triplets matching video_id or all triplets if video_id not populated
                     matched_triplets = local.get_triplets(video_id=vid_id) or local.get_triplets()
+                    seen_triplet_keys = set()
                     for t in matched_triplets:
+                        k = (t.get("subject", "").strip(), t.get("relation", "").strip(), t.get("object", "").strip())
+                        if k in seen_triplet_keys:
+                            continue
+                        seen_triplet_keys.add(k)
                         vid_nodes.append({
                             "from_type": t.get("subject_type", "Entity"),
                             "from_name": t["subject"],
@@ -1043,7 +1048,7 @@ with tab_strategy:
                     all_rels_q = """
                     MATCH (c {name: $comp})-[r]-(other)
                     WHERE other.name IS NOT NULL
-                    RETURN type(r) AS relation, other.name AS node,
+                    RETURN DISTINCT type(r) AS relation, other.name AS node,
                            labels(other)[0] AS node_type
                     ORDER BY type(r), other.name
                     """
@@ -1822,12 +1827,9 @@ with tab_recording:
 
         # Transcription method
         has_gcp_speech = bool(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("GOOGLE_CLOUD_PROJECT"))
-        has_openai_key = bool(os.environ.get("OPENAI_API_KEY"))
         transcription_options = []
         if has_gcp_speech:
             transcription_options.append("Google Cloud Speech-to-Text (cloud, recommended)")
-        if has_openai_key:
-            transcription_options.append("OpenAI Whisper API (cloud, fast)")
         transcription_options.append("Local Whisper (on-device)")
 
         if len(transcription_options) > 1:
@@ -1858,7 +1860,6 @@ with tab_recording:
             from src.recording.processor import (
                 generate_recording_id,
                 transcribe_recording,
-                transcribe_recording_openai,
                 transcribe_recording_gcp,
                 save_to_corpus,
             )
@@ -1878,8 +1879,6 @@ with tab_recording:
                     st.info("🔊 Transcribing audio...")
                     if "Google Cloud" in transcription_method:
                         segments = transcribe_recording_gcp(tmp_path)
-                    elif "OpenAI" in transcription_method:
-                        segments = transcribe_recording_openai(tmp_path)
                     else:
                         segments = transcribe_recording(tmp_path, model_size=whisper_model)
 

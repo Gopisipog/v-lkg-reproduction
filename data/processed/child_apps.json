@@ -1,44 +1,65 @@
 [
     {
+        "id": "app_cinegraph",
+        "name": "🎬 CineGraph Studio Lot",
+        "slug": "cinegraph-studio-lot",
+        "description": "Agentic Cinema Studio Lot: Autonomous scene analysis, screenplay fact-checking, and live industry research powered by Google Cloud Gemini 2.5 Flash & Parallel Web Systems.",
+        "icon": "Film",
+        "theme_color": "#F59E0B",
+        "focus_domains": [
+            "cinema",
+            "production",
+            "storyboarding",
+            "research"
+        ],
+        "video_ids": [
+            "VozV9KmhPTU",
+            "dF3GFpIKPlE",
+            "paF4J941uqg"
+        ],
+        "created_at": "2026-07-27T10:00:00Z",
+        "prioritized_entities": [
+            "Screenplay Continuity",
+            "Parallel Web Grounding",
+            "Box Office Comps",
+            "Scene Beat Decomposition",
+            "Multimodal Time Alignment"
+        ],
+        "color_scheme": "amber-gold",
+        "pattern": "gradient-bi",
+        "pattern_colors": [
+            "#F59E0B",
+            "#EF4444"
+        ]
+    },
+    {
         "id": "app_executive",
         "name": "Executive Leadership & Strategy",
         "slug": "executive-leadership",
         "description": "C-suite strategic frameworks, time management, personal discipline, and leadership alignment.",
         "icon": "Briefcase",
-        "theme_color": "#0EA5E9",
+        "theme_color": "#EC4899",
         "focus_domains": [
             "executive",
             "learning",
             "thought_leadership"
         ],
         "video_ids": [
-            "voice_1788431626",
             "test_ingest_789",
-            "jzzTomTwltQ",
-            "voice_1788431219",
-            "jfW6gL6hKhk",
-            "test_ingest",
-            "NeqEKCrTbL4",
-            "jl3OLK9vP1o",
-            "iCvmsMzlF7o",
-            "VozV9KmhPTU",
-            "live_1778424632",
-            "live_1778427429",
-            "live_1778473960"
+            "dF3GFpIKPlE",
+            "paF4J941uqg"
         ],
         "created_at": "2026-03-01T10:00:00Z",
         "prioritized_entities": [
-            "Autonomous AI Agents",
             "First-Principles Thinking",
             "Transformational Leadership",
             "Radical Candor"
         ],
-        "color_scheme": "aurora-tri",
-        "pattern": "gradient-tri",
+        "color_scheme": "hyper-plasma",
+        "pattern": "stripe-tri",
         "pattern_colors": [
-            "#0EA5E9",
-            "#8B5CF6",
-            "#10B981"
+            "#EC4899",
+            "#8B5CF6"
         ]
     },
     {
@@ -139,5 +160,49 @@
             "#F59E0B",
             "#F43F5E"
         ]
+    },
+    {
+        "id": "app_0ce52a9e",
+        "name": "no 1",
+        "slug": "no-1",
+        "description": "1 number",
+        "icon": "Layers",
+        "theme_color": "#10B981",
+        "color_scheme": "matrix-core",
+        "pattern": "gradient-tri",
+        "pattern_colors": [
+            "#10B981",
+            "#06B6D4",
+            "#3B82F6"
+        ],
+        "focus_domains": [
+            "executive",
+            "learning"
+        ],
+        "video_ids": [],
+        "prioritized_entities": [],
+        "created_at": "2026-09-06T05:24:16.470673Z"
+    },
+    {
+        "id": "app_056f69de",
+        "name": "no 1",
+        "slug": "no-1",
+        "description": "1 number",
+        "icon": "Layers",
+        "theme_color": "#10B981",
+        "color_scheme": "matrix-core",
+        "pattern": "gradient-tri",
+        "pattern_colors": [
+            "#10B981",
+            "#06B6D4",
+            "#3B82F6"
+        ],
+        "focus_domains": [
+            "executive",
+            "learning"
+        ],
+        "video_ids": [],
+        "prioritized_entities": [],
+        "created_at": "2026-09-06T05:24:17.672097Z"
     }
 ]

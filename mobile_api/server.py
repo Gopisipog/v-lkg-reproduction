@@ -604,7 +604,20 @@ def get_video_semantics(video_id: str):
     if not v_meta:
         v_meta = {"video_id": video_id, "title": f"Video [{video_id}]", "channel": "V-LKG Archive"}
 
-    relationships = [t for t in app_store.triplets if t.get("video_id") == video_id or video_id in t.get("video_ids", [])]
+    raw_relationships = [t for t in app_store.triplets if t.get("video_id") == video_id or video_id in t.get("video_ids", [])]
+    seen_rel_keys = set()
+    relationships = []
+    for r in raw_relationships:
+        sub = r.get("subject", "").strip()
+        rel = r.get("relation", "RELATES_TO").strip()
+        obj = r.get("object", "").strip()
+        if not sub or not obj:
+            continue
+        key = (sub, rel, obj)
+        if key in seen_rel_keys:
+            continue
+        seen_rel_keys.add(key)
+        relationships.append(r)
 
     # Categorized Pills
     EXTRACTED_TYPES = {"Competency", "Concept"}

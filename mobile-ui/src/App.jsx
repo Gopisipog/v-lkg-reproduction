@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { 
-  getApps, createApp, updateApp, deleteApp, assignVideosToApp, getVideos, prioritizeAppEntities 
+  getApps, createApp, updateApp, deleteApp, assignVideosToApp, getVideos, prioritizeAppEntities, saveAppToAura 
 } from "./services/api";
+import { resolveAppTheme } from "./utils/colorSchemes";
 
 import TopHeader from "./components/TopHeader";
 import BottomNav from "./components/BottomNav";
@@ -131,18 +132,39 @@ export default function App() {
     setActiveTab("player");
   };
 
+  const activeAppTheme = resolveAppTheme(activeApp);
+  const themeVars = {
+    "--theme-pri": activeAppTheme.colors[0],
+    "--theme-sec": activeAppTheme.colors[1] || activeAppTheme.colors[0],
+    "--theme-ter": activeAppTheme.colors[2] || activeAppTheme.colors[1] || activeAppTheme.colors[0],
+    "--theme-bg-gradient": activeAppTheme.background,
+    "--theme-card-atmosphere": activeAppTheme.cardAtmosphere,
+    "--theme-glow": `${activeAppTheme.colors[0]}44`,
+    "--theme-border": `${activeAppTheme.colors[0]}66`
+  };
+
   return (
-    <div className={`min-h-screen bg-slate-950 text-slate-100 flex justify-center ${isPhoneFrame ? "items-center p-4 sm:p-8" : ""}`}>
+    <div 
+      style={themeVars} 
+      className={`min-h-screen bg-slate-950 text-slate-100 flex justify-center transition-colors duration-500 relative overflow-hidden ${isPhoneFrame ? "items-center p-4 sm:p-8" : ""}`}
+    >
+      {/* Dynamic Ambient Cockpit Atmospheric Glow Canvas */}
       <div 
-        className={`w-full flex flex-col bg-slate-950 ${
+        className="pointer-events-none fixed inset-0 z-0 opacity-40 transition-all duration-700 blur-3xl"
+        style={{ background: activeAppTheme.cardAtmosphere }}
+      />
+
+      <div 
+        className={`w-full flex flex-col bg-slate-950/90 relative z-10 transition-colors duration-500 ${
           isPhoneFrame 
-            ? "max-w-[420px] h-[860px] max-h-[92vh] rounded-[42px] border-[8px] border-slate-800 shadow-[0_25px_60px_rgba(0,0,0,0.8)] relative overflow-hidden" 
+            ? "max-w-[420px] h-[860px] max-h-[92vh] rounded-[42px] border-[8px] border-slate-800 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden" 
             : "h-screen h-[100dvh] overflow-hidden"
         }`}
       >
         {/* Top Header */}
         <TopHeader
           activeApp={activeApp}
+          activeAppTheme={activeAppTheme}
           apps={apps}
           onSelectApp={(app) => setActiveApp(app)}
           onCreateAppClick={() => {
@@ -182,6 +204,7 @@ export default function App() {
           {activeTab === "words" && (
             <LinearWordsView
               activeApp={activeApp}
+              activeAppTheme={activeAppTheme}
               onJumpToVideo={handleJumpToVideo}
               onToggleEntityPriority={(entityName) => activeApp && handleToggleEntityPriority(activeApp.id, entityName)}
             />
@@ -209,6 +232,7 @@ export default function App() {
           {activeTab === "ask" && (
             <AppQueryView
               activeApp={activeApp}
+              activeAppTheme={activeAppTheme}
               apps={apps}
               onJumpToVideo={handleJumpToVideo}
             />
@@ -230,6 +254,7 @@ export default function App() {
           activeTab={activeTab}
           onTabChange={(tab) => setActiveTab(tab)}
           activeApp={activeApp}
+          activeAppTheme={activeAppTheme}
           isPhoneFrame={isPhoneFrame}
         />
 

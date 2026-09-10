@@ -40,8 +40,18 @@ export default function KnowledgeGraphView({
     setLoading(true);
     getAppGraph(activeApp.id, selectedLens)
       .then((data) => {
-        setGraphData(data);
-        initLayout(data.nodes, data.links);
+        const seenLinks = new Set();
+        const uniqueLinks = (data.links || []).filter((l) => {
+          const s = typeof l.source === "object" ? l.source.id : l.source;
+          const t = typeof l.target === "object" ? l.target.id : l.target;
+          const k = `${s}|${l.relation}|${t}`;
+          if (seenLinks.has(k)) return false;
+          seenLinks.add(k);
+          return true;
+        });
+        const cleanData = { ...data, links: uniqueLinks };
+        setGraphData(cleanData);
+        initLayout(cleanData.nodes, cleanData.links);
       })
       .catch((err) => console.error("Graph load error:", err))
       .finally(() => setLoading(false));

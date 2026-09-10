@@ -1,18 +1,14 @@
-"""Shared Google Cloud / Gemini client for V-LKG.
+"""Shared Google Cloud / Gemini client for CineGraph / V-LKG.
 
-This module provides a single, reusable client that:
-  - Connects to Google Gemini (via google-genai SDK) as the primary LLM
-  - Falls back to OpenAI-compatible clients if GEMINI_API_KEY is not set
-  - Wraps the call interface so every intelligence engine just calls
-    ``GeminiClient().chat(prompt)`` with no provider-specific boilerplate.
+This module provides a single, reusable client strictly powered by
+Google Cloud Gemini (via the google-genai SDK) to ensure full compliance
+with Google Cloud Hackathon requirements.
 
-Environment variables (any of these is sufficient):
-    GEMINI_API_KEY       — Google AI Studio key  (preferred)
-    GOOGLE_API_KEY       — alias for GEMINI_API_KEY
-    GOOGLE_CLOUD_PROJECT — GCP project ID (for Vertex AI / Cloud services)
+Environment variables:
+    GEMINI_API_KEY        — Google AI Studio key (preferred)
+    GOOGLE_API_KEY        — alias for GEMINI_API_KEY
+    GOOGLE_CLOUD_PROJECT  — GCP project ID (for Vertex AI / Cloud services)
     GOOGLE_CLOUD_LOCATION — GCP region (default: us-central1)
-    OPENAI_API_KEY       — fallback if Gemini unavailable
-    DEEPSEEK_API_KEY     — fallback if both Gemini and OpenAI unavailable
 """
 
 from __future__ import annotations
@@ -25,9 +21,7 @@ from typing import Any
 
 # ── Model defaults ────────────────────────────────────────────────────────────
 
-GEMINI_MODEL   = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
-OPENAI_MODEL   = os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-DEEPSEEK_MODEL = "deepseek-chat"
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -73,8 +67,6 @@ class GeminiClient:
     def __init__(self, model: str = GEMINI_MODEL):
         self.model = model
         self._client = None
-        self._fallback = None          # OpenAI-compatible fallback client
-        self._fallback_model: str = ""
 
         gemini_key = (
             os.environ.get("GEMINI_API_KEY")
@@ -86,58 +78,41 @@ class GeminiClient:
                 from google import genai  # type: ignore
                 self._client = genai.Client(api_key=gemini_key)
                 print(f"[GCP] Gemini client initialised (model={model}).")
-            except ImportError:
-                print("[GCP] google-genai not installed; falling back to OpenAI.")
+            except Exception as exc:
+                print(f"[GCP] Failed to initialize google-genai client: {exc}")
+        else:
+            # Check for GCP Application Default Credentials
+            try:
+                from google import genai  # type: ignore
+                project = os.environ.get("GOOGLE_CLOUD_PROJECT")
+                location = os.environ.get("GOOGLE_CLOUD_LOCATION", "us-central1")
+                if project:
+                    self._client = genai.Client(vertexai=True, project=project, location=location)
+                    print(f"[GCP] Vertex AI Gemini client initialised (project={project}, location={location}).")
+            except Exception:
+                pass
 
         if self._client is None:
-            # Try OpenAI → DeepSeek fallbacks
-            from openai import OpenAI  # type: ignore
-            deepseek_key = os.environ.get("DEEPSEEK_API_KEY")
-            openai_key   = os.environ.get("OPENAI_API_KEY")
-            if deepseek_key:
-                self._fallback = OpenAI(
-                    api_key=deepseek_key,
-                    base_url="https://api.deepseek.com",
-                )
-                self._fallback_model = DEEPSEEK_MODEL
-                print("[GCP] Using DeepSeek fallback.")
-            elif openai_key:
-                self._fallback = OpenAI(api_key=openai_key)
-                self._fallback_model = OPENAI_MODEL
-                print("[GCP] Using OpenAI fallback.")
-            else:
-                print("[GCP] WARNING: No LLM API key found. Calls will return empty strings.")
+            print("[GCP] INFO: GEMINI_API_KEY / GOOGLE_CLOUD_PROJECT not configured. Running in offline/mock mode.")
 
     @property
     def available(self) -> bool:
-        return self._client is not None or self._fallback is not None
+        return self._client is not None
 
     def chat(self, prompt: str, system: str = "") -> str:
-        """Send a prompt and return the plain-text response."""
+        """Send a prompt to Google Gemini and return the plain-text response."""
         if not self.available:
             return ""
 
         try:
-            if self._client is not None:
-                full_prompt = f"{system}\n\n{prompt}".strip() if system else prompt
-                response = self._client.models.generate_content(
-                    model=self.model,
-                    contents=full_prompt,
-                )
-                return response.text.strip()
-            else:
-                messages = []
-                if system:
-                    messages.append({"role": "system", "content": system})
-                messages.append({"role": "user", "content": prompt})
-                response = self._fallback.chat.completions.create(
-                    model=self._fallback_model,
-                    messages=messages,
-                    temperature=0.3,
-                )
-                return response.choices[0].message.content.strip()
+            full_prompt = f"{system}\n\n{prompt}".strip() if system else prompt
+            response = self._client.models.generate_content(
+                model=self.model,
+                contents=full_prompt,
+            )
+            return response.text.strip()
         except Exception as exc:
-            print(f"[GCP] LLM call failed: {exc}")
+            print(f"[GCP] Gemini API call failed: {exc}")
             return ""
 
     def chat_json(self, prompt: str, system: str = "Output ONLY valid JSON.") -> Any:

@@ -158,3 +158,19 @@ export const processVoiceRecording = (title, transcriptSegments, appId, intellig
       intelligence_lenses: intelligenceLenses
     })
   });
+
+// ── CineGraph Studio API (Google Cloud Agentic Cinema & Parallel) ───
+export const getStudioStatus = () => fetchJson("/studio/status");
+
+export const analyzeStudioScene = (payload) =>
+  fetchJson("/studio/analyze-scene", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+
+export const queryStudioCopilot = (query, sceneContext) =>
+  fetchJson("/studio/copilot", {
+    method: "POST",
+    body: JSON.stringify({ query, scene_context: sceneContext })
+  });
+

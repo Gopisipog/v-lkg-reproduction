@@ -110,7 +110,35 @@ class MobileAppStore:
 
         try:
             with open(TRIPLETS_FILE, "r", encoding="utf-8") as f:
-                self.triplets = json.load(f)
+                raw_triplets = json.load(f)
+                merged = {}
+                for t in raw_triplets:
+                    sub = t.get("subject", "").strip()
+                    rel = t.get("relation", "").strip()
+                    obj = t.get("object", "").strip()
+                    if not sub or not rel or not obj:
+                        continue
+                    key = (sub, rel, obj)
+                    if key not in merged:
+                        new_t = dict(t)
+                        vids = set(new_t.get("video_ids", []))
+                        if new_t.get("video_id"):
+                            vids.add(new_t.get("video_id"))
+                        new_t["video_ids"] = sorted(list(vids))
+                        intel = set(new_t.get("intelligences", []))
+                        new_t["intelligences"] = sorted(list(intel))
+                        merged[key] = new_t
+                    else:
+                        existing = merged[key]
+                        vids = set(existing.get("video_ids", []))
+                        if t.get("video_id"):
+                            vids.add(t.get("video_id"))
+                        vids.update(t.get("video_ids", []))
+                        existing["video_ids"] = sorted(list(vids))
+                        intel = set(existing.get("intelligences", []))
+                        intel.update(t.get("intelligences", []))
+                        existing["intelligences"] = sorted(list(intel))
+                self.triplets = list(merged.values())
         except Exception:
             self.triplets = []
 
@@ -388,6 +416,7 @@ class MobileAppStore:
         # Build node set and links
         nodes_dict = {}
         links = []
+        seen_links = set()
         
         for t in scoped_triplets:
             sub = t.get("subject", "").strip()
@@ -396,6 +425,11 @@ class MobileAppStore:
             
             if not sub or not obj:
                 continue
+                
+            link_key = (sub, rel, obj)
+            if link_key in seen_links:
+                continue
+            seen_links.add(link_key)
                 
             # Node Timestamps lookup
             sub_ts = self.entity_video_occurrences.get(sub, [])

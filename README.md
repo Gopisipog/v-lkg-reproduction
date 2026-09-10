@@ -1,74 +1,60 @@
-# V-LKG: Video Knowledge Graph Agent
+# 🎬 CineGraph Studio Agent: Autonomous Cinema & Media Intelligence
 
-[![All Things Agentic Hackathon](https://img.shields.io/badge/Hackathon-All%20Things%20Agentic-blue)](HACKATHON_SUBMISSION.md)
-**Participating Tracks**:
-- ⚙️ **Track 1: The Taskmaster** (Autonomous background video ingestion, multimodal ASR/OCR, & knowledge extraction)
-- 🤝 **Track 2: The Collaborative Partner** (Interactive AI co-pilot, visual graph queries, timestamp links, & MCP protocol support)
+[![Google Cloud Agentic Cinema Hackathon](https://img.shields.io/badge/Hackathon-Google%20Cloud%20Agentic%20Cinema-amber)](HACKATHON_SUBMISSION.md)
+[![Partner Track](https://img.shields.io/badge/Partner%20Track-Parallel%20Web%20Systems-cyan)](https://agentic-cinema.devpost.com/details/parallel-resources)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](LICENSE)
+[![GCP Cloud Run](https://img.shields.io/badge/Hosted%20On-GCP%20Cloud%20Run-blue)](https://v-lkg-826803329504.us-central1.run.app)
 
-A multimodal agentic pipeline that transforms unstructured YouTube leadership and educational content into a structured, queryable Neo4j Knowledge Graph.
+> **Submission for Google Cloud Agentic Cinema: The Blockbuster Hackathon**  
+> **Chosen Track**: **Parallel Web Systems (parallel-web SDK)**  
+> **Live Production URL**: [https://v-lkg-826803329504.us-central1.run.app](https://v-lkg-826803329504.us-central1.run.app)
+
+An autonomous multi-agent studio system for **filmmakers, screenwriters, and production crews**. CineGraph transforms raw video rushes, screenplays, and studio dailies into an intelligent cinematic knowledge graph with time-aligned multimodal video grounding, automated scene decomposition, screenplay fact-checking, and live film industry research powered by **Google Cloud Gemini 2.5 Flash** and **Parallel Web Systems**.
 
 ---
 
-## 📱 V-LKG Mobile & Linear Words Platform
+## 🌟 Core Features for Media & Entertainment
 
-A mobile web application and FastAPI platform providing:
-- **Linear Words & Semantic Pathways**: Replaced complex node graphs with linear prioritized words and semantic knowledge pathways.
-- **Child Apps Hub**: Executive Leadership, Sales Accelerator, Communication Mastery, and GTM AI Engineering.
-- **Transcripts Explorer**: 3,184 time-aligned transcript segments across 16 videos with real-time text highlighting and instant timestamp navigation.
-- **Global Transcript Search**: Cross-video search endpoint `GET /api/transcripts/search?q=...` with instant hit navigation.
-- **Live Production URL**: [https://v-lkg-826803329504.us-central1.run.app](https://v-lkg-826803329504.us-central1.run.app)
-- **Dedicated GitHub Repository**: [https://github.com/Gopisipog/vlkg-mobile](https://github.com/Gopisipog/vlkg-mobile)
+1. **Multimodal Time-Aligned Video Breakdown**: Synchronizes video audio (Google Cloud Speech-to-Text) with visual cues and screenplay transcripts to construct precise timestamped scene bookmarks (`?t=XXs`).
+2. **Autonomous Screenplay Fact-Checking (Parallel Web Systems)**: Grounded verification of historical, scientific, or cultural claims in dialogue against the real-time open-web index via the official `parallel-web` Python SDK.
+3. **Box Office Comps & Production Intelligence**: Live industry retrieval of commercial precedents, budget comps, and audience retention metrics for screenplay pitches.
+4. **IP & Rights Clearance Engine**: Automated legal search for song lyrics, trademarks, brand mentions, and public domain status.
+5. **Interactive Studio Director Co-Pilot**: Multi-turn conversational assistant for directors, producers, and writers grounded with Gemini 2.5 Flash and Parallel Search.
 
-### Quick Start (Mobile App)
+---
+
+## 📱 Quick Start (Studio Web & Mobile Platform)
+
 ```bash
-# 1. Install dependencies
+# 1. Install dependencies (strictly Google Cloud AI + Parallel Web Systems)
 pip install -r requirements.txt
 
-# 2. Run the full mobile platform (serves API and built UI at http://localhost:8080)
+# 2. Run the platform (serves REST API and built UI at http://localhost:8080)
 python -m uvicorn mobile_api.server:app --host 0.0.0.0 --port 8080 --reload
 ```
 Or double-click `START_MOBILE_APP.bat` on Windows.
 
 ---
 
-## Architecture
+## ⚙️ Environment Configuration
 
-This system consists of four primary technical layers:
-1. **Multimodal Processor**: Audio transcription (Whisper) and Video OCR (EasyOCR) to build a time-aligned corpus.
-2. **Semantic Entity Recognizer**: LLM-based entity/triplet extraction synced with external knowledge bases.
-3. **Relationship & Dependency Miner**: Similarity-based prerequisite determination.
-4. **Graph Enrichment Engine**: Centrality-based graph completion.
-
-## Setup Instructions
-
-1. **Install Dependencies**:
-```bash
-pip install -r requirements.txt
-```
-
-2. **Environment Setup**:
 Create a `.env` file in the root directory:
 ```env
-# ── Google Cloud (Gemini — primary LLM) ───────────────────────────────────
+# ── Google Cloud (Gemini 2.5 Flash — Exclusive AI Engine) ─────────────────
 GEMINI_API_KEY=your_gemini_api_key         # from Google AI Studio (aistudio.google.com)
-GOOGLE_API_KEY=your_google_api_key         # alias for GEMINI_API_KEY
-
-# ── Google Cloud Project (Speech-to-Text, Cloud Storage) ──────────────────
-GOOGLE_CLOUD_PROJECT=your-gcp-project-id
+GOOGLE_CLOUD_PROJECT=your-gcp-project-id   # for Vertex AI / Cloud services
 GOOGLE_CLOUD_LOCATION=us-central1
-GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
 
-# ── Google Cloud Storage (optional — syncs processed JSON to GCS) ─────────
+# ── Partner Track: Parallel Web Systems ──────────────────────────────────
+PARALLEL_API_KEY=your_parallel_api_key     # from platform.parallel.ai
+
+# ── Google Cloud Storage (syncs processed JSON to GCS) ───────────────────
 GCS_BUCKET=vlkg-knowledge-graph
 
-# ── Neo4j Graph Database ───────────────────────────────────────────────────
+# ── Neo4j Graph Database (optional) ───────────────────────────────────────
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=password
-
-# ── OpenAI / DeepSeek (fallback if Gemini key not provided) ───────────────
-OPENAI_API_KEY=your_openai_key
-DEEPSEEK_API_KEY=your_deepseek_key
 ```
 
 ## Google Cloud Services Used
@@ -94,7 +80,13 @@ streamlit run app.py
 
 To run and verify the test suites and pipeline deterministically:
 
-### 1. Test MCP Server & Tool Surface (`pytest`)
+### 1. Test CineGraph Studio & Parallel Integration (`pytest`)
+Run all 11 automated tests verifying Gemini 2.5 Flash compliance, Parallel Web Search tools, screenplay fact-checking, and Studio API endpoints:
+```bash
+python -m pytest tests/test_cinegraph_studio.py -v
+```
+
+### 2. Test MCP Server & Tool Surface (`pytest`)
 Run all 28 automated unit tests covering the Model Context Protocol (MCP) server graph tools and intelligence engines:
 ```bash
 python -m pytest mcp_server/tests

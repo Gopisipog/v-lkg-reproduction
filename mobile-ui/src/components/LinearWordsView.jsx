@@ -5,6 +5,7 @@ import {
   Tag, Layers, Check, ExternalLink, X, ListOrdered, Star, Hash
 } from "lucide-react";
 import { getAppGraph } from "../services/api";
+import { resolveAppTheme } from "../utils/colorSchemes";
 
 const INTELLIGENCE_FILTERS = [
   { id: "all", label: "ALL WORDS", color: "#0ea5e9" },
@@ -25,9 +26,12 @@ const VIEW_MODES = [
 
 export default function LinearWordsView({ 
   activeApp, 
+  activeAppTheme: propTheme,
   onJumpToVideo,
   onToggleEntityPriority
 }) {
+  const theme = propTheme || resolveAppTheme(activeApp);
+  const primaryColor = theme.primaryColor || "#0EA5E9";
   const [nodes, setNodes] = useState([]);
   const [links, setLinks] = useState([]);
   const [selectedLens, setSelectedLens] = useState("all");
@@ -78,12 +82,19 @@ export default function LinearWordsView({
       <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Tag className="w-3.5 h-3.5 text-cyan-400" />
+            <Tag className="w-3.5 h-3.5" style={{ color: primaryColor }} />
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-white">
               Linear Word & Concept Registry
             </h3>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 font-bold border border-cyan-800/40">
+          <span 
+            style={{ 
+              backgroundColor: `${theme.colors[0]}1c`, 
+              color: primaryColor, 
+              borderColor: `${theme.colors[0]}44` 
+            }}
+            className="text-[10px] font-mono px-2 py-0.5 rounded font-bold border"
+          >
             {rankedNodes.length} WORDS IN SCOPE
           </span>
         </div>
@@ -106,7 +117,8 @@ export default function LinearWordsView({
                 {isSelected && (
                   <motion.div
                     layoutId="wordsViewModeIndicator"
-                    className="absolute inset-0 bg-cyan-400 rounded-lg -z-10"
+                    style={{ background: theme.background }}
+                    className="absolute inset-0 rounded-lg -z-10 shadow-sm"
                     transition={{ type: "spring", stiffness: 100, damping: 20 }}
                   />
                 )}
@@ -143,9 +155,14 @@ export default function LinearWordsView({
               <button
                 key={lens.id}
                 onClick={() => setSelectedLens(lens.id)}
+                style={isSelected ? {
+                  backgroundColor: `${theme.colors[0]}22`,
+                  borderColor: `${theme.colors[0]}66`,
+                  color: theme.colors[0]
+                } : undefined}
                 className={`tactile-btn px-2 py-0.5 rounded text-[10px] font-mono font-medium whitespace-nowrap transition-colors border shrink-0 ${
                   isSelected
-                    ? "bg-cyan-950/60 text-cyan-300 border-cyan-700/60 font-bold"
+                    ? "font-bold shadow-xs"
                     : "bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200"
                 }`}
               >
@@ -159,7 +176,10 @@ export default function LinearWordsView({
       {/* Content Area */}
       {loading ? (
         <div className="py-12 flex flex-col items-center justify-center space-y-2">
-          <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+          <div 
+            className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" 
+            style={{ borderColor: primaryColor, borderTopColor: "transparent" }}
+          />
           <p className="text-xs font-mono text-slate-400">Loading registry stream...</p>
         </div>
       ) : viewMode === "ladder" ? (

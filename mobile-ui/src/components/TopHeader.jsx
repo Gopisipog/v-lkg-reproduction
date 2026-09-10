@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { 
   ChevronDown, Layers, Sparkles, Briefcase, Cpu, TrendingUp, 
   Plus, Check, Video, Smartphone, Monitor, ShieldCheck, Users, 
-  Crosshair, GraduationCap, Palette, Database, CheckCircle2
+  Crosshair, GraduationCap, Palette, Database, CheckCircle2, Film
 } from "lucide-react";
 import { 
   BI_COLOR_PRESETS, 
@@ -22,7 +22,8 @@ export const ICON_MAP = {
   GraduationCap,
   ShieldCheck,
   Users,
-  Crosshair
+  Crosshair,
+  Film
 };
 
 export default function TopHeader({
@@ -111,11 +112,17 @@ export default function TopHeader({
   };
 
   const AppIcon = activeApp && ICON_MAP[activeApp.icon] ? ICON_MAP[activeApp.icon] : Layers;
-  const activeAppTheme = resolveAppTheme(activeApp);
+  const currentAppTheme = resolveAppTheme(activeApp);
   const globalPatternBg = getPatternBackground(cockpitScheme.pattern, cockpitScheme.colors);
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 px-3.5 py-2.5 flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80 px-3.5 py-2.5 flex items-center justify-between relative">
+      {/* Dynamic Top Edge Telemetry Accent Bar */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-[2.5px] z-50 transition-all duration-500 shadow-sm" 
+        style={{ background: currentAppTheme.background }}
+      />
+
       {/* App Workspace Selector */}
       <div className="relative">
         <button
@@ -126,11 +133,14 @@ export default function TopHeader({
           <div className="relative flex items-center justify-center shrink-0">
             <div 
               className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[10px] font-bold shadow-inner transition-all duration-300"
-              style={{ background: activeAppTheme.background }}
+              style={{ background: currentAppTheme.background }}
             >
               <AppIcon className="w-3 h-3 drop-shadow" />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-status-breathe ring-1 ring-slate-950" />
+            <span 
+              className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full animate-status-breathe ring-1 ring-slate-950" 
+              style={{ backgroundColor: currentAppTheme.colors[1] || currentAppTheme.colors[0] }}
+            />
           </div>
 
           <div className="flex flex-col min-w-0">

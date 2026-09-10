@@ -1,4 +1,4 @@
-﻿"""
+"""
 Voice Engine — Handles live real-time entity extraction from microphone speech
 and complete voice recording ingestion into the V-LKG knowledge graph.
 """
@@ -204,7 +204,23 @@ def process_voice_recording(
             if rec_id not in existing.get("video_ids", []):
                 existing.setdefault("video_ids", []).append(rec_id)
 
-    app_store.triplets.extend(new_triplets)
+    for nt in new_triplets:
+        sub = nt.get("subject", "").strip()
+        rel = nt.get("relation", "").strip()
+        obj = nt.get("object", "").strip()
+        existing_t = next(
+            (t for t in app_store.triplets if t.get("subject", "").strip() == sub and t.get("relation", "").strip() == rel and t.get("object", "").strip() == obj),
+            None
+        )
+        if existing_t:
+            vids = set(existing_t.get("video_ids", []))
+            if existing_t.get("video_id"):
+                vids.add(existing_t.get("video_id"))
+            vids.add(rec_id)
+            existing_t["video_ids"] = sorted(list(vids))
+        else:
+            nt["video_ids"] = [rec_id]
+            app_store.triplets.append(nt)
 
     # 4. Set intelligence lenses
     default_lenses = intelligence_lenses or ["executive", "learning", "thought_leadership"]

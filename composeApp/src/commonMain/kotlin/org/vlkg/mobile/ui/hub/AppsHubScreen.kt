@@ -359,7 +359,7 @@ fun AppsHubScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "ACTIVE WORKSPACES (${apps.size})",
+                    text = "IN-APP MODULES: DOMAINS IN A BOX (${apps.size})",
                     color = Color(0xFF64748B),
                     fontFamily = FontFamily.Monospace,
                     fontSize = 10.sp,
@@ -419,6 +419,50 @@ fun AppsHubScreen(
                 )
 
                 Column(modifier = Modifier.padding(14.dp)) {
+                    // Domain in a Box In-App Module indicator
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(6.dp)
+                                    .clip(CircleShape)
+                                    .background(patternColors.firstOrNull() ?: VlkgPrimary)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "IN-APP MODULE: DOMAIN IN A BOX | ${app.id}",
+                                color = Color(0xFF94A3B8),
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Surface(
+                            color = if (isSelected) VlkgPrimary.copy(alpha = 0.15f) else Color(0xFF0F172A).copy(alpha = 0.6f),
+                            shape = RoundedCornerShape(4.dp),
+                            border = androidx.compose.foundation.BorderStroke(
+                                1.dp,
+                                if (isSelected) VlkgPrimary.copy(alpha = 0.4f) else Color(0xFF334155).copy(alpha = 0.4f)
+                            )
+                        ) {
+                            Text(
+                                text = if (isSelected) "ACTIVE DOMAIN BOX" else "STANDBY MODULE",
+                                color = if (isSelected) VlkgPrimary else Color(0xFF94A3B8),
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     // Header
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -651,7 +695,7 @@ fun AppsHubScreen(
                                 border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
                                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                             ) {
-                                Text("VIDEOS", fontFamily = FontFamily.Monospace, fontSize = 9.sp, color = DarkOnSurface)
+                                Text("STREAMS (${app.video_ids.size})", fontFamily = FontFamily.Monospace, fontSize = 9.sp, color = DarkOnSurface)
                             }
 
                             OutlinedButton(
@@ -676,7 +720,7 @@ fun AppsHubScreen(
                             shape = RoundedCornerShape(6.dp),
                             contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
                         ) {
-                            Text("EXPLORE [->]", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                            Text("ENTER DOMAIN MODULE [->]", fontFamily = FontFamily.Monospace, fontSize = 9.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }

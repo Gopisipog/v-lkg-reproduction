@@ -421,24 +421,26 @@ export default function AppsHubView({
           </div>
         </div>
       </div>
-
-      {/* ── Active Workspaces (High Visual Density Cockpit Layout) ── */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between px-1">
+        {/* ── Active Workspaces (High Visual Density Cockpit Layout) ── */}
+        <div className="space-y-2">
+        <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-status-breathe" />
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300">
-              Active Child Workspaces ({apps.length})
+            <div className="w-2.5 h-2.5 rounded-sm bg-cyan-400 animate-pulse" />
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
+              In-App Modules: Domains in a Box ({apps.length})
             </h3>
           </div>
-          <span className="text-[10px] font-mono text-slate-500">
-            Density: 8 · Variance: 8
+          <span className="text-[9px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40 font-semibold">
+            DOMAIN IN A BOX ARCHITECTURE
           </span>
         </div>
+        <p className="text-[11px] text-slate-400 leading-normal -mt-1 font-mono">
+          Each workspace operates as an encapsulated in-app domain module containing scoped transcripts, linear entities, and graph telemetry.
+        </p>
 
-        {/* Workspaces List / Asymmetric Cockpit Rows */}
+        {/* Workspaces List / Modular Domain in a Box Rows */}
         <motion.div 
-          className="space-y-2.5"
+          className="space-y-3"
           initial="hidden"
           animate="visible"
           variants={{
@@ -461,17 +463,41 @@ export default function AppsHubView({
                   hidden: { opacity: 0, y: 10 },
                   visible: { opacity: 1, y: 0 }
                 }}
-                className={`rounded-xl border transition-all duration-150 p-3.5 flex flex-col justify-between overflow-hidden relative ${
+                className={`rounded-xl border transition-all duration-150 p-3.5 flex flex-col justify-between overflow-hidden relative shadow-md ${
                   isSelected 
-                    ? "bg-slate-900/95 border-cyan-500/70 shadow-md ring-1 ring-cyan-500/30" 
-                    : "bg-slate-900/70 border-slate-800/80 hover:border-slate-750 hover:bg-slate-900"
+                    ? "bg-slate-900/95 border-cyan-500/70 ring-1 ring-cyan-500/40" 
+                    : "bg-slate-900/75 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900"
                 }`}
               >
                 {/* Top Pattern Accent Bar */}
                 <div 
-                  className="h-1 -mx-3.5 -mt-3.5 mb-3 transition-all opacity-85"
+                  className="h-1.5 -mx-3.5 -mt-3.5 mb-3 transition-all opacity-90 shadow-sm"
                   style={{ background: appTheme.background }}
                 />
+
+                {/* Domain in a Box In-App Module Header Indicator */}
+                <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-800/70 text-[9px] font-mono">
+                  <span className="flex items-center space-x-1.5 text-slate-400 uppercase tracking-wider font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: appTheme.colors[0] }} />
+                    <span className="text-white font-bold">IN-APP MODULE: DOMAIN IN A BOX</span>
+                    <span className="text-slate-600">|</span>
+                    <span className="text-slate-500">{app.id}</span>
+                  </span>
+                  <span 
+                    className="px-2 py-0.5 rounded uppercase font-bold border text-[9px]"
+                    style={isSelected ? {
+                      backgroundColor: `${appTheme.colors[0]}25`,
+                      color: appTheme.primaryColor,
+                      borderColor: `${appTheme.colors[0]}60`
+                    } : {
+                      backgroundColor: "rgba(15,23,42,0.6)",
+                      color: "#94A3B8",
+                      borderColor: "rgba(51,65,85,0.4)"
+                    }}
+                  >
+                    {isSelected ? "ACTIVE DOMAIN BOX" : "STANDBY MODULE"}
+                  </span>
+                </div>
 
                 <div>
                   {/* Top Bar: Icon, Name, Telemetry Badges, Action triggers */}
@@ -643,29 +669,19 @@ export default function AppsHubView({
                   </div>
                 </div>
 
-                {/* Cockpit Actions Toolbar */}
+                {/* Modular Cockpit Actions Toolbar for this Domain in a Box */}
                 <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between flex-wrap gap-2">
-                  <div className="flex items-center space-x-1.5">
+                  <div className="flex items-center space-x-1.5 flex-wrap gap-1">
                     <button
                       onClick={() => {
                         onSelectApp(app);
                         onManageVideosClick();
                       }}
                       className="tactile-btn flex items-center space-x-1 px-2 py-1 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 text-[11px] font-mono border border-slate-700/60"
+                      title="Manage video streams scoped to this domain box"
                     >
                       <Video className="w-3 h-3 text-cyan-400" />
-                      <span>Videos</span>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        onSelectApp(app);
-                        onOpenEnrichments();
-                      }}
-                      className="tactile-btn flex items-center space-x-1 px-2 py-1 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 text-[11px] font-mono border border-slate-700/60"
-                    >
-                      <Sparkles className="w-3 h-3 text-amber-400" />
-                      <span>Dossier</span>
+                      <span>Streams ({app.stats?.video_count || 0})</span>
                     </button>
 
                     <button
@@ -679,19 +695,33 @@ export default function AppsHubView({
                       <Workflow className="w-3 h-3 text-emerald-400" />
                       <span>Semantics</span>
                     </button>
+
+                    <button
+                      onClick={() => {
+                        onSelectApp(app);
+                        onNavigateTab("ask");
+                      }}
+                      className="tactile-btn flex items-center space-x-1 px-2 py-1 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 text-[11px] font-mono border border-slate-700/60"
+                      title="Ask questions scoped to this domain in a box"
+                    >
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>Query Domain</span>
+                    </button>
                   </div>
 
-                  <button
-                    onClick={() => {
-                      onSelectApp(app);
-                      onNavigateTab("words");
-                    }}
-                    className="tactile-btn flex items-center space-x-1.5 px-2.5 py-1 rounded text-slate-950 text-xs font-mono font-bold transition-all shadow-sm"
-                    style={{ backgroundColor: app.theme_color || "#0ea5e9" }}
-                  >
-                    <span>Linear Words</span>
-                    <Tag className="w-3 h-3" />
-                  </button>
+                  <div className="flex items-center space-x-1.5">
+                    <button
+                      onClick={() => {
+                        onSelectApp(app);
+                        onNavigateTab("words");
+                      }}
+                      className="tactile-btn flex items-center space-x-1.5 px-3 py-1 rounded text-slate-950 text-xs font-mono font-bold transition-all shadow-sm"
+                      style={{ background: appTheme.background }}
+                    >
+                      <span>ENTER DOMAIN MODULE</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             );

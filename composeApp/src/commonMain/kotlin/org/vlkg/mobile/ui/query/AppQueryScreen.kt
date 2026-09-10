@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -76,6 +77,8 @@ fun AppQueryScreen(
 ) {
     val queryState by queryViewModel.uiState.collectAsState()
     val haptic = remember { HapticFeedbackHelper() }
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val appTheme = LocalVlkgAppTheme.current
 
     LaunchedEffect(apps) {
         if (queryState.selectedAppIds.isEmpty() && apps.isNotEmpty()) {
@@ -98,9 +101,9 @@ fun AppQueryScreen(
         modifier = modifier
             .fillMaxSize()
             .background(DarkBackground)
-            .padding(16.dp)
+            .padding(horizontal = 14.dp, vertical = 10.dp)
     ) {
-        // Query Mode Toggle (Single App vs Multi-App "Twice Answered")
+        // Mode Selector: Single App vs Multi App
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -110,23 +113,29 @@ fun AppQueryScreen(
                 shape = RoundedCornerShape(8.dp),
                 border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline)
             ) {
-                Row(modifier = Modifier.padding(4.dp)) {
+                Row(modifier = Modifier.padding(2.dp)) {
                     FilterChip(
                         selected = queryState.queryMode == "single",
-                        onClick = { queryViewModel.setQueryMode("single") },
-                        label = { Text("SINGLE: ${activeApp?.name?.take(10)?.uppercase() ?: "ACTIVE"}...", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                        onClick = {
+                            haptic.triggerClick()
+                            queryViewModel.setQueryMode("single")
+                        },
+                        label = { Text("SINGLE APP", fontFamily = FontFamily.Monospace, fontSize = 11.sp, fontWeight = FontWeight.Bold) },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = VlkgPrimary,
-                            selectedLabelColor = Color.White
+                            selectedContainerColor = primaryColor,
+                            selectedLabelColor = Color.Black
                         )
                     )
-                    Spacer(modifier = Modifier.width(6.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                     FilterChip(
                         selected = queryState.queryMode == "multi",
-                        onClick = { queryViewModel.setQueryMode("multi") },
-                        label = { Text("COMPARE WORKSPACES", fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold) },
+                        onClick = {
+                            haptic.triggerClick()
+                            queryViewModel.setQueryMode("multi")
+                        },
+                        label = { Text("COMPARE APPS", fontFamily = FontFamily.Monospace, fontSize = 11.sp, fontWeight = FontWeight.Bold) },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = VlkgAccent,
+                            selectedContainerColor = primaryColor,
                             selectedLabelColor = Color.Black
                         )
                     )
@@ -137,29 +146,89 @@ fun AppQueryScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         if (queryState.queryMode == "multi") {
-            // App Selector Chips for Multi-App comparison
-            Text("Select Workspaces to Compare:", color = Color(0xFF64748B), fontFamily = FontFamily.Monospace, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+            // App Selector List: Strictly One Workspace per Row
+            Text(
+                text = "SELECT WORKSPACES TO COMPARE (ONE WORKSPACE PER ROW):", 
+                color = primaryColor, 
+                fontFamily = FontFamily.Monospace, 
+                fontSize = 10.sp, 
+                fontWeight = FontWeight.Bold
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Row(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 apps.forEach { app ->
                     val isChecked = queryState.selectedAppIds.contains(app.id)
-                    FilterChip(
-                        selected = isChecked,
+                    Surface(
                         onClick = {
                             haptic.triggerClick()
                             queryViewModel.toggleAppSelection(app.id)
                         },
-                        label = { Text(app.name.take(14) + "...", fontFamily = FontFamily.Monospace, fontSize = 10.sp) },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = VlkgSecondary,
-                            selectedLabelColor = Color.White,
-                            containerColor = DarkSurfaceVariant,
-                            labelColor = Color.LightGray
-                        )
-                    )
+                        shape = RoundedCornerShape(8.dp),
+                        color = if (isChecked) primaryColor.copy(alpha = 0.12f) else DarkSurface,
+                        border = androidx.compose.foundation.BorderStroke(
+                            1.dp,
+                            if (isChecked) primaryColor.copy(alpha = 0.6f) else DarkOutline
+                        ),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 10.dp, vertical = 7.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(8.dp)
+                                        .background(if (isChecked) primaryColor else Color(0xFF475569), CircleShape)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Column {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text = app.name,
+                                            fontFamily = FontFamily.Monospace,
+                                            fontSize = 12.sp,
+                                            fontWeight = if (isChecked) FontWeight.Bold else FontWeight.Medium,
+                                            color = if (isChecked) DarkOnBackground else Color(0xFFCBD5E1)
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Text(
+                                            text = "DOMAIN IN A BOX",
+                                            fontFamily = FontFamily.Monospace,
+                                            fontSize = 8.sp,
+                                            color = Color(0xFF64748B)
+                                        )
+                                    }
+                                    Text(
+                                        text = "${app.video_ids.size} streams · ${app.prioritized_entities.size} priority entities",
+                                        fontFamily = FontFamily.Monospace,
+                                        fontSize = 9.sp,
+                                        color = Color(0xFF94A3B8)
+                                    )
+                                }
+                            }
+                            Checkbox(
+                                checked = isChecked,
+                                onCheckedChange = {
+                                    haptic.triggerClick()
+                                    queryViewModel.toggleAppSelection(app.id)
+                                },
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = primaryColor,
+                                    checkmarkColor = Color.Black
+                                )
+                            )
+                        }
+                    }
                 }
             }
         } else {
@@ -177,7 +246,7 @@ fun AppQueryScreen(
                     Box(
                         modifier = Modifier
                             .size(6.dp)
-                            .background(VlkgPrimary, RoundedCornerShape(2.dp))
+                            .background(primaryColor, RoundedCornerShape(2.dp))
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Column {
@@ -250,7 +319,7 @@ fun AppQueryScreen(
                         )
                         Text(
                             text = "[->]",
-                            color = VlkgPrimary,
+                            color = primaryColor,
                             fontFamily = FontFamily.Monospace,
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
@@ -361,11 +430,11 @@ fun AppQueryScreen(
                                                         haptic.triggerClick()
                                                         onJumpToVideo(triplet.videoId, triplet.timestampFormatted)
                                                     },
-                                                    colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary),
+                                                    colors = ButtonDefaults.buttonColors(containerColor = primaryColor),
                                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
                                                     shape = RoundedCornerShape(6.dp)
                                                 ) {
-                                                    Text("▶ Jump to ${triplet.timestampFormatted}", fontSize = 10.sp)
+                                                    Text("JUMP TO ${triplet.timestampFormatted} [->]", fontSize = 10.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
                                                 }
                                             }
                                         }
@@ -373,15 +442,17 @@ fun AppQueryScreen(
                                 }
                             }
 
-                            // Multi-App Comparison Results
+                            // Multi-App Comparison Results (Strictly One Workspace Per Row)
                             msg.multiResult?.let { multi ->
                                 if (multi.app_comparisons.isNotEmpty()) {
                                     Spacer(modifier = Modifier.height(10.dp))
                                     Text(
-                                        text = "⚖️ App Comparison Breakdown:",
+                                        text = "DOMAIN COMPARISON BREAKDOWN (ONE PER ROW):",
                                         color = VlkgAccent,
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold
+                                        fontSize = 10.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        fontWeight = FontWeight.Bold,
+                                        letterSpacing = 0.5.sp
                                     )
                                     Spacer(modifier = Modifier.height(6.dp))
 
@@ -389,21 +460,43 @@ fun AppQueryScreen(
                                         Surface(
                                             color = DarkSurfaceVariant,
                                             shape = RoundedCornerShape(8.dp),
+                                            border = androidx.compose.foundation.BorderStroke(1.dp, DarkOutline),
                                             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
                                         ) {
                                             Column(modifier = Modifier.padding(10.dp)) {
-                                                Text(
-                                                    text = comp.app_name.ifBlank { comp.app_id },
-                                                    color = Color.White,
-                                                    fontSize = 11.sp,
-                                                    fontWeight = FontWeight.Bold
-                                                )
-                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Row(
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                                    verticalAlignment = Alignment.CenterVertically
+                                                ) {
+                                                    Text(
+                                                        text = comp.app_name.ifBlank { comp.app_id }.uppercase(),
+                                                        color = Color.White,
+                                                        fontFamily = FontFamily.Monospace,
+                                                        fontSize = 11.sp,
+                                                        fontWeight = FontWeight.Bold
+                                                    )
+                                                    Surface(
+                                                        color = primaryColor.copy(alpha = 0.15f),
+                                                        shape = RoundedCornerShape(4.dp),
+                                                        border = androidx.compose.foundation.BorderStroke(1.dp, primaryColor.copy(alpha = 0.4f))
+                                                    ) {
+                                                        Text(
+                                                            text = "DOMAIN IN A BOX",
+                                                            color = primaryColor,
+                                                            fontFamily = FontFamily.Monospace,
+                                                            fontSize = 8.sp,
+                                                            fontWeight = FontWeight.Bold,
+                                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                        )
+                                                    }
+                                                }
+                                                Spacer(modifier = Modifier.height(6.dp))
                                                 Text(
                                                     text = comp.answer,
                                                     color = Color.LightGray,
                                                     fontSize = 11.sp,
-                                                    lineHeight = 15.sp
+                                                    lineHeight = 16.sp
                                                 )
                                             }
                                         }
@@ -421,7 +514,7 @@ fun AppQueryScreen(
                         modifier = Modifier.padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CircularProgressIndicator(modifier = Modifier.size(16.dp), color = VlkgPrimary, strokeWidth = 2.dp)
+                        CircularProgressIndicator(modifier = Modifier.size(16.dp), color = primaryColor, strokeWidth = 2.dp)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text("Reasoning over knowledge graph...", color = Color.Gray, fontSize = 12.sp)
                     }
@@ -444,7 +537,7 @@ fun AppQueryScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = DarkOnBackground,
                     unfocusedTextColor = DarkOnBackground,
-                    focusedBorderColor = VlkgPrimary,
+                    focusedBorderColor = primaryColor,
                     unfocusedBorderColor = DarkOutline
                 ),
                 shape = RoundedCornerShape(14.dp),
@@ -466,7 +559,7 @@ fun AppQueryScreen(
                     }
                 },
                 enabled = queryState.currentQuestion.isNotBlank() && !queryState.isLoading,
-                colors = ButtonDefaults.buttonColors(containerColor = if (queryState.queryMode == "multi") VlkgAccent else VlkgPrimary),
+                colors = ButtonDefaults.buttonColors(containerColor = if (queryState.queryMode == "multi") VlkgAccent else primaryColor),
                 shape = RoundedCornerShape(14.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 14.dp)
             ) {

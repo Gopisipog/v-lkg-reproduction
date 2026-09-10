@@ -35,6 +35,9 @@ fun LinearWordsScreen(
 ) {
     val haptic = remember { HapticFeedbackHelper() }
     var searchQuery by remember { mutableStateOf("") }
+    val primaryColor = MaterialTheme.colorScheme.primary
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+    val appTheme = LocalVlkgAppTheme.current
 
     val lenses = listOf(
         "all" to "All Words",
@@ -98,20 +101,21 @@ fun LinearWordsScreen(
                             Text("🏷️", fontSize = 16.sp)
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Linear Word & Concept Registry",
+                                text = "LINEAR WORD REGISTRY",
                                 color = DarkOnBackground,
-                                fontSize = 14.sp,
+                                fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         }
                         Surface(
-                            color = VlkgPrimary.copy(alpha = 0.2f),
-                            shape = RoundedCornerShape(8.dp)
+                            color = primaryColor.copy(alpha = 0.15f),
+                            shape = RoundedCornerShape(6.dp),
+                            border = androidx.compose.foundation.BorderStroke(1.dp, primaryColor.copy(alpha = 0.4f))
                         ) {
                             Text(
-                                text = "${filteredNodes.size} Words in Scope",
-                                color = VlkgPrimary,
-                                fontSize = 11.sp,
+                                text = "${filteredNodes.size} WORDS IN SCOPE",
+                                color = primaryColor,
+                                fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                             )
@@ -139,7 +143,7 @@ fun LinearWordsScreen(
                                 },
                                 label = { Text(modeLabel, fontSize = 11.sp, fontWeight = if (active) FontWeight.Bold else FontWeight.Normal) },
                                 colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = VlkgPrimary,
+                                    selectedContainerColor = primaryColor,
                                     selectedLabelColor = Color.White,
                                     containerColor = DarkSurfaceVariant,
                                     labelColor = Color.LightGray
@@ -161,7 +165,7 @@ fun LinearWordsScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = DarkOnBackground,
                     unfocusedTextColor = DarkOnBackground,
-                    focusedBorderColor = VlkgPrimary,
+                    focusedBorderColor = primaryColor,
                     unfocusedBorderColor = DarkOutline
                 ),
                 shape = RoundedCornerShape(12.dp),
@@ -185,8 +189,8 @@ fun LinearWordsScreen(
                         },
                         label = { Text(label, fontSize = 10.sp) },
                         colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = VlkgSecondary.copy(alpha = 0.2f),
-                            selectedLabelColor = VlkgSecondary,
+                            selectedContainerColor = secondaryColor.copy(alpha = 0.2f),
+                            selectedLabelColor = secondaryColor,
                             containerColor = DarkSurfaceVariant,
                             labelColor = Color.LightGray
                         )
@@ -215,12 +219,12 @@ fun LinearWordsScreen(
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Surface(
-                                    color = if (isPri) VlkgAccent.copy(alpha = 0.2f) else VlkgPrimary.copy(alpha = 0.2f),
+                                    color = if (isPri) VlkgAccent.copy(alpha = 0.2f) else primaryColor.copy(alpha = 0.2f),
                                     shape = RoundedCornerShape(6.dp),
                                     modifier = Modifier.size(26.dp)
                                 ) {
                                     Box(contentAlignment = Alignment.Center) {
-                                        Text("#${index + 1}", color = if (isPri) VlkgAccent else VlkgPrimary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                        Text("#${index + 1}", color = if (isPri) VlkgAccent else primaryColor, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                                     }
                                 }
                                 Spacer(modifier = Modifier.width(10.dp))
@@ -233,7 +237,7 @@ fun LinearWordsScreen(
                                     )
                                     Text(
                                         text = node.category.name.replace("_", " "),
-                                        color = VlkgSecondary,
+                                        color = secondaryColor,
                                         fontSize = 11.sp
                                     )
                                 }
@@ -264,7 +268,7 @@ fun LinearWordsScreen(
                             LinearProgressIndicator(
                                 progress = { node.centrality.toFloat() },
                                 modifier = Modifier.weight(1f).height(4.dp),
-                                color = if (isPri) VlkgAccent else VlkgPrimary,
+                                color = if (isPri) VlkgAccent else primaryColor,
                                 trackColor = DarkBackground
                             )
                             Text(
@@ -293,7 +297,7 @@ fun LinearWordsScreen(
                                     haptic.triggerClick()
                                     onJumpToVideo("dF3GFpIKPlE", "01:24")
                                 },
-                                colors = ButtonDefaults.buttonColors(containerColor = VlkgPrimary),
+                                colors = ButtonDefaults.buttonColors(containerColor = primaryColor),
                                 shape = RoundedCornerShape(6.dp),
                                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                             ) {
