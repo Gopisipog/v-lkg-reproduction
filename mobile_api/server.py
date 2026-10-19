@@ -782,14 +782,7 @@ def ingest_youtube_video(req: VideoIngestRequest):
     except Exception as e:
         print(f"Downloader notice for {vid}: {e}")
 
-    # Fallback segments if subtitles not directly available
-    if not segments:
-        segments = [
-            {"start_sec": 0, "end_sec": 45, "text": f"Welcome to this leadership masterclass on strategic clarity, high-leverage habits, and scalable execution."},
-            {"start_sec": 45, "end_sec": 120, "text": "The first cornerstone of elite leadership is active listening and setting clear operational boundaries."},
-            {"start_sec": 120, "end_sec": 240, "text": "When teams practice continuous feedback loops, trust building and execution velocity increase dramatically."},
-            {"start_sec": 240, "end_sec": 360, "text": "Sustainable revenue growth requires strong value messaging, deliberate practice, and personal financial runway."}
-        ]
+    # No transcript means nothing to extract; do not invent segments.
 
     # Check if video entry already exists in registry
     existing_idx = next((i for i, v in enumerate(app_store.videos_registry) if v.get("video_id") == vid), None)
@@ -827,58 +820,67 @@ def ingest_youtube_video(req: VideoIngestRequest):
             "ocr_text": ""
         })
 
-    # Extract & attach triplets and linear words for this video
-    new_triplets = [
-        {
-            "subject": "Strategic Clarity",
-            "subject_type": "Competency",
-            "relation": "INCREASES",
-            "object": "Execution Velocity",
-            "object_type": "Outcome",
-            "video_id": vid,
-            "video_ids": [vid],
-            "source_time": "02:00",
-            "weight": 1
-        },
-        {
-            "subject": "Active Listening",
-            "subject_type": "Competency",
-            "relation": "ENABLES",
-            "object": "Trust Building",
-            "object_type": "Outcome",
-            "video_id": vid,
-            "video_ids": [vid],
-            "source_time": "00:45",
-            "weight": 1
-        }
-    ]
+    # Extract triplets from the real transcript: Gemini first, keyword fallback second.
+    # (Previously this block attached the same hardcoded demo triplets to every video.)
+    def _fmt(sec):
+        sec = float(sec or 0)
+        return f"{int(sec // 60):02d}:{int(sec % 60):02d}"
 
-    # Linear Words / Entities to register
+    extractor = None
+    try:
+        from src.core.extractor import SemanticEntityRecognizer
+        candidate = SemanticEntityRecognizer()
+        if candidate.client.available:
+            extractor = candidate
+    except Exception as e:
+        print(f"Gemini extractor unavailable for {vid}: {e}")
+    from src.core.fallback_extractor import FallbackExtractor
+    fallback = FallbackExtractor()
+
+    # Group transcript into ~90 second chunks so each LLM call has enough context.
+    chunks, buf, start = [], [], None
+    for seg in segments:
+        if start is None:
+            start = seg["start_sec"]
+        buf.append(seg["text"])
+        if seg.get("end_sec", seg["start_sec"]) - start >= 90:
+            chunks.append((start, " ".join(buf))); buf, start = [], None
+    if buf:
+        chunks.append((start or 0, " ".join(buf)))
+    chunks = chunks[:40]
+
+    new_triplets, seen = [], set()
+    for chunk_start, text in chunks:
+        if not text.strip():
+            continue
+        found = extractor.extract_triplets(text) if extractor else []
+        if not found:
+            found = fallback.extract_triplets(text)
+        for t in found or []:
+            sub, obj = str(t.get("subject", "")).strip(), str(t.get("object", "")).strip()
+            if not sub or not obj:
+                continue
+            key = (sub.lower(), str(t.get("relation", "")).upper(), obj.lower())
+            if key in seen:
+                continue
+            seen.add(key)
+            new_triplets.append({
+                "subject": sub, "subject_type": t.get("subject_type") or "Concept",
+                "relation": str(t.get("relation") or "SEMANTICALLY_RELATED").upper(),
+                "object": obj, "object_type": t.get("object_type") or "Concept",
+                "video_id": vid, "video_ids": [vid],
+                "source_time": _fmt(chunk_start), "weight": 1,
+            })
+
     now_iso = datetime.utcnow().isoformat()
-    new_ents = [
-        {"name": "Strategic Clarity", "type": "Competency", "color": "#3b82f6", "first_seen": now_iso, "video_ids": [vid]},
-        {"name": "Execution Velocity", "type": "Outcome", "color": "#10b981", "first_seen": now_iso, "video_ids": [vid]},
-        {"name": "Active Listening", "type": "Competency", "color": "#3b82f6", "first_seen": now_iso, "video_ids": [vid]},
-        {"name": "Trust Building", "type": "Outcome", "color": "#10b981", "first_seen": now_iso, "video_ids": [vid]}
-    ]
+    ent_map = {}
+    for t in new_triplets:
+        for name, etype in ((t["subject"], t["subject_type"]), (t["object"], t["object_type"])):
+            ent_map.setdefault(name.lower(), {"name": name, "type": etype, "color": canonical_color(etype), "first_seen": now_iso, "video_ids": [vid]})
+    new_ents = list(ent_map.values())
 
-    title_low = (title + " " + summary).lower()
-    if any(k in title_low for k in ["code", "claude", "tool", "ai", "engineer", "dev"]):
-        new_ents.append({"name": "Claude Code", "type": "Tool", "color": "#ec4899", "first_seen": now_iso, "video_ids": [vid]})
-        new_ents.append({"name": "AI Engineering", "type": "Strategy", "color": "#06b6d4", "first_seen": now_iso, "video_ids": [vid]})
-        new_triplets.append({
-            "subject": "Claude Code", "subject_type": "Tool",
-            "relation": "ENABLES", "object": "AI Engineering", "object_type": "Strategy",
-            "video_id": vid, "video_ids": [vid], "source_time": "01:30", "weight": 1
-        })
-    if any(k in title_low for k in ["sales", "revenue", "grow", "market", "gtm", "pitch"]):
-        new_ents.append({"name": "Value Messaging", "type": "Competency", "color": "#3b82f6", "first_seen": now_iso, "video_ids": [vid]})
-        new_ents.append({"name": "Revenue Growth", "type": "Outcome", "color": "#10b981", "first_seen": now_iso, "video_ids": [vid]})
-        new_triplets.append({
-            "subject": "Value Messaging", "subject_type": "Competency",
-            "relation": "DRIVES", "object": "Revenue Growth", "object_type": "Outcome",
-            "video_id": vid, "video_ids": [vid], "source_time": "02:15", "weight": 1
-        })
+    # Replace this video's old triplets so re-ingesting refreshes instead of piling up demo data.
+    app_store.triplets = [t for t in app_store.triplets if t.get("video_id") != vid]
 
     app_store.add_triplets(new_triplets)
     app_store.add_entities(new_ents)
